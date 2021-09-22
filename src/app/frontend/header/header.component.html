@@ -1,0 +1,152 @@
+<div class="bounce-to-right index3_sidebar" id=sidebar>
+  <div id=toggle_close (click)="menuCloser()">×</div>
+  <div id=cssmenu>
+    <a href="index.html"><img alt=logo src="./assets/frontend/image/logo/logo3.png"></a>
+    <ul class=sidebb>
+      <li><a href="index.html"><i class=flaticon-home></i>index</a>
+      </li>
+      <li class=has-sub><a (click)="subMenuOne = !subMenuOne"><i class=flaticon-album></i>albums</a>
+        <ul [ngbCollapse]="subMenuOne">
+          <li>
+            <a href="#"><i class="fas fa-play-circle"></i>albums</a>
+          </li>
+          <li><a href="#"><i class="fas fa-heart"></i>favourite album</a></li>
+        </ul>
+      </li>
+      <li class=has-sub><a (click)="subMenuTwo = !subMenuTwo"><i class=flaticon-playlist-3></i>browse music</a>
+        <ul [ngbCollapse]="subMenuTwo">
+          <li><a href="#"><i class="fas fa-play-circle"></i>my playlist</a></li>
+          <li><a href="#"><i class=flaticon-files-and-folders></i>artist albums</a></li>
+        </ul>
+      </li>
+      <li><a href="#"><i class=flaticon-playlist-1></i>your music</a>
+      </li>
+      <li><a href="#"><i class=flaticon-internet></i>contact us</a></li>
+    </ul>
+  </div>
+</div>
+<div class="m24_cover index2_main_header index3_main_header m24_navi_main_wrapper">
+  <div class=container-fluid>
+    <div class=m24_logo_wrapper>
+      <div id=toggle (click)="menuOpener()">
+        <a href=#><i class=flaticon-menu-1></i></a>
+      </div>
+      <div class=m24_logo_div>
+        <a href=index.html>
+          <img alt=logo src="./assets/frontend/image/logo/logo3.png">
+        </a>
+      </div>
+    </div>
+    <div class="d-none d-md-none d-sm-none d-lg-none d-xl-block m24_header_right_Wrapper">
+      <div class=m24_signin_wrapper>
+        <a href=# data-toggle=modal data-target=#login_modal><img alt=img src="./assets/frontend/image/icons/pf.png">
+          <div class=login_top_wrapper>
+            <p>login/register</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class=m24_navigation_wrapper>
+      <div class="d-none d-md-none d-sm-none d-xl-block d-lg-block mainmenu">
+        <ul class=main_nav_ul>
+          <li class="gc_main_navigation has-mega"><a href=# class=gc_main_navigation>browse <i class=flaticon-down-arrow></i></a>
+            <ul class=navi_2_dropdown>
+              <li class=parent>
+                <a href="#"><i class="fas fa-caret-right"></i>featured playlist</a>
+              </li>
+              <li class=parent>
+                <a href="#"><i class="fas fa-caret-right"></i>top artists</a>
+              </li>
+              <li class=parent>
+                <a href="#"><i class="fas fa-caret-right"></i>all albums</a>
+              </li>
+            </ul>
+          </li>
+          <li class="gc_main_navigation has-mega"><a href=# class=gc_main_navigation>more <i class=flaticon-down-arrow></i></a>
+            <ul class=navi_2_dropdown>
+              <li class=parent>
+                <a href="#"><i class="fas fa-caret-right"></i>contact</a>
+              </li>
+              <li class=parent>
+                <a href="#"><i class="fas fa-caret-right"></i> favourite song </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class=navi_searchbar_wrapper>
+        <i class=flaticon-magnifying-glass></i>
+        <input id=justAnotherInputBox placeholder="Search for Songs, Artists, Playlists and More..">
+      </div>
+      <div class="d-lg-block d-block d-md-block d-sm-block d-xl-none">
+        <div class="index3_search_bar search_bar">
+          <div class=res_search_bar id=search_button><i class="fa fa-ellipsis-v"></i>
+          </div>
+          <div class=res_search_box id=search_open>
+            <div class="responsive_search_toggle m24_signin_wrapper">
+              <a href=# data-toggle=modal data-target=#login_modal><img alt=img src="./assets/frontend/image/icons/pf.png">
+                <div class=login_top_wrapper>
+                  <p>login/register</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m24_cover treanding_songs_wrapper index3_treanding_wraaper treanding_index_wrapper slider-top-margin pt-120">
+  <div class="container-fluid">
+    <div class=row>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+        <div class="treanding_album_slider treanding_album_slider2 top-album-slider">
+          <div class="owl-carousel owl-theme">
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;Hindi</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;English</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;Punjabi</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;Telugu</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;Marathi</p>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class=item>
+                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
+                  <p><i class="flaticon-playlist"></i> &nbsp;Bhojpuri</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

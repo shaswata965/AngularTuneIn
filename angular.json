@@ -1,0 +1,138 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "26f9e84f-b1c7-4d90-84bc-e45949c2920d"
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "TuneIn": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/TuneIn",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/assets/frontend/css/animate.css",
+              "src/assets/frontend/css/bootstrap.min.css",
+              "src/assets/frontend/css/fonts.css",
+              "src/assets/frontend/css/flaticon.css",
+              "src/assets/frontend/css/font-awesome.css",
+              "src/assets/frontend/css/owl.carousel.css",
+              "src/assets/frontend/css/owl.theme.default.css",
+              "src/assets/frontend/css/nice-select.css",
+              "src/assets/frontend/css/swiper.css",
+              "src/assets/frontend/css/magnific-popup.css",
+              "src/assets/frontend/css/style.css",
+              "src/assets/frontend/css/responsive.css",
+              "src/assets/frontend/css/custom.css",
+              "src/assets/frontend/css/custom_responsive.css",
+              "src/assets/frontend/css/space.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/frontend/js/modernizr.js",
+              "src/assets/frontend/js/plugin.js",
+              "src/assets/frontend/js/jquery.nice-select.min.js",
+              "src/assets/frontend/js/jquery.inview.min.js",
+              "src/assets/frontend/js/jquery.magnific-popup.js",
+              "src/assets/frontend/js/swiper.min.js",
+              "src/assets/frontend/js/comboTreePlugin.js",
+              "src/assets/frontend/js/owl.carousel.js",
+              "src/assets/frontend/js/custom.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "TuneIn:build:production"
+            },
+            "development": {
+              "browserTarget": "TuneIn:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "TuneIn:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "TuneIn"
+}
