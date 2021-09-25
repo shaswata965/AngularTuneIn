@@ -8,6 +8,11 @@ import { FooterComponent } from './frontend/footer/footer.component';
 import { HomeComponent } from './frontend/home/home.component';
 import { QuickLinksComponent } from './frontend/quick-links/quick-links.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LandingComponent } from './layouts/landing/landing.component';
+import { ProfileDetailsComponent } from './frontend/profile-details/profile-details.component';
+import { ProfilePlaylistComponent } from './frontend/profile-playlist/profile-playlist.component';
+import { ProfileFavouriteComponent } from './frontend/profile-favourite/profile-favourite.component';
+import { ProfileComponent } from './layouts/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    QuickLinksComponent
+    QuickLinksComponent,
+    LandingComponent,
+    ProfileDetailsComponent,
+    ProfilePlaylistComponent,
+    ProfileFavouriteComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

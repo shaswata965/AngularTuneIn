@@ -3,7 +3,7 @@
   <div id=cssmenu>
     <a href="index.html"><img alt=logo src="./assets/frontend/image/logo/logo3.png"></a>
     <ul class=sidebb>
-      <li><a href="index.html"><i class=flaticon-home></i>index</a>
+      <li><a routerLink="/"><i class=flaticon-home></i>index</a>
       </li>
       <li class=has-sub><a (click)="subMenuOne = !subMenuOne"><i class=flaticon-album></i>albums</a>
         <ul [ngbCollapse]="subMenuOne">
@@ -65,7 +65,7 @@
           <li class="gc_main_navigation has-mega"><a href=# class=gc_main_navigation>more <i class=flaticon-down-arrow></i></a>
             <ul class=navi_2_dropdown>
               <li class=parent>
-                <a href="#"><i class="fas fa-caret-right"></i>contact</a>
+                <a href="#contact"><i class="fas fa-caret-right"></i>contact</a>
               </li>
               <li class=parent>
                 <a href="#"><i class="fas fa-caret-right"></i> favourite song </a>
@@ -201,7 +201,7 @@
           </div>
           <div class="m24_cover lang_apply_btn_wrapper">
             <div class="lang_apply_btn pr-35">
-              <a href=user.html>login now</a>
+              <a routerLink="/profile">login now</a>
             </div>
 
           </div>
@@ -274,9 +274,8 @@
           </div>
           <div class="m24_cover lang_apply_btn_wrapper">
             <div class="lang_apply_btn pr-35">
-              <a href=user.html>login now</a>
+              <a routerLink="/profile">login now</a>
             </div>
-
           </div>
         </div>
         <div class="col-12 pb-40">
