@@ -11,9 +11,11 @@ export class HeaderComponent implements OnInit {
   public subMenuOne = true;
   public subMenuTwo =true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+
   }
 
   menuOpener(){
