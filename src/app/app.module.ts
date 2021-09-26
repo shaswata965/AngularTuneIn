@@ -13,6 +13,9 @@ import { ProfileDetailsComponent } from './frontend/profile-details/profile-deta
 import { ProfilePlaylistComponent } from './frontend/profile-playlist/profile-playlist.component';
 import { ProfileFavouriteComponent } from './frontend/profile-favourite/profile-favourite.component';
 import { ProfileComponent } from './layouts/profile/profile.component';
+import { AlbumFilterComponent } from './frontend/album-filter/album-filter.component';
+import { AlbumsComponent } from './layouts/albums/albums.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { ProfileComponent } from './layouts/profile/profile.component';
     ProfileDetailsComponent,
     ProfilePlaylistComponent,
     ProfileFavouriteComponent,
-    ProfileComponent
+    ProfileComponent,
+    AlbumFilterComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,

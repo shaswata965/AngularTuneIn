@@ -1,27 +1,27 @@
 <div class="bounce-to-right index3_sidebar" id=sidebar>
   <div id=toggle_close (click)="menuCloser()">×</div>
   <div id=cssmenu>
-    <a href="index.html"><img alt=logo src="./assets/frontend/image/logo/logo3.png"></a>
+    <a routerLink="/"><img alt=logo src="./assets/frontend/image/logo/logo3.png"></a>
     <ul class=sidebb>
       <li><a routerLink="/"><i class=flaticon-home></i>index</a>
       </li>
       <li class=has-sub><a (click)="subMenuOne = !subMenuOne"><i class=flaticon-album></i>albums</a>
         <ul [ngbCollapse]="subMenuOne">
           <li>
-            <a href="#"><i class="fas fa-play-circle"></i>albums</a>
+            <a routerLink="/albums"><i class="fas fa-play-circle"></i>albums</a>
           </li>
-          <li><a href="#"><i class="fas fa-heart"></i>favourite album</a></li>
+          <li><a routerLink="/profile#favourite"><i class="fas fa-heart"></i>favourite album</a></li>
         </ul>
       </li>
       <li class=has-sub><a (click)="subMenuTwo = !subMenuTwo"><i class=flaticon-playlist-3></i>browse music</a>
         <ul [ngbCollapse]="subMenuTwo">
-          <li><a href="#"><i class="fas fa-play-circle"></i>my playlist</a></li>
-          <li><a href="#"><i class=flaticon-files-and-folders></i>artist albums</a></li>
+          <li><a routerLink="/profile#playlist"><i class="fas fa-play-circle"></i>my playlist</a></li>
+          <li><a routerLink="/albums"><i class=flaticon-files-and-folders></i>artist albums</a></li>
         </ul>
       </li>
-      <li><a href="#"><i class=flaticon-playlist-1></i>your music</a>
+      <li><a routerLink="/profile"><i class=flaticon-playlist-1></i>your music</a>
       </li>
-      <li><a href="#"><i class=flaticon-internet></i>contact us</a></li>
+      <li><a href="#contact"><i class=flaticon-internet></i>contact us</a></li>
     </ul>
   </div>
 </div>
@@ -32,7 +32,7 @@
         <a href="#"><i class=flaticon-menu-1></i></a>
       </div>
       <div class=m24_logo_div>
-        <a href=index.html>
+        <a routerLink="/">
           <img alt=logo src="./assets/frontend/image/logo/logo3.png">
         </a>
       </div>
@@ -49,7 +49,7 @@
     <div class=m24_navigation_wrapper>
       <div class="d-none d-md-none d-sm-none d-xl-block d-lg-block mainmenu">
         <ul class=main_nav_ul>
-          <li class="gc_main_navigation has-mega"><a href=# class=gc_main_navigation>browse <i class=flaticon-down-arrow></i></a>
+          <li class="gc_main_navigation has-mega"><a routerLink="/albums" class=gc_main_navigation>browse <i class=flaticon-down-arrow></i></a>
             <ul class=navi_2_dropdown>
               <li class=parent>
                 <a href="#"><i class="fas fa-caret-right"></i>featured playlist</a>
@@ -58,7 +58,7 @@
                 <a href="#"><i class="fas fa-caret-right"></i>top artists</a>
               </li>
               <li class=parent>
-                <a href="#"><i class="fas fa-caret-right"></i>all albums</a>
+                <a routerLink="/albums"><i class="fas fa-caret-right"></i>all albums</a>
               </li>
             </ul>
           </li>
@@ -68,7 +68,7 @@
                 <a href="#contact"><i class="fas fa-caret-right"></i>contact</a>
               </li>
               <li class=parent>
-                <a href="#"><i class="fas fa-caret-right"></i> favourite song </a>
+                <a routerLink="/profile#favourite"><i class="fas fa-caret-right"></i> favourite song </a>
               </li>
             </ul>
           </li>
