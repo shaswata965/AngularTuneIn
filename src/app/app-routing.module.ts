@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingComponent } from './layouts/landing/landing.component';
 import { ProfileComponent } from './layouts/profile/profile.component';
-import {AlbumsComponent} from "./layouts/albums/albums.component";
+import { AlbumsComponent } from "./layouts/albums/albums.component";
+import { FilterComponent } from "./layouts/filter/filter.component";
+import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
   {
     path:'albums',
     component:AlbumsComponent
+  },
+  {
+    path:'filter',
+    component:FilterComponent
+  },
+  {
+    path:'singles',
+    component:SingleAlbumComponent
   },
 ];
 

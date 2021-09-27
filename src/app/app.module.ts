@@ -15,6 +15,12 @@ import { ProfileFavouriteComponent } from './frontend/profile-favourite/profile-
 import { ProfileComponent } from './layouts/profile/profile.component';
 import { AlbumFilterComponent } from './frontend/album-filter/album-filter.component';
 import { AlbumsComponent } from './layouts/albums/albums.component';
+import { FilteredResultsComponent } from './frontend/filtered-results/filtered-results.component';
+import { FilterComponent } from './layouts/filter/filter.component';
+import { AlbumProfileComponent } from './frontend/album-profile/album-profile.component';
+import { AlbumSongsComponent } from './frontend/album-songs/album-songs.component';
+import { AlbumSuggestionsComponent } from './frontend/album-suggestions/album-suggestions.component';
+import { SingleAlbumComponent } from './layouts/single-album/single-album.component';
 
 
 @NgModule({
@@ -30,7 +36,13 @@ import { AlbumsComponent } from './layouts/albums/albums.component';
     ProfileFavouriteComponent,
     ProfileComponent,
     AlbumFilterComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    FilteredResultsComponent,
+    FilterComponent,
+    AlbumProfileComponent,
+    AlbumSongsComponent,
+    AlbumSuggestionsComponent,
+    SingleAlbumComponent
   ],
   imports: [
     BrowserModule,
