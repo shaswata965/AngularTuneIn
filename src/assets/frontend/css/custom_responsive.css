@@ -276,14 +276,17 @@
 /*Albums Page Styling Start*/
 
 @media only screen and (min-width: 992px) and (max-width: 1200px){
+  .custom_album_bottom_banner{
+    padding-top: 80px;
+  }
   .year_list-navigation{
-    margin-left: 85%;
+    margin-left: 75%;
     position: absolute;
-    bottom: 0;
+    bottom: -50px;
   }
 }
 
-@media only screen and (min-width: 776px) and (max-width: 991px){
+@media only screen and (min-width: 788px) and (max-width: 992px){
   .custom_album_bottom_banner{
     padding-top: 40px;
   }
@@ -300,7 +303,7 @@
   }
 
 }
-@media only screen and (min-width: 630px) and (max-width: 775px){
+@media only screen and (min-width: 630px) and (max-width: 788px){
   .custom_album_bottom_banner{
     padding-top: 300px;
   }
@@ -350,7 +353,7 @@
 }
 @media only screen and (min-width: 320px) and (max-width: 396px){
   .custom_album_bottom_banner{
-    padding-top: 100px;
+    padding-top: 400px;
   }
   .year_list-navigation{
     margin-left: 55%;

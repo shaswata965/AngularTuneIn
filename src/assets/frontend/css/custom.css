@@ -1005,9 +1005,9 @@
 }
 
 .year_list-navigation{
-  margin-left: 85%;
+  margin-left: 75%;
   position: absolute;
-  bottom: 45px;
+  bottom: 15px;
 }
 
 .year_list-navigation a{
