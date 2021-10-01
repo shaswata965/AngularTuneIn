@@ -118,7 +118,7 @@
               "src/assets/backend/vendors/chart_am/chart-custom.js",
               "src/assets/backend/js/dashboard_init.js",
               "src/assets/backend/js/custom.js",
-              "node_modules/chart.js/dist/chart.js"
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {
