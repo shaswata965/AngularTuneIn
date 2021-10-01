@@ -1,0 +1,19 @@
+.server_distribution_header{
+  color:black!important;
+  font-size: 10px!important;
+  line-height: 10px!important;
+}
+
+.task_assigning_form{
+  display: block;
+  padding: 5px 10px 5px 10px;
+  width: 100%;
+}
+
+.task_assigning_button{
+  margin-top: 30px;
+  margin-left: 40%;
+  margin-bottom: -20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

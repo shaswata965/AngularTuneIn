@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ChartsModule } from "ng2-charts";
+
+import { MatCardModule } from "@angular/material/card";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +26,15 @@ import { AlbumProfileComponent } from './frontend/album-profile/album-profile.co
 import { AlbumSongsComponent } from './frontend/album-songs/album-songs.component';
 import { AlbumSuggestionsComponent } from './frontend/album-suggestions/album-suggestions.component';
 import { SingleAlbumComponent } from './layouts/single-album/single-album.component';
+import { DownloadEarningComponent } from './backend/download-earning/download-earning.component';
+import { MonthlyInvoiceComponent } from './backend/monthly-invoice/monthly-invoice.component';
+import { GlobalDateLocationComponent } from './backend/global-date-location/global-date-location.component';
+import { AccountDetailsComponent } from './backend/account-details/account-details.component';
+import { RevenueDetailsComponent } from './backend/revenue-details/revenue-details.component';
+import { BackendHomeComponent } from './layouts/backend-home/backend-home.component';
+import { BackendHeaderComponent } from './backend/backend-header/backend-header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -42,12 +56,24 @@ import { SingleAlbumComponent } from './layouts/single-album/single-album.compon
     AlbumProfileComponent,
     AlbumSongsComponent,
     AlbumSuggestionsComponent,
-    SingleAlbumComponent
+    SingleAlbumComponent,
+    DownloadEarningComponent,
+    MonthlyInvoiceComponent,
+    GlobalDateLocationComponent,
+    AccountDetailsComponent,
+    RevenueDetailsComponent,
+    BackendHomeComponent,
+    BackendHeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ChartsModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

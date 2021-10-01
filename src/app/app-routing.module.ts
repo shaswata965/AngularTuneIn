@@ -5,6 +5,7 @@ import { ProfileComponent } from './layouts/profile/profile.component';
 import { AlbumsComponent } from "./layouts/albums/albums.component";
 import { FilterComponent } from "./layouts/filter/filter.component";
 import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
+import { BackendHomeComponent } from "./layouts/backend-home/backend-home.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path:'singles',
     component:SingleAlbumComponent
+  },
+  {
+    path:"backend-home",
+    component:BackendHomeComponent
   },
 ];
 
