@@ -1,5 +1,5 @@
 <!-- sidebar  -->
-<nav class="sidebar vertical-scroll dark_sidebar  ps-container ps-theme-default ps-active-y">
+<nav [ngbCollapse]="backendMenu" class="sidebar vertical-scroll dark_sidebar  ps-container ps-theme-default ps-active-y">
   <div class="logo d-flex justify-content-between">
     <a href="index.html"><img src="assets/backend/image/icon/logo3.png" alt=""></a>
     <div class="sidebar_close_icon d-lg-none">
@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-lg-12 p-0 ">
         <div class="header_iner d-flex justify-content-end align-items-center">
-          <div class="sidebar_icon d-lg-none">
+          <div class="sidebar_icon d-lg-none" (click)="backendMenu = !backendMenu">
             <i class="ti-menu"></i>
           </div>
           <div class="header_right d-flex justify-content-between align-items-center">
@@ -418,11 +418,10 @@
               </div>
             </div>
             <div class="white_card_body pb-0">
-              <div id="world-map-markers" class="dashboard_w_map" ></div>
               <div class="row justify-content-center mt_30">
                 <div class="col-lg-9">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pt-2 pb-2">
                       <div class="single_progressbar">
                         <h6 class="f_s_14 f_w_400" >USA</h6>
                         <div id="bar4" class="barfiller">
@@ -433,7 +432,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pt-2 pb-2">
                       <div class="single_progressbar">
                         <h6>Australia</h6>
                         <div id="bar5" class="barfiller">
@@ -444,7 +443,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pt-2 pb-2">
                       <div class="single_progressbar">
                         <h6>Brazil</h6>
                         <div id="bar6" class="barfiller">
@@ -455,7 +454,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pt-2 pb-2">
                       <div class="single_progressbar">
                         <h6>Latvia</h6>
                         <div id="bar7" class="barfiller">
@@ -463,6 +462,50 @@
                             <span class="tip"></span>
                           </div>
                           <span class="fill" data-percentage="55"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 pt-2 pb-2">
+                      <div class="single_progressbar">
+                        <h6 class="f_s_14 f_w_400" >India</h6>
+                        <div id="bar1" class="barfiller">
+                          <div class="tipWrap">
+                            <span class="tip"></span>
+                          </div>
+                          <span class="fill" data-percentage="30"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 pt-2 pb-2">
+                      <div class="single_progressbar">
+                        <h6>Bhutan</h6>
+                        <div id="bar2" class="barfiller">
+                          <div class="tipWrap">
+                            <span class="tip"></span>
+                          </div>
+                          <span class="fill" data-percentage="33"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 pt-2 pb-2">
+                      <div class="single_progressbar">
+                        <h6>Argentina</h6>
+                        <div id="bar3" class="barfiller">
+                          <div class="tipWrap">
+                            <span class="tip"></span>
+                          </div>
+                          <span class="fill" data-percentage="62"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 pt-2 pb-2">
+                      <div class="single_progressbar">
+                        <h6>Nepal</h6>
+                        <div id="bar11" class="barfiller">
+                          <div class="tipWrap">
+                            <span class="tip"></span>
+                          </div>
+                          <span class="fill" data-percentage="45"></span>
                         </div>
                       </div>
                     </div>
