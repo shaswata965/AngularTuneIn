@@ -8,7 +8,6 @@ import * as $ from "jquery";
   styleUrls: ['./backend-header.component.css']
 })
 export class BackendHeaderComponent implements OnInit {
-  public backendMenu = false;
 
   constructor() {}
 

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from "ng2-charts";
-import { MetismenuAngularModule } from "@metismenu/angular";
 
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -75,7 +74,6 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MetismenuAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]

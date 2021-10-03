@@ -95,6 +95,22 @@
     if(proBar.length){
       proBar.barfiller({barColor: '#FFB822', duration: 2200});
     }
+    var proBar = $('#bar8');
+    if(proBar.length){
+      proBar.barfiller({barColor: '#FFB822', duration: 2200});
+    }
+    var proBar = $('#bar9');
+    if(proBar.length){
+      proBar.barfiller({barColor: '#FFB822', duration: 2200});
+    }
+    var proBar = $('#bar10');
+    if(proBar.length){
+      proBar.barfiller({barColor: '#FFB822', duration: 2200});
+    }
+    var proBar = $('#bar11');
+    if(proBar.length){
+      proBar.barfiller({barColor: '#FFB822', duration: 2200});
+    }
 
   });
 
