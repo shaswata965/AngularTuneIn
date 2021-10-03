@@ -1,6 +1,5 @@
-import { Component, OnInit,ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
-import * as $ from "jquery";
 
 @Component({
   selector: 'app-backend-header',
@@ -31,7 +30,7 @@ export class BackendHeaderComponent implements OnInit {
         layout: { padding: { left: 0, right: 0, top: 0, bottom: 0 } },
       },
     });
-
   }
+
 
 }

@@ -30,7 +30,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/metismenujs/dist/metismenujs.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -83,6 +82,7 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/backend/js/popper.min.js",
               "src/assets/backend/js/bootstrap.min.js",
+              "src/assets/backend/js/metisMenu.js",
               "src/assets/backend/vendors/count_up/jquery.waypoints.min.js",
               "src/assets/backend/vendors/chartlist/Chart.min.js",
               "src/assets/backend/vendors/count_up/jquery.counterup.min.js",
@@ -118,8 +118,7 @@
               "src/assets/backend/vendors/chart_am/chart-custom.js",
               "src/assets/backend/js/dashboard_init.js",
               "src/assets/backend/js/custom.js",
-              "node_modules/chart.js/dist/Chart.js",
-              "src/assets/backend/js/metisMenu.js"
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {

@@ -73,7 +73,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     BrowserAnimationsModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
