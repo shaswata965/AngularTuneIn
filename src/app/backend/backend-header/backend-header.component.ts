@@ -8,6 +8,9 @@ import { Chart } from "chart.js";
 })
 export class BackendHeaderComponent implements OnInit {
 
+  public notificationBell = true;
+  public sidebarMenu = false;
+
   constructor() {}
 
   ngOnInit() {

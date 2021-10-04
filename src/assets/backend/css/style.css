@@ -3999,7 +3999,6 @@ table.dataTable {
   height: 100vh;
   left: 0;
   top: 0;
-  z-index: 99;
   padding-bottom: 50px;
   position: fixed;
   width: 270px;
@@ -4028,7 +4027,6 @@ table.dataTable {
 @media (max-width: 991px) {
   /* line 2, G:/admin_project/6 admin/sales/scss/_sidebar.scss */
   .sidebar {
-    left: -280px;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     top: 0;
@@ -11312,7 +11310,7 @@ a.pswp__share--download:hover {
 
 /*# sourceMappingURL=photoswipe.css.map */
 /* line 2, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap {
+.custom_notification_wrap {
   background: #FFFFFF;
   box-shadow: 0px 10px 15px rgba(6, 0, 8, 0.22);
   border-radius: 10px;
@@ -11321,41 +11319,39 @@ a.pswp__share--download:hover {
   width: 350px;
   transform: translateY(30px) translateX(20px);
   opacity: 0;
-  visibility: hidden;
   transition: .3s;
 }
 
 @media (max-width: 575.98px) {
   /* line 2, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-  .Menu_NOtification_Wrap {
+  .custom_notification_wrap {
     width: 300px;
     transform: translateY(30px) translateX(55px);
   }
 }
 
 /* line 17, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap.active {
+.custom_notification_wrap {
   opacity: 1;
-  visibility: visible;
   transform: translateY(20px) translateX(20px);
 }
 
 @media (max-width: 575.98px) {
   /* line 17, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-  .Menu_NOtification_Wrap.active {
+  .custom_notification_wrap:active {
     transform: translateY(16px) translateX(55px);
   }
 }
 
 /* line 25, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .notification_Header {
+.custom_notification_wrap .notification_Header {
   padding: 15px 20px;
   border-radius: 10px 10px 0px 0px;
   background: #64C5B1;
 }
 
 /* line 29, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .notification_Header h4 {
+.custom_notification_wrap .notification_Header h4 {
   font-size: 15px;
   font-weight: 500;
   color: #fff;
@@ -11363,57 +11359,57 @@ a.pswp__share--download:hover {
 }
 
 /* line 36, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body {
+.custom_notification_wrap .Notification_body {
   padding: 20px 20px;
   height: 300px;
   overflow: auto;
 }
 
 /* line 40, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify {
+.custom_notification_wrap .Notification_body .single_notify {
   margin-bottom: 10px;
 }
 
 /* line 42, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify:last-child {
+.custom_notification_wrap .Notification_body .single_notify:last-child {
   margin-bottom: 0;
 }
 
 /* line 45, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify .notify_thumb {
+.custom_notification_wrap .Notification_body .single_notify .notify_thumb {
   margin-right: 15px;
 }
 
 /* line 47, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify .notify_thumb img {
+.custom_notification_wrap .Notification_body .single_notify .notify_thumb img {
   width: 40px;
   height: 40px;
   border-radius: 5px;
 }
 
 /* line 55, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify .notify_content a h5 {
+.custom_notification_wrap .Notification_body .single_notify .notify_content a h5 {
   margin-bottom: 0;
   font-size: 16px;
   font-weight: 500;
 }
 
 /* line 61, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .Notification_body .single_notify .notify_content p {
+.custom_notification_wrap .Notification_body .single_notify .notify_content p {
   font-size: 13px;
   font-weight: 400;
   margin-bottom: 0;
 }
 
 /* line 70, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .nofity_footer {
+.custom_notification_wrap .nofity_footer {
   padding: 13px 20px;
   background: #F5F7F9;
   border-radius: 0 0 10px 10px;
 }
 
 /* line 75, G:/admin_project/6 admin/sales/scss/_notification_menu.scss */
-.Menu_NOtification_Wrap .nofity_footer .submit_button a {
+.custom_notification_wrap .nofity_footer .submit_button a {
   font-size: 12px;
 }
 
