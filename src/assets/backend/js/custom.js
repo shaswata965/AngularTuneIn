@@ -111,6 +111,22 @@ $("#sidebar_menu >li a").filter(function() {
       if(proBar.length){
         proBar.barfiller({barColor: '#FD3C97', duration: 2200});
       }
+      var proBar = $('#bar12');
+      if(proBar.length){
+        proBar.barfiller({barColor: '#FFBF43', duration: 2000});
+      }
+      var proBar = $('#bar13');
+      if(proBar.length){
+        proBar.barfiller({barColor: '#508FF4', duration: 2100});
+      }
+      var proBar = $('#bar14');
+      if(proBar.length){
+        proBar.barfiller({barColor: '#4BE69D', duration: 2200});
+      }
+      var proBar = $('#bar15');
+      if(proBar.length){
+        proBar.barfiller({barColor: '#FD3C97', duration: 2200});
+      }
 
     });
 
