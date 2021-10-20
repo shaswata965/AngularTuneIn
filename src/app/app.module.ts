@@ -36,6 +36,7 @@ import { BackendHeaderComponent } from './backend/backend-header/backend-header.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BackendLoginComponent } from './backend/backend-login/backend-login.component';
+import { PlayerComponentComponent } from './frontend/player-component/player-component.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { BackendLoginComponent } from './backend/backend-login/backend-login.com
     RevenueDetailsComponent,
     BackendHomeComponent,
     BackendHeaderComponent,
-    BackendLoginComponent
+    BackendLoginComponent,
+    PlayerComponentComponent
   ],
   imports: [
     BrowserModule,

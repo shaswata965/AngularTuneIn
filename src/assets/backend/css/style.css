@@ -170,11 +170,11 @@ a:hover {
 }
 
 /* line 93, G:/admin_project/6 admin/sales/scss/_reset.scss */
-h1, h2, h3, h4, h5, h6 {
-  color: #14256A!important;
-  font-family: "Nunito", sans-serif!important;
-  font-weight: 600!important;
-  line-height: 1.2!important;
+.backend-h1, .backend-h2, .backend-h3, .backend-h4, .backend-h5, .backend-h6 {
+  color: #14256A;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 /* line 99, G:/admin_project/6 admin/sales/scss/_reset.scss */

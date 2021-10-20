@@ -128,6 +128,23 @@
 
 /*To Do Card Style End*/
 
+@media only screen and ( min-width: 1200px ){
+  .info-card-icon i{
+    font-size: 40px;
+    margin-top: 60%;
+    padding-right:3px;
+  }
+
+  .custom-info-card-text{
+    margin-top: 5%;
+  }
+
+  .custom-info-card-icon i{
+    margin-left: -10px;
+  }
+
+}
+
 @media only screen and ( min-width: 992px ) and ( max-width: 1200px ){
   .info-card-icon i{
     font-size: 40px;

@@ -118,7 +118,10 @@
               "src/assets/backend/vendors/chart_am/chart-custom.js",
               "src/assets/backend/js/dashboard_init.js",
               "src/assets/backend/js/custom.js",
-              "node_modules/chart.js/dist/Chart.js"
+              "node_modules/chart.js/dist/Chart.js",
+              "src/assets/frontend/js/mp3/jquery.jplayer.min.js",
+              "src/assets/frontend/js/mp3/jplayer.playlist.js",
+              "src/assets/frontend/js/mp3/player.js"
             ]
           },
           "configurations": {

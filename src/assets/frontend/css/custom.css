@@ -1386,3 +1386,9 @@
 .menuOpener{
   color:#fa5b41!important;
 }
+
+/*Player Section*/
+.adonis-playlist{
+  z-index: 99999!important;
+  margin-top:70px;
+}
