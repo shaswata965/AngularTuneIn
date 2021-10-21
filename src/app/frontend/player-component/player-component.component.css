@@ -1,0 +1,15 @@
+.playlist-tags,.playlist-tags-previous, .playlist-tags-play, .playlist-tags-next, .playlist-tags-repeat{
+  display: none;
+  padding: 1px 2px 1px 2px;
+  border: 1px solid #fa5840;
+  border-radius:5px;
+  font-size: 12px;
+  background-color: #fa5840;
+  color: white;
+  position: absolute;
+  bottom: -2px;
+}
+
+.playlist-tags-display-visible{
+  display:block!important;
+}
