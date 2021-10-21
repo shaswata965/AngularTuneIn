@@ -3217,7 +3217,7 @@ body.off-canvas-overlay-on {
 }
 .adonis-player-wrap .jp-progress.jp-progress-pos-top,
 .adonis-playlist-player .jp-progress.jp-progress-pos-top {
-  top: -91px;
+  top: -65px;
 }
 .adonis-player-wrap .jp-progress.inner,
 .adonis-playlist-player .jp-progress.inner {
@@ -3392,6 +3392,10 @@ body.off-canvas-overlay-on {
 .jp_current_time_wrapepr{
   float:right;
   padding-right:35px;
+  padding-left: 10px;
+  margin-right: 10px;
+  border: 1px solid #fa5840;
+  border-radius:5px;
 }
 .adonis-player-wrap .jp-video .jp-current-time,
 .adonis-playlist-player .jp-video .jp-current-time {
@@ -3630,7 +3634,7 @@ body.off-canvas-overlay-on {
   color: #888888;
 }
 .adonis-player{
-  padding:20px 50px 15px 40px;
+  padding:2px 50px 5px 40px;
 }
 .jp-title{
   font-weight:500;
@@ -3668,12 +3672,15 @@ body.off-canvas-overlay-on {
 }
 .adonis-player-wrap .jp-current-time {
   opacity: 0.7;
-  padding-right:15px;
+  padding-right:2px;
+}
+.player-slash{
+  padding-right:2px;
 }
 .adonis-player-wrap .jp-volume-controls a {
   display: inline-block;
   line-height: 0;
-  padding-right:5px;
+  padding-right:2px;
 }
 .adonis-player-wrap .jp-volume-controls div {
   line-height: 0;
@@ -4229,7 +4236,7 @@ body.off-canvas-overlay-on {
   max-height: 22px;
 }
 .adonis-icon.icon-4x svg {
-  width: 25px;
+  width: 20px;
   max-height: 27px;
 }
 .adonis-icon.icon-5x svg {
