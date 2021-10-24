@@ -3073,6 +3073,7 @@ ul.tranding_more_option li a .opt_icon i:before{
 .off-canvas.off-canvas-right {
   left: 100%;
   right: auto;
+  overflow: auto;
 }
 .off-canvas.off-canvas-left {
   right: 100%;
@@ -3387,11 +3388,11 @@ body.off-canvas-overlay-on {
 }
 .jp_adoins_wrapper{
   float:right;
-  padding-right:35px;
+  padding-right:15px;
 }
 .jp_current_time_wrapepr{
   float:right;
-  padding-right:35px;
+  padding-right:10px;
   padding-left: 10px;
   margin-right: 10px;
   border: 1px solid #fa5840;
@@ -3888,6 +3889,9 @@ body.off-canvas-overlay-on {
   width: 100%;
   clear: both;
   position: relative;
+  border-bottom: 1px solid #fa5840;
+  margin-top: 15px;
+  border-radius: 10px;
 }
 .adonis-player-wrap .adonis-playlist .jp-playlist li:hover .hover-state {
   display: block;

@@ -75,9 +75,10 @@ import { PlayerComponentComponent } from './frontend/player-component/player-com
     NgbModule,
     ChartsModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
