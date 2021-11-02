@@ -837,3 +837,41 @@
 
 /*Custom Login Modal Styling End*/
 
+/*Player Control Styling Start*/
+
+@media only screen and (max-width: 835px) and (min-width: 705px) {
+
+  .jp_current_time_wrapepr{
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-right: 3px;
+    font-size: 8px;
+  }
+
+}
+
+@media only screen and (max-width: 705px) and (min-width: 480px) {
+  .jp_current_time_wrapepr{
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-right: 1px;
+    font-size: 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) and (min-width: 360px) {
+  .jp_current_time_wrapepr{
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-right: 1px;
+    font-size: 6px;
+  }
+}
+
+@media only screen and (max-width: 360px) and (min-width: 260px) {
+  .jp_current_time_wrapepr{
+    display:none!important;
+  }
+}
+
+/*Player Control Styling End*/
