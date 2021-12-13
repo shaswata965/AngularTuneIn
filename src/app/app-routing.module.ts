@@ -7,6 +7,7 @@ import { FilterComponent } from "./layouts/filter/filter.component";
 import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
 import { BackendHomeComponent } from "./layouts/backend-home/backend-home.component";
 import { BackendLoginComponent } from "./backend/backend-login/backend-login.component";
+import {AuthGuard} from "./frontend/auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path:'profile',
-    component:ProfileComponent
+    component:ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'albums',
@@ -41,6 +43,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

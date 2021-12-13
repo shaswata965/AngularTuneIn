@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from "ng2-charts";
+import {FormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -37,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BackendLoginComponent } from './backend/backend-login/backend-login.component';
 import { PlayerComponentComponent } from './frontend/player-component/player-component.component';
+import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
 
 
 @NgModule({
@@ -79,8 +82,10 @@ import { PlayerComponentComponent } from './frontend/player-component/player-com
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

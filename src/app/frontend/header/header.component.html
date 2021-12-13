@@ -38,12 +38,21 @@
       </div>
     </div>
     <div class="d-none d-md-none d-sm-none d-lg-none d-xl-block m24_header_right_Wrapper">
-      <div class=m24_signin_wrapper>
-        <a href=# data-toggle=modal data-target=#login_modal><img alt=img src="./assets/frontend/image/icons/pf.png">
-          <div class=login_top_wrapper>
-            <p>login/register</p>
+      <div class="responsive_search_toggle m24_signin_wrapper">
+        <a data-bs-toggle="collapse" href="#log_options" role="button" aria-expanded="false" aria-controls="collapseExample"><img alt=img src="./assets/frontend/image/icons/pf.png"></a>
+          <div class="card collapse log_options_card" id="log_options">
+            <div class="card-body">
+          <div class="login_top_wrapper special_login_top_wrapper" *ngIf="!userIsAuthenticated">
+            <i class="fas fa-angle-right"></i><a data-toggle=modal data-target=#login_modal>login/register</a>
           </div>
-        </a>
+          <div class="login_top_wrapper" *ngIf="userIsAuthenticated">
+            <i class="fas fa-angle-right"></i><button class="btn no_box_shadow" (click)="onLogOut()">logout</button>
+          </div>
+          <div class="login_top_wrapper" *ngIf="userIsAuthenticated">
+            <i class="fas fa-angle-right"></i><a routerLink="/profile">My Profile</a>
+          </div>
+            </div>
+          </div>
       </div>
     </div>
     <div class=m24_navigation_wrapper>
@@ -83,13 +92,7 @@
           <div class=res_search_bar id=search_button><i class="fa fa-ellipsis-v"></i>
           </div>
           <div class=res_search_box id=search_open>
-            <div class="responsive_search_toggle m24_signin_wrapper">
-              <a href=# data-toggle=modal data-target=#login_modal><img alt=img src="./assets/frontend/image/icons/pf.png">
-                <div class=login_top_wrapper>
-                  <p>login/register</p>
-                </div>
-              </a>
-            </div>
+
           </div>
         </div>
       </div>
@@ -153,7 +156,7 @@
 <div class="fade lang_m24_banner modal index3_login_modal" id=login_modal role=dialog>
   <div class="modal-dialog modal-lg">
     <div class=modal-content>
-      <button class=close data-dismiss=modal type=button>×</button>
+      <button class=close data-dismiss=modal id="login_modal_closer" type=button>×</button>
       <div class=row>
         <div class="col-12">
           <div class="m24_cover m24_language_box">
@@ -181,12 +184,13 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
           <div class="login_form_wrapper pt-50">
+            <form (submit)="logInUser(logInForm)" #logInForm='ngForm'>
             <div class="comments_form icon_form">
-              <input name=full_name placeholder="Enter Email Address*" class=form-control>
+              <input name="email" placeholder="Enter Email Address*" ngModel required class=form-control>
               <i class="fas fa-envelope"></i>
             </div>
             <div class="comments_form icon_form">
-              <input type=password class=form-control placeholder="Enter Password *">
+              <input name="password" type=password class=form-control ngModel required placeholder="Enter Password *">
               <i class="fas fa-lock"></i>
             </div>
             <div class=login_remember_box>
@@ -198,11 +202,12 @@
                 Forgot Password ?
               </a>
             </div>
-          </div>
           <div class="m24_cover lang_apply_btn_wrapper">
             <div class="lang_apply_btn pr-35">
-              <a routerLink="/profile" data-dismiss="modal">login now</a>
+              <button type="submit">login now</button>
             </div>
+          </div>
+          </form>
           </div>
         </div>
         <div class="col-12 pb-40">
@@ -217,7 +222,7 @@
 <div class="fade lang_m24_banner modal index3_login_modal" id=register_modal role=dialog>
   <div class="modal-dialog modal-lg">
     <div class=modal-content>
-      <button class=close data-dismiss=modal type=button>×</button>
+      <button class=close data-dismiss=modal id="register_modal_closer" type=button>×</button>
       <div class=row>
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
           <div class="m24_cover m24_language_box">
@@ -245,22 +250,23 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
           <div class="login_form_wrapper pt-50">
+            <form (submit)="createUser(userForm)" #userForm='ngForm'>
             <div class="comments_form icon_form">
-              <input name=full_name placeholder="Enter Your Name*" class=form-control>
+              <input type="text" name="name" placeholder="Enter Your Name*" class=form-control ngModel required #name="ngModel">
               <i class="fas fa-user"></i>
             </div>
             <div class="comments_form icon_form">
-              <input name=full_name placeholder="Enter Email Address*" class=form-control>
+              <input type="email" name="email" placeholder="Enter Email Address*" class=form-control ngModel required #email="ngModel">
               <i class="fas fa-envelope"></i>
             </div>
             <div class="comments_form icon_form">
-              <input type=password class=form-control placeholder="Enter Password *">
+              <input type="password" name="password" class=form-control placeholder="Enter Password *" ngModel required #password="ngModel">
               <i class="fas fa-lock"></i>
             </div>
-            <div class="comments_form icon_form">
-              <input type=password class=form-control placeholder="Confirm Password *">
-              <i class="fas fa-lock"></i>
-            </div>
+<!--            <div class="comments_form icon_form">-->
+<!--              <input type=password class=form-control placeholder="Confirm Password *">-->
+<!--              <i class="fas fa-lock"></i>-->
+<!--            </div>-->
             <div class=login_remember_box>
               <label class="control control--checkbox">keep me signed in
                 <input type=checkbox>
@@ -270,11 +276,12 @@
                 Forgot Password ?
               </a>
             </div>
-          </div>
-          <div class="m24_cover lang_apply_btn_wrapper">
-            <div class="lang_apply_btn pr-35">
-              <a routerLink="/profile" data-dismiss="modal">login now</a>
-            </div>
+            <div class="m24_cover lang_apply_btn_wrapper">
+                <div class="lang_apply_btn pr-35">
+                  <button type="submit">Register now</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-12 pb-40">

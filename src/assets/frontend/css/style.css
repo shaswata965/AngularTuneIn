@@ -1138,7 +1138,7 @@ span.comboTreeItemTitle{
   -moz-transition: all 0.5s;
   transition: all 0.5s;
 }
-.lang_apply_btn a{
+.lang_apply_btn a, .lang_apply_btn button{
   width: 130px;
   float: left;
   font-size: 16px;
@@ -1160,7 +1160,7 @@ span.comboTreeItemTitle{
   -webkit-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
 }
-.lang_apply_btn a:hover {
+.lang_apply_btn a:hover, .lang_apply_btn button:hover {
   background-position: 100% 0;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
@@ -1669,7 +1669,7 @@ ul.tranding_more_option li a .opt_icon i:before{
   color: #999;
 }
 .comments_form .form-control:focus, .comments_form .form-control:hover{
-  color: #111;
+  color: #999;
   background-color: transparent;
   border: 1px solid #fa5b41 !important;
   -webkit-transition: all 0.3s ease 0s;
@@ -6497,7 +6497,7 @@ span.ovrly_text2 {
   width:80%; height:40px;
   line-height:40px;
 }
-.index2_footer_content .lang_apply_btn a{
+.index2_footer_content .lang_apply_btn a, .index2_footer_content .lang_apply_btn button{
   float:none;
   display:inline-block;
   height:40px;

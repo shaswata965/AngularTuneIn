@@ -1,0 +1,35 @@
+.log_options_card{
+  width: 250px;
+  height: 130px;
+  position: absolute;
+  top: 70px;
+  right: 5px;
+  background-color: #0f0e37;
+  border: 1px solid #fa5840;
+}
+
+.log_options_card .card-body .login_top_wrapper a, .log_options_card .card-body .login_top_wrapper button{
+  display: inline-block!important;
+  color: #fa5840!important;
+  font-size: 15px;
+  font-weight: 500!important;
+  cursor: pointer;
+}
+
+.log_options_card .card-body .login_top_wrapper a{
+  margin-left: 12px;
+}
+
+.log_options_card .card-body .login_top_wrapper i{
+  color:#fa5840;
+  font-size: 15px;
+}
+
+.no_box_shadow{
+  box-shadow: none!important;
+}
+
+.special_login_top_wrapper a,.special_login_top_wrapper i{
+  margin-top: 25px;
+  font-size: 18px!important
+}
