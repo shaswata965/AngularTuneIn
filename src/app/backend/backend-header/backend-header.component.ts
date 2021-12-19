@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
+import {AdminService} from "../../frontend/service/admin.service";
 
 @Component({
   selector: 'app-backend-header',
@@ -11,7 +12,11 @@ export class BackendHeaderComponent implements OnInit {
   public notificationBell = true;
   public sidebarMenu = false;
 
-  constructor() {}
+  constructor(public adminService: AdminService) {}
+
+  onLogOut(){
+    this.adminService.logOut();
+  }
 
   ngOnInit() {
     let ctx = document.getElementById("page_view");

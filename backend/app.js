@@ -13,6 +13,7 @@ mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongod
 });
 
 const User = require('./models/users');
+const Admin = require('./models/admins');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -49,23 +50,8 @@ app.post('/api/users',(req,res,next)=>{
  });
 
 app.get('/api/users',(req, res, next)=>{
-  const users =[
-    {
-      id: "ahfuighr15",
-      name: "Demo Name",
-      email: "demo@gmail.com",
-      password: "Demo-Pass"
-    },
-    {
-      id: "ahfuighr15",
-      name: "Try Name",
-      email: "try@gmail.com",
-      password: "Try-Pass"
-    },
-  ];
   res.status(200).json({
     message: "Posts fetched successfully",
-    users:users
   });
 });
 
@@ -90,7 +76,65 @@ app.post('/api/users/login',(req,res,next)=>{
       const token = jwt.sign({name: fetchedUser.name, email: fetchedUser.email}, 'This_is_the_secret',
         {expiresIn: '1h'});
       res.status(200).json({
-        token: token
+        token: token,
+        expiresIn: 3600
+      });
+    })
+    .catch(err=>{
+      return res.status(401).json({
+        message: "Auth Failed"
+      });
+    });
+
+});
+
+app.post('/api/admins',(req,res,next)=>{
+  bcrypt.hash(req.body.password, 10)
+    .then(hash=> {
+      const admin = new Admin({
+        name: req.body.name,
+        email: req.body.email,
+        password: hash
+      });
+      admin.save()
+        .then(result => {
+          res.status(201).json({
+            message: 'Admin Created!',
+            result: result
+          });
+        })
+        .catch(err => {
+          res.status(500).json({
+            error: err
+          });
+        });
+      console.log(admin);
+    });
+});
+
+app.post('/api/admins/login',(req,res,next)=>{
+  let fetchedAdmin;
+  Admin.findOne({ email: req.body.email })
+    .then(admin=>{
+      if(!admin){
+        return res.status(401).json({
+          message: " Auth Failed"
+        });
+      }
+      fetchedAdmin = admin;
+      return bcrypt.compare(req.body.password, admin.password);
+    })
+    .then(result=>{
+      if(!result){
+        return res.status(401).json({
+          message: "Auth Failed"
+        });
+      }
+      const token = jwt.sign({name: fetchedAdmin.name, email: fetchedAdmin.email}, 'This_is_the_secret',
+        {expiresIn: '1h'});
+      res.status(200).json({
+        token: token,
+        expiresIn: 3600
       });
     })
     .catch(err=>{

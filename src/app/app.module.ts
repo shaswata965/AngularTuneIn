@@ -40,6 +40,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { BackendLoginComponent } from './backend/backend-login/backend-login.component';
 import { PlayerComponentComponent } from './frontend/player-component/player-component.component';
 import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
+import { SignupComponent } from './backend/admin-signup/signup/signup.component';
+import {BackAuthInterceptor} from "./frontend/interceptor/back-auth-interceptor";
 
 
 @NgModule({
@@ -70,7 +72,8 @@ import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
     BackendHomeComponent,
     BackendHeaderComponent,
     BackendLoginComponent,
-    PlayerComponentComponent
+    PlayerComponentComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,7 @@ import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

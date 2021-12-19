@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AdminService} from "../../frontend/service/admin.service";
+import {Subscription} from "rxjs";
 
 
 @Component({
@@ -6,14 +8,23 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './backend-home.component.html',
   styleUrls: ['./backend-home.component.css']
 })
-export class BackendHomeComponent implements OnInit {
+export class BackendHomeComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  userIsAuthenticated = false;
+  // @ts-ignore
+  private authListenerSubs: Subscription;
 
-  ngOnInit():void {
+  constructor(public adminService: AdminService) { }
 
+  ngOnInit(){
+    this.userIsAuthenticated = this.adminService.getIsAuthenticated();
+    this.authListenerSubs = this.adminService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
   }
 
-
+  ngOnDestroy(){
+    this.authListenerSubs.unsubscribe();
+  }
 
 }

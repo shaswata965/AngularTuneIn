@@ -1,14 +1,12 @@
 import {Subject} from "rxjs";
-import {User} from "../models/user.model";
-import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {localizedString} from "@angular/compiler/src/output/output_ast";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AdminService{
 
   private tokenTimer: any;
 
@@ -17,9 +15,6 @@ export class UserService {
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
 
-  private users: User[] = [];
-  private userUpdated = new Subject<User []>();
-
   constructor(private http: HttpClient, private router: Router) { }
 
   getToken(){
@@ -27,29 +22,27 @@ export class UserService {
   }
 
   getIsAuthenticated(){
-   return this.isAuthenticated;
+    return this.isAuthenticated;
   }
 
   getAuthStatusListener(){
     return this.authStatusListener.asObservable();
   }
 
-  addUser(name: string, email:string, password:string){
+  addAdmin(name:string, email:string, password:string){
     // @ts-ignore
-    const user: User = { id: null, name: name, email: email, password: password};
-    this.http.post<{message: string}>('http://localhost:3000/api/users', user)
-      .subscribe((responseData)=>{
-        console.log(responseData.message);
-        this.router.navigate(['/']);
+    const admin: Admin = { id: null, name: name, email: email, password: password};
+    this.http.post<{message: string}>('http://localhost:3000/api/admins', admin)
+      .subscribe((Data)=>{
+        console.log(Data.message);
+        this.router.navigate(['/backend-login'])
       });
-    this.users.push(user);
-    this.userUpdated.next([...this.users]);
   }
 
   logIn(email:string, password:string){
     // @ts-ignore
-    const user: User = { email: email, password: password};
-    this.http.post<{token: string, expiresIn:number}>('http://localhost:3000/api/users/login', user)
+    const admin: Admin = { email: email, password: password};
+    this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/admins/login', admin)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
@@ -61,7 +54,7 @@ export class UserService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/backend-home']);
         }
       });
   }
@@ -73,10 +66,10 @@ export class UserService {
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.router.navigate(['/']);
+    this.router.navigate(['/backend-login']);
   }
 
-  autoAuthUser(){
+  autoAuthAdmin(){
     const authInformation=  this.getAuthData();
     if(!authInformation){
       return;
@@ -97,6 +90,7 @@ export class UserService {
       this.logOut();
     }, duration*1000);
   }
+
 
   private saveAuthData(token:string, expirationDate: Date){
     localStorage.setItem('token',token);
@@ -122,6 +116,4 @@ export class UserService {
     }
 
   }
-
 }
-

@@ -1,0 +1,26 @@
+.login-card{
+  margin-top: 20%;
+  padding: 30px;
+}
+
+.login-card-fields{
+  display: block;
+}
+
+.login-card-heading{
+  text-align: center;
+  font-weight: 600;
+  padding-top: 20px;
+  color: #0f0e37;
+}
+
+.login-card-description{
+  text-align: center;
+  padding-bottom: 10px;
+  margin-top: 5px;
+}
+
+.login-card-button{
+  margin-left: 40%;
+  margin-top: 20px;
+}

@@ -6,22 +6,22 @@
         Log In
       </h1>
       <p class="mat-body-1 login-card-description"> Log into admin panel </p>
+      <form (submit)="logIn(logInForm)" #logInForm = "ngForm">
       <mat-form-field class="login-card-fields">
-        <mat-label>Username / Email :</mat-label>
-        <input matInput placeholder="Ex: Username" />
+        <mat-label>Email :</mat-label>
+        <input matInput name="email" type="email" ngModel placeholder="Ex: Email" />
       </mat-form-field>
       <mat-form-field class="login-card-fields">
         <mat-label>Password :</mat-label>
-        <input matInput placeholder="Ex: Password" />
+        <input matInput name="password" type="password" ngModel placeholder="Ex: Password" />
       </mat-form-field>
-      <a routerLink="/backend-home">
       <button
         mat-raised-button
         color="primary"
-        class="login-card-button">
+        class="login-card-button" type="submit">
         Log In
       </button>
-      </a>
+      </form>
   </mat-card>
   </div>
 </div>

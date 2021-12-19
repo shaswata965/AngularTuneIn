@@ -7,7 +7,9 @@ import { FilterComponent } from "./layouts/filter/filter.component";
 import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
 import { BackendHomeComponent } from "./layouts/backend-home/backend-home.component";
 import { BackendLoginComponent } from "./backend/backend-login/backend-login.component";
+import { SignupComponent } from "./backend/admin-signup/signup/signup.component";
 import {AuthGuard} from "./frontend/auth/auth.guard";
+import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
 
 const routes: Routes = [
   {
@@ -33,17 +35,22 @@ const routes: Routes = [
   },
   {
     path:"backend-home",
-    component:BackendHomeComponent
+    component:BackendHomeComponent,
+    canActivate: [BackAuthGuard]
   },
   {
     path:"backend-login",
     component:BackendLoginComponent
+  },
+  {
+    path:"admin-signup",
+    component:SignupComponent
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  providers: [AuthGuard, BackAuthGuard]
 })
 export class AppRoutingModule { }
