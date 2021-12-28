@@ -207,8 +207,3 @@
 .no_box_shadow{
   box-shadow: none!important;
 }
-
-.submenu-no-link{
-  cursor: pointer;
-  display: block!important;
-}

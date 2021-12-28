@@ -11,6 +11,7 @@ export class BackendHeaderComponent implements OnInit {
 
   public notificationBell = true;
   public sidebarMenu = false;
+  public adminMenu = true;
 
   constructor(public adminService: AdminService) {}
 

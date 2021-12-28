@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import{NgForm} from "@angular/forms";
 import{UserService} from "../service/user.service";
 import {Subscription} from "rxjs";
+import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component({
   selector: 'app-header',
@@ -12,12 +13,14 @@ import {Subscription} from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   // @ts-ignore
+  socialUser: SocialUser;
+  // @ts-ignore
   private authListenerSubs: Subscription;
 
   public subMenuOne = true;
   public subMenuTwo =true;
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, private socialAuthService: SocialAuthService) { }
 
   createUser(form:NgForm){
     if(form.invalid){
@@ -28,6 +31,41 @@ export class HeaderComponent implements OnInit, OnDestroy {
     $('#register_modal_closer').click();
   }
 
+  registerWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email);
+    });
+    $('#register_modal_closer').click();
+  }
+
+  registerWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email);
+    });
+    $('#register_modal_closer').click();
+  }
+
+  signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.userService.socialLogIn(this.socialUser.email);
+    });
+    $('#login_modal_closer').click();
+  }
+
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.userService.socialLogIn(this.socialUser.email);
+    });
+    $('#login_modal_closer').click();
+  }
 
   logInUser(form:NgForm){
     if(form.invalid){
@@ -38,11 +76,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     $('#login_modal_closer').click();
   }
 
+
   ngOnInit(){
     this.userIsAuthenticated = this.userService.getIsAuthenticated();
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;
     });
+
   }
 
   ngOnDestroy(){

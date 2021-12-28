@@ -7,7 +7,8 @@ import { FilterComponent } from "./layouts/filter/filter.component";
 import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
 import { BackendHomeComponent } from "./layouts/backend-home/backend-home.component";
 import { BackendLoginComponent } from "./backend/backend-login/backend-login.component";
-import { SignupComponent } from "./backend/admin-signup/signup/signup.component";
+import { AdminCreateComponent } from "./layouts/admin-create/admin-create.component";
+import { BackendUserListComponent } from "./layouts/backend-user-list/backend-user-list.component";
 import {AuthGuard} from "./frontend/auth/auth.guard";
 import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
 
@@ -43,8 +44,19 @@ const routes: Routes = [
     component:BackendLoginComponent
   },
   {
-    path:"admin-signup",
-    component:SignupComponent
+    path:"admin-create",
+    component:AdminCreateComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"admin-edit/:adminId",
+    component:AdminCreateComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"admin-list",
+    component:BackendUserListComponent,
+    canActivate: [BackAuthGuard]
   },
 ];
 

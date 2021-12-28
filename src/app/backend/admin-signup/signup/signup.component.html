@@ -1,19 +1,22 @@
-<body class="jumbotron">
 <div class="row justify-content-center">
-  <div class="col-md-4 col-sm-8">
+  <div class="col-md-6 col-sm-8">
     <mat-card class="login-card">
       <h1 class="login-card-heading">
-        Sign Up
+        Create Admin
       </h1>
-      <p class="mat-body-1 login-card-description"> Sign up as Admin </p>
+      <p class="mat-body-1 login-card-description"> Create New Admin </p>
       <form (submit)="createAdmin(adminForm)" #adminForm="ngForm">
       <mat-form-field class="login-card-fields">
         <mat-label>Username :</mat-label>
-        <input name="name" type="text" matInput required ngModel placeholder="Ex: Username" />
+        <input name="name" type="text" matInput required [ngModel]="admin?.name" placeholder="Ex: Username" />
       </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Address :</mat-label>
+          <input name="address" type="text" matInput required [ngModel]="admin?.address" placeholder="Ex: Current Address" />
+        </mat-form-field>
       <mat-form-field class="login-card-fields">
         <mat-label>Email :</mat-label>
-        <input name="email" type="email" matInput required ngModel placeholder="Ex: Email" />
+        <input name="email" type="email" matInput required [ngModel]="admin?.email" placeholder="Ex: Email" />
       </mat-form-field>
       <mat-form-field class="login-card-fields">
         <mat-label>Password :</mat-label>
@@ -23,10 +26,9 @@
           mat-raised-button
           color="primary"
           class="login-card-button" type="submit">
-          Sign Up
+          Create Admin
         </button>
       </form>
     </mat-card>
   </div>
 </div>
-</body>

@@ -46,10 +46,39 @@ export class UserService {
     this.userUpdated.next([...this.users]);
   }
 
+  addSocialUser(name: string, email:string){
+    // @ts-ignore
+    const user: User = { name: name, email: email};
+    this.http.post<{message: string}>('http://localhost:3000/api/social/users', user)
+      .subscribe((responseData)=>{
+        this.router.navigate(['/']);
+      });
+  }
+
   logIn(email:string, password:string){
     // @ts-ignore
     const user: User = { email: email, password: password};
     this.http.post<{token: string, expiresIn:number}>('http://localhost:3000/api/users/login', user)
+      .subscribe((response)=>{
+        const token = response.token;
+        this.token = token;
+        if(token){
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.saveAuthData(token, expirationDate);
+          this.router.navigate(['/profile']);
+        }
+      });
+  }
+
+  socialLogIn(email:string){
+    // @ts-ignore
+    const user: User = { email: email};
+    this.http.post<{token: string, expiresIn:number}>('http://localhost:3000/api/social/users/login', user)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;

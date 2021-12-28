@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from "ng2-charts";
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
@@ -28,11 +33,6 @@ import { AlbumProfileComponent } from './frontend/album-profile/album-profile.co
 import { AlbumSongsComponent } from './frontend/album-songs/album-songs.component';
 import { AlbumSuggestionsComponent } from './frontend/album-suggestions/album-suggestions.component';
 import { SingleAlbumComponent } from './layouts/single-album/single-album.component';
-import { DownloadEarningComponent } from './backend/download-earning/download-earning.component';
-import { MonthlyInvoiceComponent } from './backend/monthly-invoice/monthly-invoice.component';
-import { GlobalDateLocationComponent } from './backend/global-date-location/global-date-location.component';
-import { AccountDetailsComponent } from './backend/account-details/account-details.component';
-import { RevenueDetailsComponent } from './backend/revenue-details/revenue-details.component';
 import { BackendHomeComponent } from './layouts/backend-home/backend-home.component';
 import { BackendHeaderComponent } from './backend/backend-header/backend-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,6 +42,12 @@ import { PlayerComponentComponent } from './frontend/player-component/player-com
 import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
 import { SignupComponent } from './backend/admin-signup/signup/signup.component';
 import {BackAuthInterceptor} from "./frontend/interceptor/back-auth-interceptor";
+import { BackendBodyComponent } from './backend/backend-body/backend-body.component';
+import { BackendFooterComponent } from './backend/backend-footer/backend-footer.component';
+import { BackendDashboardComponent } from './backend/backend-dashboard/backend-dashboard.component';
+import { AdminCreateComponent } from './layouts/admin-create/admin-create.component';
+import { BackendAdminListComponent } from './backend/backend-admin-list/backend-admin-list.component';
+import { BackendUserListComponent } from './layouts/backend-user-list/backend-user-list.component';
 
 
 @NgModule({
@@ -64,16 +70,17 @@ import {BackAuthInterceptor} from "./frontend/interceptor/back-auth-interceptor"
     AlbumSongsComponent,
     AlbumSuggestionsComponent,
     SingleAlbumComponent,
-    DownloadEarningComponent,
-    MonthlyInvoiceComponent,
-    GlobalDateLocationComponent,
-    AccountDetailsComponent,
-    RevenueDetailsComponent,
     BackendHomeComponent,
     BackendHeaderComponent,
     BackendLoginComponent,
     PlayerComponentComponent,
-    SignupComponent
+    SignupComponent,
+    BackendBodyComponent,
+    BackendFooterComponent,
+    BackendDashboardComponent,
+    AdminCreateComponent,
+    BackendAdminListComponent,
+    BackendUserListComponent
   ],
   imports: [
     BrowserModule,
@@ -86,9 +93,31 @@ import {BackAuthInterceptor} from "./frontend/interceptor/back-auth-interceptor"
     MatInputModule,
     MatButtonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true},
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '226540024838-3eirbl2ngnsc4tfe08rn13o9760s2vb9.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(
+              '1654437441393505'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
