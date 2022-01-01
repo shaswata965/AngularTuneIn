@@ -6,14 +6,14 @@
         Log In
       </h1>
       <p class="mat-body-1 login-card-description"> Log into admin panel </p>
-      <form (submit)="logIn(logInForm)" #logInForm = "ngForm">
+      <form [formGroup]="form" (submit)="logIn()">
       <mat-form-field class="login-card-fields">
         <mat-label>Email :</mat-label>
-        <input matInput name="email" type="email" ngModel placeholder="Ex: Email" />
+        <input matInput formControlName="email" type="email" placeholder="Ex: Email" />
       </mat-form-field>
       <mat-form-field class="login-card-fields">
         <mat-label>Password :</mat-label>
-        <input matInput name="password" type="password" ngModel placeholder="Ex: Password" />
+        <input matInput formControlName="password" type="password"  placeholder="Ex: Password" />
       </mat-form-field>
       <button
         mat-raised-button

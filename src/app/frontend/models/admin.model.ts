@@ -4,4 +4,5 @@ export interface Admin{
   address: string;
   email: string;
   password: string;
+  imagePath: string;
 }

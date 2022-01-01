@@ -24,3 +24,17 @@
   margin-left: 40%;
   margin-top: 20px;
 }
+
+.invisible-file-picker{
+  visibility: hidden;
+}
+
+.admin-image-preview{
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.admin-image-preview img{
+  height: 100%;
+  border-radius: 10px;
+}

@@ -7,7 +7,7 @@
           <h4>User Dashboard</h4>
           <ul>
             <li><a routerLink="/">Home</a> &nbsp;&nbsp;&nbsp;/</li>
-            <li>User Dashboard</li>
+            <li>{{firstName}}'s Dashboard</li>
           </ul>
         </div>
       </div>
@@ -32,13 +32,13 @@
                     <div class="row justify-content-center">
                       <div class="col-12 user-dash-image mt-10">
                         <img src="/assets/frontend/image/album/rel2.png" class="img-fluid" alt="User Picture">
-                        <h2 class="text-center pt-20 pb-40">Welcome <span>User</span></h2>
+                        <h2 class="text-center pt-20 pb-40">Welcome <span>{{currentUser}}</span></h2>
                       </div>
                       <div class="col-12 user-dash-description">
                         <div class="row mb-40">
                           <div class="col-lg-3 col-md-6 col-sm-6 col-12 pb-10">
                             <h4 class="text-center"><i class="far fa-id-card"></i> Email Address</h4>
-                            <h5 class="text-center pt-40">Dummy@email.com</h5>
+                            <h5 class="text-center pt-40">{{currentEmail}}</h5>
                           </div>
                           <div class="col-lg-3 col-md-6 col-sm-6 col-12 pb-10">
                             <h4 class="text-center"><i class="far fa-bell"></i> Notification </h4>

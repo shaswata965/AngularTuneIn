@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as $ from "jquery";
 import {AdminService} from "../../frontend/service/admin.service";
 import {Subscription} from "rxjs";
+import {mimeType} from "../admin-signup/signup/mime-type.validator";
 
 @Component({
   selector: 'app-backend-login',
@@ -14,21 +15,29 @@ export class BackendLoginComponent implements OnInit, OnDestroy {
   // @ts-ignore
   private authListenerSubs: Subscription;
 
+  form: FormGroup;
+
   constructor(public adminService: AdminService) { }
 
   ngOnInit(){
+
+    this.form = new FormGroup({
+      'email': new FormControl(null,{validators:[Validators.required]}),
+      'password': new FormControl(null,{validators:[Validators.required]})
+    });
+
     this.userIsAuthenticated = this.adminService.getIsAuthenticated();
     this.authListenerSubs = this.adminService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;
     });
   }
 
-  logIn(form:NgForm){
-    if(form.invalid){
+  logIn(){
+    if(this.form.invalid){
       return;
     }
-    this.adminService.logIn(form.value.email, form.value.password);
-    form.resetForm();
+    this.adminService.logIn(this.form.value.email, this.form.value.password);
+    this.form.reset();
   }
 
   ngOnDestroy(){

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {localizedString} from "@angular/compiler/src/output/output_ast";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,64 @@ export class UserService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
+  private modalUser: any | null;
 
   private users: User[] = [];
   private userUpdated = new Subject<User []>();
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  getUsers(){
+    this.http.get<{message:string, users: any }>(
+      "http://localhost:3000/api/users"
+    ).pipe(map((userData)=>{
+      // @ts-ignore
+      return userData.users.map(user=>{
+        console.log(user);
+        return{
+          name: user.name,
+          email: user.email,
+          id: user._id
+        };
+      });
+    }))
+      .subscribe(users=>{
+        this.users = users;
+        this.userUpdated.next([...this.users]);
+        console.log(this.users);
+      });
+  }
+
+  getUsersUpdateListener(){
+    return this.userUpdated.asObservable();
+  }
+
+  deleteUser(userId:string){
+    this.http.delete("http://localhost:3000/api/users/" +userId)
+      .subscribe(()=>{
+        const updatedUsers = this.users.filter(user=> user.id !=userId);
+        this.users = updatedUsers;
+        this.userUpdated.next([...this.users]);
+      });
+  }
+
+  getThisUser(){
+    const currentUser = this.getCurrentUser().currentUser;
+    const currentEmail = this.getCurrentUser().currentEmail;
+    console.log(currentUser);
+    return {
+      currentUser: currentUser,
+      currentEmail: currentEmail
+    }
+  }
+
+  addModalUser(user: any){
+    this.modalUser = user;
+  }
+
+  getModalUser(){
+    return this.modalUser;
+  }
 
   getToken(){
     return this.token;
@@ -58,18 +112,20 @@ export class UserService {
   logIn(email:string, password:string){
     // @ts-ignore
     const user: User = { email: email, password: password};
-    this.http.post<{token: string, expiresIn:number}>('http://localhost:3000/api/users/login', user)
+    this.http.post<{token: string, expiresIn:number, currentUser:string,currentEmail:string}>('http://localhost:3000/api/users/login', user)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
         if(token){
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
+          const currentUser = response.currentUser;
+          const currentEmail = response.currentEmail;
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate);
+          this.saveAuthData(token, expirationDate, currentUser, currentEmail);
           this.router.navigate(['/profile']);
         }
       });
@@ -78,18 +134,20 @@ export class UserService {
   socialLogIn(email:string){
     // @ts-ignore
     const user: User = { email: email};
-    this.http.post<{token: string, expiresIn:number}>('http://localhost:3000/api/social/users/login', user)
+    this.http.post<{token: string, expiresIn:number, currentUser:string, currentEmail:string}>('http://localhost:3000/api/social/users/login', user)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
         if(token){
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
+          const currentUser = response.currentUser;
+          const currentEmail = response.currentEmail;
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate);
+          this.saveAuthData(token, expirationDate, currentUser, currentEmail);
           this.router.navigate(['/profile']);
         }
       });
@@ -127,14 +185,27 @@ export class UserService {
     }, duration*1000);
   }
 
-  private saveAuthData(token:string, expirationDate: Date){
+  private saveAuthData(token:string, expirationDate: Date, currentUser:string, currentEmail:string){
     localStorage.setItem('token',token);
     localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('currentUser', currentUser);
+    localStorage.setItem('currentEmail', currentEmail);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentEmail');
+  }
+
+  private getCurrentUser(){
+    const currentUser = localStorage.getItem('currentUser');
+    const currentEmail = localStorage.getItem('currentEmail');
+    return{
+      currentUser: currentUser,
+      currentEmail: currentEmail
+    }
   }
 
   private getAuthData(){

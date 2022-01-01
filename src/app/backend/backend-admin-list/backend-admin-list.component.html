@@ -25,7 +25,7 @@
                 <a [routerLink]="['/admin-edit',admin.id]" class="btn btn-inverse-success ml-4"><i class="fas fa-edit"></i></a>
               </div>
               <div class="col-3">
-                <a href="#" class="btn btn-inverse-info"><i class="fas fa-eye"></i></a>
+                <button (click)="openViewModal(admin)" class="btn btn-inverse-info"><i class="fas fa-eye"></i></button>
               </div>
               <div class="col-3">
                 <button (click)="onDelete(admin.id)" class="btn btn-inverse-danger"><i class="fas fa-trash"></i></button>
@@ -41,4 +41,5 @@
     </mat-card>
   </div>
 </div>
+
 

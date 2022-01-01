@@ -50,6 +50,34 @@
         </li>
       </ul>
     </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="userMenu = !userMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              User
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="userMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/user-list">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                User List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-user-plus"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 <!--/ sidebar  -->
@@ -145,7 +173,7 @@
               <div class="profile_info_iner">
                 <div class="profile_author_name">
                   <p>Super Admin</p>
-                  <h5 class="backend-h5">Robert Smith</h5>
+                  <h5 class="backend-h5">{{currentAdminName}}</h5>
                 </div>
                 <div class="profile_info_details">
                   <button class="btn no-box-shadow" (click)="onLogOut()">Log Out </button>

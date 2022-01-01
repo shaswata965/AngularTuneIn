@@ -9,6 +9,7 @@ import { BackendHomeComponent } from "./layouts/backend-home/backend-home.compon
 import { BackendLoginComponent } from "./backend/backend-login/backend-login.component";
 import { AdminCreateComponent } from "./layouts/admin-create/admin-create.component";
 import { BackendUserListComponent } from "./layouts/backend-user-list/backend-user-list.component";
+import {GeneralUserListComponent} from "./layouts/general-user-list/general-user-list.component";
 import {AuthGuard} from "./frontend/auth/auth.guard";
 import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
 
@@ -56,6 +57,11 @@ const routes: Routes = [
   {
     path:"admin-list",
     component:BackendUserListComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"user-list",
+    component:GeneralUserListComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -19,7 +19,7 @@
           <li><a routerLink="/albums"><i class=flaticon-files-and-folders></i>artist albums</a></li>
         </ul>
       </li>
-      <li><a routerLink="/profile"><i class=flaticon-playlist-1></i>your music</a>
+      <li *ngIf="userIsAuthenticated"><a routerLink="/profile"><i class=flaticon-playlist-1></i>{{firstName}}'s music</a>
       </li>
       <li><a href="#contact"><i class=flaticon-internet></i>contact us</a></li>
     </ul>
@@ -49,7 +49,7 @@
             <i class="fas fa-angle-right"></i><button class="btn no_box_shadow" (click)="onLogOut()">logout</button>
           </div>
           <div class="login_top_wrapper" *ngIf="userIsAuthenticated">
-            <i class="fas fa-angle-right"></i><a routerLink="/profile">My Profile</a>
+            <i class="fas fa-angle-right"></i><a routerLink="/profile">{{firstName}}'s Profile</a>
           </div>
             </div>
           </div>
@@ -184,24 +184,24 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
           <div class="login_form_wrapper pt-50">
-            <form (submit)="logInUser(logInForm)" #logInForm='ngForm'>
+            <form [formGroup]="logForm" (submit)="logInUser()">
             <div class="comments_form icon_form">
-              <input name="email" placeholder="Enter Email Address*" ngModel required class=form-control>
+              <input formControlName="email" placeholder="Enter Email Address*"  required class=form-control>
               <i class="fas fa-envelope"></i>
             </div>
             <div class="comments_form icon_form">
-              <input name="password" type=password class=form-control ngModel required placeholder="Enter Password *">
+              <input formControlName="password" type=password class=form-control  required placeholder="Enter Password *">
               <i class="fas fa-lock"></i>
             </div>
-            <div class=login_remember_box>
-              <label class="control control--checkbox">keep me signed in
-                <input type=checkbox>
-                <span class=control__indicator></span>
-              </label>
-              <a href=# class=forget_password>
-                Forgot Password ?
-              </a>
-            </div>
+<!--            <div class=login_remember_box>-->
+<!--              <label class="control control&#45;&#45;checkbox">keep me signed in-->
+<!--                <input type=checkbox>-->
+<!--                <span class=control__indicator></span>-->
+<!--              </label>-->
+<!--              <a href=# class=forget_password>-->
+<!--                Forgot Password ?-->
+<!--              </a>-->
+<!--            </div>-->
           <div class="m24_cover lang_apply_btn_wrapper">
             <div class="lang_apply_btn pr-35">
               <button type="submit">login now</button>
@@ -250,17 +250,17 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6">
           <div class="login_form_wrapper pt-50">
-            <form (submit)="createUser(userForm)" #userForm='ngForm'>
+            <form [formGroup]="form" (submit)="createUser()">
             <div class="comments_form icon_form">
-              <input type="text" name="name" placeholder="Enter Your Name*" class=form-control ngModel required #name="ngModel">
+              <input type="text" formControlName="name" placeholder="Enter Your Name*" class=form-control required>
               <i class="fas fa-user"></i>
             </div>
             <div class="comments_form icon_form">
-              <input type="email" name="email" placeholder="Enter Email Address*" class=form-control ngModel required #email="ngModel">
+              <input type="email" formControlName="email" placeholder="Enter Email Address*" class=form-control required>
               <i class="fas fa-envelope"></i>
             </div>
             <div class="comments_form icon_form">
-              <input type="password" name="password" class=form-control placeholder="Enter Password *" ngModel required #password="ngModel">
+              <input type="password" formControlName="password" class=form-control placeholder="Enter Password *" required>
               <i class="fas fa-lock"></i>
             </div>
 <!--            <div class="comments_form icon_form">-->

@@ -12,6 +12,9 @@ export class BackendHeaderComponent implements OnInit {
   public notificationBell = true;
   public sidebarMenu = false;
   public adminMenu = true;
+  public userMenu = true;
+
+  public currentAdminName : string | null;
 
   constructor(public adminService: AdminService) {}
 
@@ -20,6 +23,11 @@ export class BackendHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.currentAdminName = this.adminService.getThisAdmin();
+
+    console.log(this.currentAdminName);
+
     let ctx = document.getElementById("page_view");
     // @ts-ignore
     let myChart = new Chart(ctx, {

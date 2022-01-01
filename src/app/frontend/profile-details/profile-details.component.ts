@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../service/user.service";
 
 @Component({
   selector: 'app-profile-details',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileDetailsComponent implements OnInit {
 
-  constructor() { }
+  public currentUser: string | null;
+  public currentEmail: string | null;
+  public firstName: string | null;
 
-  ngOnInit(): void {
+  constructor(public userService: UserService ) { }
+
+  ngOnInit(){
+    this.currentUser = this.userService.getThisUser().currentUser;
+    let name = ""+this.currentUser;
+    let nameArray = [];
+    nameArray = name.split(" ");
+    let firstNameString = nameArray[0];
+    let firstName = firstNameString.replace(/"/g,"");
+    this.firstName = firstName;
+    this.currentEmail = this.userService.getThisUser().currentEmail;
   }
 
 }

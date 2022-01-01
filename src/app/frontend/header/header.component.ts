@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as $ from 'jquery';
-import{NgForm} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import{UserService} from "../service/user.service";
 import {Subscription} from "rxjs";
 import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 
 @Component({
   selector: 'app-header',
@@ -19,15 +20,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public subMenuOne = true;
   public subMenuTwo =true;
+  public currentUser: string | null;
+  public firstName: string | null;
+
+  form : FormGroup;
+  logForm: FormGroup;
 
   constructor(public userService: UserService, private socialAuthService: SocialAuthService) { }
 
-  createUser(form:NgForm){
-    if(form.invalid){
+  createUser(){
+    if(this.form.invalid){
       return;
     }
-    this.userService.addUser(form.value.name, form.value.email, form.value.password);
-    form.resetForm();
+    this.userService.addUser(this.form.value.name, this.form.value.email, this.form.value.password);
+    this.form.reset();
     $('#register_modal_closer').click();
   }
 
@@ -67,17 +73,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
     $('#login_modal_closer').click();
   }
 
-  logInUser(form:NgForm){
-    if(form.invalid){
+  logInUser(){
+    if(this.logForm.invalid){
       return;
     }
-    this.userService.logIn(form.value.email, form.value.password);
-    form.resetForm();
+    this.userService.logIn(this.logForm.value.email, this.logForm.value.password);
+    this.logForm.reset();
     $('#login_modal_closer').click();
   }
 
 
   ngOnInit(){
+
+    this.form = new FormGroup({
+      'name': new FormControl(null, {validators: [Validators.required]}),
+      'email': new FormControl(null,{validators:[Validators.required]}),
+      'password': new FormControl(null,{validators:[Validators.required]})
+    });
+
+
+    this.logForm = new FormGroup({
+      'email': new FormControl(null,{validators:[Validators.required]}),
+      'password': new FormControl(null,{validators:[Validators.required]})
+    });
+
+    this.currentUser = this.userService.getThisUser().currentUser;
+    let name = ""+this.currentUser;
+    let nameArray = [];
+    nameArray = name.split(" ");
+    let firstNameString = nameArray[0];
+    let firstName = firstNameString.replace(/"/g,"");
+    this.firstName = firstName;
     this.userIsAuthenticated = this.userService.getIsAuthenticated();
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;

@@ -19,6 +19,8 @@ export class AdminService{
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
+  private modalAdmin: any | null;
+  private modalAdminUpdated = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -32,7 +34,8 @@ export class AdminService{
           name: admin.name,
           address: admin.address,
           email: admin.email,
-          id: admin._id
+          id: admin._id,
+          imagePath: admin.imagePath
         };
       });
     }))
@@ -43,13 +46,41 @@ export class AdminService{
     });
   }
 
-  updateAdmin(id: string | null, name: string,  address: string, email: string, password: string){
-    // @ts-ignore
-    const admin: Admin = {id:id, name:name, address:address, email:email, password:password};
-    this.http.put("http://localhost:3000/api/admins/" +id, admin)
+  getThisAdmin(){
+    const currentAdmin = this.getCurrentAdmin().currentAdmin;
+    console.log(currentAdmin);
+    return currentAdmin;
+  }
+
+  addModalAdmin(admin: any){
+     this.modalAdmin = admin;
+  }
+
+  getModalAdmin(){
+    return this.modalAdmin;
+  }
+
+  updateAdmin(id: string | null, name: string,  address: string, email: string, password: string, image: File | string){
+    let adminData : Admin | FormData ;
+    if(typeof (image) === 'object'){
+     adminData = new FormData();
+     // @ts-ignore
+      adminData.append('id', id);
+     adminData.append('name', name);
+      adminData.append('address', address);
+      adminData.append('email', email);
+      adminData.append('password', password);
+      adminData.append('image',image,name);
+    }else{
+       // @ts-ignore
+      adminData = {id:id, name:name, address:address, email:email, password:password, imagePath: image};
+    }
+    this.http.put("http://localhost:3000/api/admins/" +id, adminData)
       .subscribe(response=>{
         const updatedAdmin = [...this.admins];
-        const oldAdminIndex = updatedAdmin.findIndex(a => a.id === admin.id);
+        const oldAdminIndex = updatedAdmin.findIndex(a => a.id === id);
+        // @ts-ignore
+        const admin: Admin = {id:id, name:name, address:address, email:email, password:password, imagePath: response.imagePath}
         updatedAdmin[oldAdminIndex] = admin;
         this.admins = updatedAdmin;
         this.adminsUpdated.next([...this.admins]);
@@ -67,7 +98,7 @@ export class AdminService{
   }
 
   getEditAdmin(adminId: string | null){
-    return this.http.get<{_id:string, name:string, address:string, email: string, password:string}>("http://localhost:3000/api/admins/" +adminId);
+    return this.http.get<{_id:string, name:string, address:string, email: string, password:string, imagePath: string}>("http://localhost:3000/api/admins/" +adminId);
   }
 
   getAdminsUpdateListener(){
@@ -86,10 +117,14 @@ export class AdminService{
     return this.authStatusListener.asObservable();
   }
 
-  addAdmin(name:string,  address:string, email:string, password:string){
-    // @ts-ignore
-    const admin: Admin = { id: null, name: name, address:address, email: email, password: password};
-    this.http.post<{message: string}>('http://localhost:3000/api/admins', admin)
+  addAdmin(name:string,  address:string, email:string, password:string, image: File){
+    const adminData = new FormData();
+    adminData.append('name', name);
+    adminData.append('address', address);
+    adminData.append('email',email);
+    adminData.append('password',password);
+    adminData.append('image', image, name);
+    this.http.post<{message: string}>('http://localhost:3000/api/admins', adminData)
       .subscribe((Data)=>{
         console.log(Data.message);
         this.router.navigate(['/admin-list']);
@@ -99,18 +134,19 @@ export class AdminService{
   logIn(email:string, password:string){
     // @ts-ignore
     const admin: Admin = { email: email, password: password};
-    this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/api/admins/login', admin)
+    this.http.post<{token: string, expiresIn: number, currentAdmin: string}>('http://localhost:3000/api/admins/login', admin)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
         if(token){
           const expiresInDuration = response.expiresIn;
+          const currentAdmin = response.currentAdmin;
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate);
+          this.saveAuthData(token, expirationDate, currentAdmin);
           this.router.navigate(['/backend-home']);
         }
       });
@@ -125,6 +161,8 @@ export class AdminService{
     this.clearAuthData();
     this.router.navigate(['/backend-login']);
   }
+
+
 
   autoAuthAdmin(){
     const authInformation=  this.getAuthData();
@@ -149,14 +187,23 @@ export class AdminService{
   }
 
 
-  private saveAuthData(token:string, expirationDate: Date){
+  private saveAuthData(token:string, expirationDate: Date, currentAdmin: string){
     localStorage.setItem('token',token);
     localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('currentAdmin', currentAdmin);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('currentAdmin');
+  }
+
+  private getCurrentAdmin(){
+    const currentAdmin = localStorage.getItem('currentAdmin');
+    return{
+      currentAdmin: currentAdmin
+    }
   }
 
   private getAuthData(){

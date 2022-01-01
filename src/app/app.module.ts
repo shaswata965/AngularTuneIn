@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from "ng2-charts";
-import {FormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
@@ -12,6 +12,9 @@ import {
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +51,10 @@ import { BackendDashboardComponent } from './backend/backend-dashboard/backend-d
 import { AdminCreateComponent } from './layouts/admin-create/admin-create.component';
 import { BackendAdminListComponent } from './backend/backend-admin-list/backend-admin-list.component';
 import { BackendUserListComponent } from './layouts/backend-user-list/backend-user-list.component';
+import { UserListComponent } from './backend/user-list/user-list.component';
+import { GeneralUserListComponent } from './layouts/general-user-list/general-user-list.component';
+import { ListViewComponent } from './backend/list-view/list-view.component';
+import { GeneralUserViewComponent } from './backend/general-user-view/general-user-view.component';
 
 
 @NgModule({
@@ -80,7 +87,11 @@ import { BackendUserListComponent } from './layouts/backend-user-list/backend-us
     BackendDashboardComponent,
     AdminCreateComponent,
     BackendAdminListComponent,
-    BackendUserListComponent
+    BackendUserListComponent,
+    UserListComponent,
+    GeneralUserListComponent,
+    ListViewComponent,
+    GeneralUserViewComponent
   ],
   imports: [
     BrowserModule,
@@ -92,9 +103,12 @@ import { BackendUserListComponent } from './layouts/backend-user-list/backend-us
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true},
@@ -118,6 +132,7 @@ import { BackendUserListComponent } from './layouts/backend-user-list/backend-us
         ]
       } as SocialAuthServiceConfig,
     }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ListViewComponent, GeneralUserViewComponent]
 })
 export class AppModule { }

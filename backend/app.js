@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const multer = require('multer');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongodb.net/Tunein?retryWrites=true&w=majority')
   .then(()=>{
@@ -15,8 +17,31 @@ mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongod
 const User = require('./models/users');
 const Admin = require('./models/admins');
 
+const MIME_TYPE_MAP = {
+  'image/png' : 'png',
+  'image/jpeg' : 'jpg',
+  'image/jpg' : 'jpg'
+};
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) =>{
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error("Invalid mime type");
+    if(isValid){
+      error = null;
+    }
+    cb(error, "src/assets/backend/image/user-image");
+  },
+  filename: (req,file,cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name+'-'+Date.now()+'.'+ext);
+  }
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use("/image/user-image/", express.static(path.join("src/assets/backend/image/user-image/")));
 
 app.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Origin','*');
@@ -59,8 +84,22 @@ app.post('/api/social/users',(req,res,next)=>{
 });
 
 app.get('/api/users',(req, res, next)=>{
-  res.status(200).json({
-    message: "Posts fetched successfully",
+  User.find()
+    .then(documents=>{
+      console.log(documents);
+      res.status(200).json({
+        message: "Users Listed Successfully",
+        users: documents
+      });
+    });
+});
+
+app.delete("/api/users/:id",(req,res,next)=>{
+  User.deleteOne({_id: req.params.id}).then(result=>{
+    console.log(result);
+    res.status(200).json({
+      message:"User Deleted"
+    });
   });
 });
 
@@ -86,7 +125,9 @@ app.post('/api/users/login',(req,res,next)=>{
         {expiresIn: '1h'});
       res.status(200).json({
         token: token,
-        expiresIn: 3600
+        expiresIn: 3600,
+        currentUser: fetchedUser.name,
+        currentEmail: fetchedUser.email
       });
     })
     .catch(err=>{
@@ -111,18 +152,22 @@ app.post('/api/social/users/login',(req,res,next)=>{
         {expiresIn: '1h'});
       res.status(200).json({
         token: token,
-        expiresIn: 3600
+        expiresIn: 3600,
+        currentUser: fetchedUser.name,
+        currentEmail: fetchedUser.email
       });
     });
 });
 
-app.post('/api/admins',(req,res,next)=>{
+app.post('/api/admins', multer({storage: storage}).single("image"),(req,res,next)=>{
   bcrypt.hash(req.body.password, 10)
     .then(hash=> {
+      const url = req.protocol + '://' + req.get("host");
       const admin = new Admin({
         name: req.body.name,
         email: req.body.email,
         address: req.body.address,
+        imagePath: url + "/image/user-image/" + req.file.filename,
         password: hash
       });
       admin.save()
@@ -174,7 +219,8 @@ app.post('/api/admins/login',(req,res,next)=>{
         {expiresIn: '1h'});
       res.status(200).json({
         token: token,
-        expiresIn: 3600
+        expiresIn: 3600,
+        currentAdmin: fetchedAdmin.name
       });
     })
     .catch(err=>{
@@ -194,14 +240,20 @@ app.delete("/api/admins/:id",(req,res,next)=>{
   });
 });
 
-app.put("/api/admins/:id",(req,res,next)=>{
+app.put("/api/admins/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
   bcrypt.hash(req.body.password, 10)
     .then(hash=> {
+      let imagePath = req.body.imagePath;
+      if(req.file){
+        const url = req.protocol + '://' + req.get("host");
+        imagePath = url + "/image/user-image/" + req.file.filename;
+      }
       const admin = new Admin({
         _id:req.body.id,
         name: req.body.name,
         email: req.body.email,
         address: req.body.address,
+        imagePath: imagePath,
         password: hash
       });
       Admin.updateOne({_id:req.params.id}, admin)
