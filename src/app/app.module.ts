@@ -55,6 +55,16 @@ import { UserListComponent } from './backend/user-list/user-list.component';
 import { GeneralUserListComponent } from './layouts/general-user-list/general-user-list.component';
 import { ListViewComponent } from './backend/list-view/list-view.component';
 import { GeneralUserViewComponent } from './backend/general-user-view/general-user-view.component';
+import { ProfileModalComponent } from './frontend/profile-modal/profile-modal.component';
+import { AlbumCreateComponent } from './backend/album-create/album-create.component';
+import { AlbumViewComponent } from './backend/album-view/album-view.component';
+import { AlbumListComponent } from './backend/album-list/album-list.component';
+import { CreateAlbumComponent } from './layouts/create-album/create-album.component';
+import { ViewAlbumComponent } from './layouts/view-album/view-album.component';
+import { LanguageCreateComponent } from './backend/language-create/language-create.component';
+import { LanguageViewComponent } from './backend/language-view/language-view.component';
+import { CreateLanguageComponent } from './layouts/create-language/create-language.component';
+import { ViewLanguageComponent } from './layouts/view-language/view-language.component';
 
 
 @NgModule({
@@ -91,7 +101,17 @@ import { GeneralUserViewComponent } from './backend/general-user-view/general-us
     UserListComponent,
     GeneralUserListComponent,
     ListViewComponent,
-    GeneralUserViewComponent
+    GeneralUserViewComponent,
+    ProfileModalComponent,
+    AlbumCreateComponent,
+    AlbumViewComponent,
+    AlbumListComponent,
+    CreateAlbumComponent,
+    ViewAlbumComponent,
+    LanguageCreateComponent,
+    LanguageViewComponent,
+    CreateLanguageComponent,
+    ViewLanguageComponent
   ],
   imports: [
     BrowserModule,

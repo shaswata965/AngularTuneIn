@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import{UserService} from "../service/user.service";
 import {Subscription} from "rxjs";
 import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import {mimeType} from "../../backend/admin-signup/signup/mime-type.validator";
 
 
 @Component({
@@ -22,9 +23,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public subMenuTwo =true;
   public currentUser: string | null;
   public firstName: string | null;
+  public currentImage: string | null;
 
   form : FormGroup;
   logForm: FormGroup;
+  imagePreview: string | ArrayBuffer | null;
 
   constructor(public userService: UserService, private socialAuthService: SocialAuthService) { }
 
@@ -32,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if(this.form.invalid){
       return;
     }
-    this.userService.addUser(this.form.value.name, this.form.value.email, this.form.value.password);
+    this.userService.addUser(this.form.value.name, this.form.value.email, this.form.value.password, this.form.value.image);
     this.form.reset();
     $('#register_modal_closer').click();
   }
@@ -41,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
-      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email);
+      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email, this.socialUser.photoUrl);
     });
     $('#register_modal_closer').click();
   }
@@ -50,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
-      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email);
+      this.userService.addSocialUser(this.socialUser.name, this.socialUser.email, this.socialUser.photoUrl);
     });
     $('#register_modal_closer').click();
   }
@@ -88,7 +91,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       'name': new FormControl(null, {validators: [Validators.required]}),
       'email': new FormControl(null,{validators:[Validators.required]}),
-      'password': new FormControl(null,{validators:[Validators.required]})
+      'password': new FormControl(null,{validators:[Validators.required]}),
+      'image': new FormControl(null,{validators: [Validators.required], asyncValidators: [mimeType]})
     });
 
 
@@ -98,6 +102,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
     this.currentUser = this.userService.getThisUser().currentUser;
+    this.currentImage = this.userService.getThisUser().currentImage;
     let name = ""+this.currentUser;
     let nameArray = [];
     nameArray = name.split(" ");
@@ -108,7 +113,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;
     });
+  }
 
+  onImagePicked(event: Event){
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image')?.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(file);
   }
 
   ngOnDestroy(){

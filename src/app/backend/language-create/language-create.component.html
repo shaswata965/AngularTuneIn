@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        Create Language
+      </h1>
+      <p class="mat-body-1 login-card-description"> Create New Language </p>
+      <form [formGroup]="form" (submit)="createLanguage()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Language Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Language Name" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          Create Language
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+

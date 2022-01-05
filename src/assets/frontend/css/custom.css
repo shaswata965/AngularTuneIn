@@ -740,8 +740,11 @@
   box-shadow: 0 0 3px 1px #fa5b41;
 }
 
-.user-dash-image img{
+.user-dash-image button{
   margin-left: 36%;
+}
+
+.user-dash-image button img{
   height:250px;
   width: 250px;
   border: 2px solid #fa5b41;

@@ -78,6 +78,46 @@
         </li>
       </ul>
     </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="albumMenu = !albumMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Albums
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="albumMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-album">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Create Album
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-album">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Albums List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-compact-disc"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 <!--/ sidebar  -->
@@ -169,7 +209,7 @@
               </li>
             </div>
             <div class="profile_info">
-              <img src="assets/backend/image/client_img.png" alt="#">
+              <img [src]="currentAdminImage" [alt]="currentAdminName">
               <div class="profile_info_iner">
                 <div class="profile_author_name">
                   <p>Super Admin</p>

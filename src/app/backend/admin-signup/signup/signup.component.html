@@ -2,9 +2,9 @@
   <div class="col-md-6 col-sm-8">
     <mat-card class="login-card">
       <h1 class="login-card-heading">
-        Create Admin
+        {{mode}} Admin
       </h1>
-      <p class="mat-body-1 login-card-description"> Create New Admin </p>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Admin </p>
       <form [formGroup]="form" (submit)="createAdmin()">
       <mat-form-field class="login-card-fields">
         <mat-label>Username :</mat-label>
@@ -33,7 +33,7 @@
           mat-raised-button
           color="primary"
           class="login-card-button" type="submit">
-          Create Admin
+          {{mode}} Admin
         </button>
       </form>
     </mat-card>

@@ -33,3 +33,7 @@
   margin-top: 25px;
   font-size: 18px!important
 }
+
+.invisible-file-picker{
+  visibility: hidden;
+}

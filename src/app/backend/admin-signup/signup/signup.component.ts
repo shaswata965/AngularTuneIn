@@ -4,7 +4,6 @@ import {AdminService} from "../../../frontend/service/admin.service";
 import {ActivatedRoute} from "@angular/router";
 import {Admin} from "../../../frontend/models/admin.model";
 import {mimeType} from "./mime-type.validator";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +14,7 @@ export class SignupComponent implements OnInit{
   public notificationBell = true;
   public sidebarMenu = false;
   public adminMenu = true;
-  private mode = "create";
+  public mode = "Create";
   private adminId: string | null;
   public admin: Admin;
 
@@ -35,7 +34,7 @@ export class SignupComponent implements OnInit{
     });
     this.route.paramMap.subscribe((paramMap)=>{
       if(paramMap.has('adminId')){
-        this.mode="edit";
+        this.mode="Edit";
         this.adminId = paramMap.get('adminId');
         this.adminService.getEditAdmin(this.adminId).subscribe(adminData=>{
           this.admin = {id:adminData._id, name:adminData.name,  address:adminData.address, email:adminData.email, password:adminData.password, imagePath: adminData.imagePath};
@@ -49,7 +48,7 @@ export class SignupComponent implements OnInit{
           });
         });
       }else{
-        this.mode = "create";
+        this.mode = "Create";
         this.adminId = null;
       }
     });
@@ -59,7 +58,7 @@ export class SignupComponent implements OnInit{
       if(this.form.invalid){
         return
       }
-      if(this.mode==='create'){
+      if(this.mode==='Create'){
         this.adminService.addAdmin(this.form.value.name, this.form.value.address, this.form.value.email, this.form.value.password, this.form.value.image);
       }else{
        this.adminService.updateAdmin(this.adminId,this.form.value.name, this.form.value.address, this.form.value.email, this.form.value.password, this.form.value.image )

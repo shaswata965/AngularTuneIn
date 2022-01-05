@@ -13,8 +13,10 @@ export class BackendHeaderComponent implements OnInit {
   public sidebarMenu = false;
   public adminMenu = true;
   public userMenu = true;
+  public albumMenu = true;
 
   public currentAdminName : string | null;
+  public currentAdminImage : string | null;
 
   constructor(public adminService: AdminService) {}
 
@@ -24,9 +26,10 @@ export class BackendHeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.currentAdminName = this.adminService.getThisAdmin();
+    this.currentAdminName = this.adminService.getThisAdmin().currentAdmin;
+    this.currentAdminImage = this.adminService.getThisAdmin().currentAdminImage;
 
-    console.log(this.currentAdminName);
+    console.log(this.currentAdminImage);
 
     let ctx = document.getElementById("page_view");
     // @ts-ignore

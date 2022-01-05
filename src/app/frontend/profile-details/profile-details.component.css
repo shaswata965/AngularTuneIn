@@ -1,0 +1,7 @@
+.btn-no-shadow-user:active{
+box-shadow: none!important;
+}
+
+.btn-no-shadow-user:focus{
+  box-shadow: none!important;
+}

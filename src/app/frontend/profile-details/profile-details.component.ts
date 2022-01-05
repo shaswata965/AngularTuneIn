@@ -10,6 +10,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   public currentUser: string | null;
   public currentEmail: string | null;
+  public currentImage: string | null;
   public firstName: string | null;
 
   constructor(public userService: UserService ) { }
@@ -23,6 +24,7 @@ export class ProfileDetailsComponent implements OnInit {
     let firstName = firstNameString.replace(/"/g,"");
     this.firstName = firstName;
     this.currentEmail = this.userService.getThisUser().currentEmail;
+    this.currentImage = this.userService.getThisUser().currentImage;
   }
 
 }

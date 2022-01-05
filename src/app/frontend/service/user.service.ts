@@ -3,7 +3,6 @@ import {User} from "../models/user.model";
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {localizedString} from "@angular/compiler/src/output/output_ast";
 import {map} from "rxjs/operators";
 
 @Injectable({
@@ -34,7 +33,8 @@ export class UserService {
         return{
           name: user.name,
           email: user.email,
-          id: user._id
+          id: user._id,
+          imagePath: user.imagePath
         };
       });
     }))
@@ -61,10 +61,12 @@ export class UserService {
   getThisUser(){
     const currentUser = this.getCurrentUser().currentUser;
     const currentEmail = this.getCurrentUser().currentEmail;
+    const currentImage = this.getCurrentUser().currentImage;
     console.log(currentUser);
     return {
       currentUser: currentUser,
-      currentEmail: currentEmail
+      currentEmail: currentEmail,
+      currentImage: currentImage
     }
   }
 
@@ -88,22 +90,24 @@ export class UserService {
     return this.authStatusListener.asObservable();
   }
 
-  addUser(name: string, email:string, password:string){
+  addUser(name: string, email:string, password:string, image: File){
     // @ts-ignore
-    const user: User = { id: null, name: name, email: email, password: password};
-    this.http.post<{message: string}>('http://localhost:3000/api/users', user)
+    const userData = new FormData();
+    userData.append('name', name);
+    userData.append('email',email);
+    userData.append('password',password);
+    userData.append('image', image, name);
+    this.http.post<{message: string}>('http://localhost:3000/api/users', userData)
       .subscribe((responseData)=>{
         console.log(responseData.message);
         this.router.navigate(['/']);
       });
-    this.users.push(user);
-    this.userUpdated.next([...this.users]);
   }
 
-  addSocialUser(name: string, email:string){
+  addSocialUser(name: string, email:string, image:string){
     // @ts-ignore
-    const user: User = { name: name, email: email};
-    this.http.post<{message: string}>('http://localhost:3000/api/social/users', user)
+    const user: User = { name: name, email: email, image:image};
+    this.http.post<{message: string}>('http://localhost:3000/api/users/social', user)
       .subscribe((responseData)=>{
         this.router.navigate(['/']);
       });
@@ -112,7 +116,7 @@ export class UserService {
   logIn(email:string, password:string){
     // @ts-ignore
     const user: User = { email: email, password: password};
-    this.http.post<{token: string, expiresIn:number, currentUser:string,currentEmail:string}>('http://localhost:3000/api/users/login', user)
+    this.http.post<{token: string, expiresIn:number, currentUser:string,currentEmail:string, currentImage: string}>('http://localhost:3000/api/users/login', user)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
@@ -121,11 +125,12 @@ export class UserService {
           this.setAuthTimer(expiresInDuration);
           const currentUser = response.currentUser;
           const currentEmail = response.currentEmail;
+          const currentImage = response.currentImage;
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, currentUser, currentEmail);
+          this.saveAuthData(token, expirationDate, currentUser, currentEmail,currentImage);
           this.router.navigate(['/profile']);
         }
       });
@@ -134,7 +139,7 @@ export class UserService {
   socialLogIn(email:string){
     // @ts-ignore
     const user: User = { email: email};
-    this.http.post<{token: string, expiresIn:number, currentUser:string, currentEmail:string}>('http://localhost:3000/api/social/users/login', user)
+    this.http.post<{token: string, expiresIn:number, currentUser:string, currentEmail:string, currentImage: string}>('http://localhost:3000/api/users/social/login', user)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
@@ -143,11 +148,12 @@ export class UserService {
           this.setAuthTimer(expiresInDuration);
           const currentUser = response.currentUser;
           const currentEmail = response.currentEmail;
+          const currentImage = response.currentImage;
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, currentUser, currentEmail);
+          this.saveAuthData(token, expirationDate, currentUser, currentEmail, currentImage);
           this.router.navigate(['/profile']);
         }
       });
@@ -185,11 +191,12 @@ export class UserService {
     }, duration*1000);
   }
 
-  private saveAuthData(token:string, expirationDate: Date, currentUser:string, currentEmail:string){
+  private saveAuthData(token:string, expirationDate: Date, currentUser:string, currentEmail:string, currentImage:string){
     localStorage.setItem('token',token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('currentUser', currentUser);
     localStorage.setItem('currentEmail', currentEmail);
+    localStorage.setItem('currentImage', currentImage);
   }
 
   private clearAuthData(){
@@ -197,14 +204,17 @@ export class UserService {
     localStorage.removeItem('expiration');
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentEmail');
+    localStorage.removeItem('currentImage');
   }
 
   private getCurrentUser(){
     const currentUser = localStorage.getItem('currentUser');
     const currentEmail = localStorage.getItem('currentEmail');
+    const currentImage = localStorage.getItem('currentImage');
     return{
       currentUser: currentUser,
-      currentEmail: currentEmail
+      currentEmail: currentEmail,
+      currentImage: currentImage
     }
   }
 

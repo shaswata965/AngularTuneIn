@@ -212,3 +212,8 @@
   cursor: pointer;
   display: block!important;
 }
+
+.profile_info img{
+  height:42px!important;
+  width:42px!important;
+}

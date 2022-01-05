@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Album
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Album </p>
+      <form [formGroup]="form" (submit)="createAlbum()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Album Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Album Name" />
+        </mat-form-field>
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
+          <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="admin-image-preview" *ngIf="imagePreview !== '' && imagePreview">
+          <img [src]="imagePreview" [alt]="form.value.name" />
+        </div>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Album Description :</mat-label>
+          <textarea type="text" formControlName="description" matInput rows="2" placeholder="Ex: Current Address" ></textarea>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Music Composer :</mat-label>
+          <input type="text" formControlName="composer" matInput placeholder="Ex: Music Composer Name" />
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Lyricists :</mat-label>
+          <input type="text" formControlName="lyricist"  matInput placeholder="Ex: Name Of Lyricists Seperated By Comma" />
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Release Date :</mat-label>
+          <input type="text" formControlName="release"  matInput placeholder="Ex: Release Date DD/MM/YYYY" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Album
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

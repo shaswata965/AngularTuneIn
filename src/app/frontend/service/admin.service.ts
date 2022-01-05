@@ -48,8 +48,11 @@ export class AdminService{
 
   getThisAdmin(){
     const currentAdmin = this.getCurrentAdmin().currentAdmin;
-    console.log(currentAdmin);
-    return currentAdmin;
+    const currentAdminImage = this.getCurrentAdmin().currentAdminImage;
+    return {
+      currentAdmin: currentAdmin,
+      currentAdminImage: currentAdminImage
+    };
   }
 
   addModalAdmin(admin: any){
@@ -134,19 +137,20 @@ export class AdminService{
   logIn(email:string, password:string){
     // @ts-ignore
     const admin: Admin = { email: email, password: password};
-    this.http.post<{token: string, expiresIn: number, currentAdmin: string}>('http://localhost:3000/api/admins/login', admin)
+    this.http.post<{token: string, expiresIn: number, currentAdmin: string, currentAdminImage:string}>('http://localhost:3000/api/admins/login', admin)
       .subscribe((response)=>{
         const token = response.token;
         this.token = token;
         if(token){
           const expiresInDuration = response.expiresIn;
           const currentAdmin = response.currentAdmin;
+          const currentAdminImage = response.currentAdminImage;
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, currentAdmin);
+          this.saveAuthData(token, expirationDate, currentAdmin, currentAdminImage);
           this.router.navigate(['/backend-home']);
         }
       });
@@ -187,22 +191,26 @@ export class AdminService{
   }
 
 
-  private saveAuthData(token:string, expirationDate: Date, currentAdmin: string){
+  private saveAuthData(token:string, expirationDate: Date, currentAdmin: string, currentAdminImage: string){
     localStorage.setItem('token',token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('currentAdmin', currentAdmin);
+    localStorage.setItem('currentAdminImage',currentAdminImage);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('currentAdmin');
+    localStorage.removeItem('currentAdminImage');
   }
 
   private getCurrentAdmin(){
     const currentAdmin = localStorage.getItem('currentAdmin');
+    const currentAdminImage = localStorage.getItem('currentAdminImage');
     return{
-      currentAdmin: currentAdmin
+      currentAdmin: currentAdmin,
+      currentAdminImage: currentAdminImage
     }
   }
 

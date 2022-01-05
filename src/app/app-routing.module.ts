@@ -10,6 +10,10 @@ import { BackendLoginComponent } from "./backend/backend-login/backend-login.com
 import { AdminCreateComponent } from "./layouts/admin-create/admin-create.component";
 import { BackendUserListComponent } from "./layouts/backend-user-list/backend-user-list.component";
 import {GeneralUserListComponent} from "./layouts/general-user-list/general-user-list.component";
+import { CreateAlbumComponent } from "./layouts/create-album/create-album.component";
+import {ViewAlbumComponent} from "./layouts/view-album/view-album.component";
+import { CreateLanguageComponent } from "./layouts/create-language/create-language.component";
+import { ViewLanguageComponent } from "./layouts/view-language/view-language.component";
 import {AuthGuard} from "./frontend/auth/auth.guard";
 import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
 
@@ -62,6 +66,26 @@ const routes: Routes = [
   {
     path:"user-list",
     component:GeneralUserListComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-album",
+    component:CreateAlbumComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-album",
+    component:ViewAlbumComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-language",
+    component:CreateLanguageComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-language",
+    component:ViewLanguageComponent,
     canActivate: [BackAuthGuard]
   },
 ];
