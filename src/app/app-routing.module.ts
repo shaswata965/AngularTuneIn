@@ -16,6 +16,7 @@ import { CreateLanguageComponent } from "./layouts/create-language/create-langua
 import { ViewLanguageComponent } from "./layouts/view-language/view-language.component";
 import {AuthGuard} from "./frontend/auth/auth.guard";
 import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
+import {CreateActorComponent} from "./layouts/create-actor/create-actor.component";
 
 const routes: Routes = [
   {
@@ -79,6 +80,11 @@ const routes: Routes = [
     canActivate: [BackAuthGuard]
   },
   {
+    path:"edit-album/:albumId",
+    component:CreateAlbumComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
     path:"create-language",
     component:CreateLanguageComponent,
     canActivate: [BackAuthGuard]
@@ -86,6 +92,16 @@ const routes: Routes = [
   {
     path:"view-language",
     component:ViewLanguageComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-language/:languageId",
+    component:CreateLanguageComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-actor",
+    component:CreateActorComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartsModule } from "ng2-charts";
 import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
@@ -15,6 +16,8 @@ import { MatButtonModule } from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +68,9 @@ import { LanguageCreateComponent } from './backend/language-create/language-crea
 import { LanguageViewComponent } from './backend/language-view/language-view.component';
 import { CreateLanguageComponent } from './layouts/create-language/create-language.component';
 import { ViewLanguageComponent } from './layouts/view-language/view-language.component';
+import { LanguageListComponent } from './backend/language-list/language-list.component';
+import { ActorCreateComponent } from './backend/actor-create/actor-create.component';
+import { CreateActorComponent } from './layouts/create-actor/create-actor.component';
 
 
 @NgModule({
@@ -111,7 +117,10 @@ import { ViewLanguageComponent } from './layouts/view-language/view-language.com
     LanguageCreateComponent,
     LanguageViewComponent,
     CreateLanguageComponent,
-    ViewLanguageComponent
+    ViewLanguageComponent,
+    LanguageListComponent,
+    ActorCreateComponent,
+    CreateActorComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +137,10 @@ import { ViewLanguageComponent } from './layouts/view-language/view-language.com
     SocialLoginModule,
     MatDialogModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatOptionModule,
+    FormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true},
@@ -153,6 +165,6 @@ import { ViewLanguageComponent } from './layouts/view-language/view-language.com
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent]
+  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent]
 })
 export class AppModule { }

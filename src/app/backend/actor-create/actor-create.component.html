@@ -2,9 +2,9 @@
   <div class="col-md-6 col-sm-8">
     <mat-card class="login-card">
       <h1 class="login-card-heading">
-        {{mode}} Album
+        {{mode}} Actor
       </h1>
-      <p class="mat-body-1 login-card-description"> {{mode}} This Album </p>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Actor </p>
       <div class="row justify-content-between modal-top-row">
         <div class="col-6">
           <mat-form-field class="login-card-fields">
@@ -27,11 +27,11 @@
         class="login-card-button pt-10" (click)="resetForm()">
         Reset Form
       </button>
-      <form [formGroup]="form" (submit)="createAlbum()">
-            <mat-form-field class="login-card-fields">
-              <mat-label>Album Name :</mat-label>
-              <input type="text" formControlName="name" matInput placeholder="Ex: Album Name" />
-            </mat-form-field>
+      <form [formGroup]="form" (submit)="createActor()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Actor Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Actor Name" />
+        </mat-form-field>
         <div>
           <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
           <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
@@ -40,39 +40,30 @@
           <img [src]="imagePreview" [alt]="form.value.name" />
         </div>
         <mat-form-field class="login-card-fields">
-          <mat-label>Album Language</mat-label>
-          <mat-select formControlName="language">
-            <mat-option *ngFor="let language of languages"
-            [value]="language.id">
-              {{language.name}}
-            </mat-option>
-          </mat-select>
+          <mat-label>Actor Description :</mat-label>
+          <textarea type="text" formControlName="description" matInput rows="2" placeholder="Ex: Actor Description" ></textarea>
         </mat-form-field>
         <mat-form-field class="login-card-fields">
-          <mat-label>Album Description :</mat-label>
-          <textarea type="text" formControlName="description" matInput rows="2" placeholder="Ex: Current Address" ></textarea>
+          <mat-label>Actor Awards :</mat-label>
+          <textarea type="text" formControlName="awards" matInput rows="2" placeholder="Ex: Actor Awards" ></textarea>
         </mat-form-field>
         <mat-form-field class="login-card-fields">
-          <mat-label>Music Composer :</mat-label>
-          <input type="text" formControlName="composer" matInput placeholder="Ex: Music Composer Name" />
+          <mat-label>Actor Role :</mat-label>
+          <input type="text" formControlName="role" matInput placeholder="Ex: Actor Roles" />
         </mat-form-field>
         <mat-form-field class="login-card-fields">
-          <mat-label>Casts :</mat-label>
-          <textarea type="text" formControlName="cast"  matInput rows="2" placeholder="Ex: Name Of Cast Seperated By Comma"></textarea>
+          <mat-label>Birthdate :</mat-label>
+          <input type="text" formControlName="birth"  matInput placeholder="Ex: Birth Date DD/MM/YYYY" />
         </mat-form-field>
         <mat-form-field class="login-card-fields">
-          <mat-label>Release Date :</mat-label>
-          <input type="text" formControlName="release"  matInput placeholder="Ex: Release Date DD/MM/YYYY" />
-        </mat-form-field>
-        <mat-form-field class="login-card-fields">
-          <mat-label>Release Year :</mat-label>
-          <input type="text" formControlName="year"  matInput placeholder="Ex: Release Year" />
+          <mat-label>Deathdate :</mat-label>
+          <input type="text" formControlName="death"  matInput placeholder="Ex: Death Date DD/MM/YYYY" />
         </mat-form-field>
         <button
           mat-raised-button
           color="primary"
           class="login-card-button" type="submit">
-          {{mode}} Album
+          {{mode}} Actor
         </button>
       </form>
     </mat-card>

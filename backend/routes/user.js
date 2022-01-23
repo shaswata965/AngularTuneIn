@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const path = require('path');
 
 const User = require('../models/users');
 
@@ -14,8 +13,6 @@ const MIME_TYPE_MAP = {
 };
 
 const router = express.Router();
-
-router.use("/image/userImage/", express.static(path.join("src/assets/frontend/image/userImage/")));
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));

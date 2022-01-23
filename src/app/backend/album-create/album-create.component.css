@@ -38,3 +38,8 @@
   height: 100%;
   border-radius: 10px;
 }
+
+.modal-top-row{
+  width:100%!important;
+}
+

@@ -3,7 +3,10 @@ export interface Album{
   name: string;
   description: string;
   composer: string;
-  lyricist: string;
+  cast: string;
+  castLink: string;
   release: string;
+  year: string;
+  language: string;
   imagePath: string;
 }

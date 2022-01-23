@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const mongoose = require('mongoose');
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
 const albumRoutes = require("./routes/album");
+const languageRoutes = require("./routes/language");
+const actorRoutes = require("./routes/actor");
 
 mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongodb.net/Tunein?retryWrites=true&w=majority')
   .then(()=>{
@@ -12,6 +15,11 @@ mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongod
   }).catch(()=>{
     console.log("Connection Failure");
 });
+
+app.use("/image/user-image/", express.static(path.join("src/assets/backend/image/user-image/")));
+app.use("/image/album/", express.static(path.join("src/assets/frontend/image/album/")));
+app.use("/image/userImage/", express.static(path.join("src/assets/frontend/image/userImage/")));
+app.use("/image/actorImage/", express.static(path.join("src/assets/backend/image/actorImage/")));
 
 app.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Origin','*');
@@ -23,5 +31,7 @@ app.use((req,res,next)=>{
 app.use("/api/users", userRoutes);
 app.use("/api/admins", adminRoutes);
 app.use("/api/albums", albumRoutes);
+app.use("/api/languages", languageRoutes);
+app.use("/api/actors", actorRoutes);
 
 module.exports= app;

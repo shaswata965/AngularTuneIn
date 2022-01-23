@@ -1,10 +1,10 @@
 const express = require('express');
 const multer = require('multer');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const path = require('path');
+const fetch = require('cross-fetch');
 
 const Album = require('../models/albums');
+const Language = require('../models/languages');
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -13,8 +13,6 @@ const MIME_TYPE_MAP = {
 };
 
 const router = express.Router();
-
-router.use("/image/album/", express.static(path.join("src/assets/frontend/image/album/")));
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
@@ -35,14 +33,28 @@ const storage = multer.diskStorage({
   }
 });
 
+router.get('',(req,res,next)=>{
+  Album.find()
+    .then(documents=>{
+      console.log(documents);
+      res.status(200).json({
+        message: "Albums Listed Successfully",
+        albums: documents
+      });
+    });
+});
+
 router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
       const url = req.protocol + '://' + req.get("host");
       const album = new Album({
         name: req.body.name,
         description: req.body.description,
         composer: req.body.composer,
-        lyricist: req.body.lyricist,
+        cast: req.body.cast,
+        castLink: req.body.castLink,
         release: req.body.release,
+        year: req.body.year,
+        language: req.body.language,
         imagePath: url + "/image/album/" + req.file.filename,
       });
       album.save()
@@ -71,8 +83,10 @@ router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
         name: req.body.name,
         description: req.body.description,
         composer: req.body.composer,
-        lyricist: req.body.lyricist,
+        cast: req.body.cast,
+        castLink: req.body.castLink,
         release: req.body.release,
+        year: req.body.year,
         imagePath: imagePath,
       });
       Album.updateOne({_id:req.params.id}, album)
@@ -87,6 +101,72 @@ router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
             error: err
           });
         });
+});
+
+router.get('/:id',(req,res,next)=>{
+  Album.findById(req.params.id)
+    .then(album=>{
+    if(album){
+      res.status(200).json(album);
+    }else{
+      res.status(404).json({
+        message:"Album not Found"
+      });
+    }
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get('/modal/:id',(req,res,next)=>{
+  Language.findById(req.params.id).then(name=>{
+    if(name){
+      res.status(200).json(name.name);
+    }else{
+      res.status(404).json({
+        message:"Language not Found"
+      });
+    }
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+
+router.delete("/:id",(req,res,next)=>{
+  Album.deleteOne({_id: req.params.id}).then(result=>{
+    console.log(result);
+    res.status(200).json({
+      message:"Album Deleted"
+    });
+  }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get("/imdb/:name",(req,res,next)=>{
+  let baseURL = "https://imdb-api.com/en/API/Title/";
+  let APIKEY = "k_0g5b61co/"
+  let overURL = baseURL.concat(APIKEY,req.params.name);
+
+  fetch(overURL)
+    .then(response => response.json())
+    .then(data=>{
+      res.status(200).json({
+        message:" Movie Data Successfully Found ",
+        movieData: data
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
 });
 
 module.exports = router;

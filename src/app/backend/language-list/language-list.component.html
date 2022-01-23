@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <mat-toolbar>
+    <div class="row justify-content-between modal-top-row">
+      <div class="col-4">
+    <span>
+      <h4 class="text-center card-title">Language Details</h4>
+    </span>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-block btn-inverse-danger"  (click)="onClose()" tabindex="-1"><i class="far fa-window-close"></i></button>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div class="card">
+    <div class="card-body shadow-sm">
+      <table class="table table-striped table-responsive-lg table-bordered table-hover mt-20">
+        <thead>
+        <tr>
+          <th class="text-center">Field Name</th>
+          <th class="text-center">Field Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">Language Name</td>
+          <td class="text-center">{{languageDetails.name}}</td>
+        </tr>
+        <tr>
+          <td class="text-center">Albums</td>
+          <td class="text-center" *ngFor="let language of languageAlbum; last as isLast"><span>{{language}}</span><ng-container *ngIf="!isLast"></ng-container></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

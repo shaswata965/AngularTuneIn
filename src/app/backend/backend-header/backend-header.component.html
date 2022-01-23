@@ -118,6 +118,86 @@
         </li>
       </ul>
     </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="languageMenu = !languageMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Languages
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="languageMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-language">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Add Language
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-language">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Language List
+               </div>
+              <div class="col-3">
+                <i class="fas fa-language"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="actorMenu = !actorMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Actors
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="actorMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-actor">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Add Actor
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-language">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Actor List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-user-tie"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 <!--/ sidebar  -->

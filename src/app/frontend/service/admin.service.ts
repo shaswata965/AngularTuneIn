@@ -20,7 +20,6 @@ export class AdminService{
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private modalAdmin: any | null;
-  private modalAdminUpdated = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
