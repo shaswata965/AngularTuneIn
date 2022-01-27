@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {AlbumService} from "../../frontend/service/album.service";
 import {Subscription} from "rxjs";
-import {User} from "../../frontend/models/user.model";
 
 @Component({
   selector: 'app-album-list',

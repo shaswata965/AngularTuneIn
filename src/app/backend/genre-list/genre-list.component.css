@@ -1,0 +1,15 @@
+.modal-top-row{
+  width:100%!important;
+}
+
+.list-view-image{
+  height: 6rem;
+  width: 6rem;
+  border-radius: 5px;
+  margin: 5px 0 5px 0;
+}
+
+.container-fluid{
+  overflow-y: auto!important;
+  height: 60vh!important;
+}

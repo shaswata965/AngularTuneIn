@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+  <div class="col-md-10 col-sm-8">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading text-center">
+        All Genres
+      </h1>
+      <p class="mat-body-1 login-card-description text-center"> List Of Every Genres </p>
+      <table class="table table-striped table-bordered table-hover mt-30">
+        <thead>
+        <tr>
+          <th class="text-center">SN.</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="genres.length > 0">
+        <tr *ngFor="let genre of genres; let i=index;">
+          <td class="text-center">{{ i + 1}}</td>
+          <td class="text-center">{{genre['name']}}</td>
+          <td>
+            <div class="row justify-content-around">
+              <div class="col-3">
+                <a [routerLink]="['/edit-genre',genre.id]" class="btn btn-inverse-success ml-4"><i class="fas fa-edit"></i></a>
+              </div>
+              <div class="col-3">
+                <button (click)="openViewModal(genre)" class="btn btn-inverse-info"><i class="fas fa-eye"></i></button>
+              </div>
+              <div class="col-3">
+                <button (click)="onDelete(genre.id)" class="btn btn-inverse-danger"><i class="fas fa-trash"></i></button>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="genres.length <= 0">
+          <td class="text-center">No Genres Created Yet</td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card>
+  </div>
+</div>
+
+
+
+

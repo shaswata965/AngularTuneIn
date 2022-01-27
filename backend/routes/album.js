@@ -5,6 +5,8 @@ const fetch = require('cross-fetch');
 
 const Album = require('../models/albums');
 const Language = require('../models/languages');
+const Artist = require('../models/artists');
+const Genre = require('../models/genres');
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -55,6 +57,8 @@ router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
         release: req.body.release,
         year: req.body.year,
         language: req.body.language,
+        artist: req.body.artist,
+        genre: req.body.genre,
         imagePath: url + "/image/album/" + req.file.filename,
       });
       album.save()
@@ -87,6 +91,9 @@ router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
         castLink: req.body.castLink,
         release: req.body.release,
         year: req.body.year,
+        language: req.body.language,
+        artist: req.body.artist,
+        genre: req.body.genre,
         imagePath: imagePath,
       });
       Album.updateOne({_id:req.params.id}, album)
@@ -120,20 +127,32 @@ router.get('/:id',(req,res,next)=>{
   });
 });
 
-router.get('/modal/:id',(req,res,next)=>{
-  Language.findById(req.params.id).then(name=>{
-    if(name){
-      res.status(200).json(name.name);
-    }else{
-      res.status(404).json({
-        message:"Language not Found"
+router.get('/modal/:id/:artist/:genre',async (req, res, next) => {
+  const albumDet = [];
+
+  Language.findById(req.params.id).then(name => {
+    albumDet.push(name.name);
+    Artist.findById(req.params.artist).then(artist => {
+      albumDet.push(artist.name);
+      Genre.findById(req.params.genre).then(genre => {
+        albumDet.push(genre.name);
+        res.status(200).json(albumDet);
+      }).catch(err => {
+        res.status(500).json({
+          error: err
+        });
       });
-    }
+    }).catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
   }).catch(err => {
     res.status(500).json({
       error: err
     });
   });
+
 });
 
 

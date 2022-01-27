@@ -17,6 +17,11 @@ import { ViewLanguageComponent } from "./layouts/view-language/view-language.com
 import {AuthGuard} from "./frontend/auth/auth.guard";
 import {BackAuthGuard} from "./frontend/auth/back-auth.guard";
 import {CreateActorComponent} from "./layouts/create-actor/create-actor.component";
+import {ViewActorComponent} from "./layouts/view-actor/view-actor.component";
+import {CreateArtistComponent} from "./layouts/create-artist/create-artist.component";
+import {ViewArtistComponent} from "./layouts/view-artist/view-artist.component";
+import {CreateGenreComponent} from "./layouts/create-genre/create-genre.component";
+import {ViewGenreComponent} from "./layouts/view-genre/view-genre.component";
 
 const routes: Routes = [
   {
@@ -102,6 +107,46 @@ const routes: Routes = [
   {
     path:"create-actor",
     component:CreateActorComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-actor/:actorId",
+    component:CreateActorComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-actor",
+    component:ViewActorComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-artist",
+    component:CreateArtistComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-artist/:artistId",
+    component:CreateArtistComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-artist",
+    component:ViewArtistComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-genre",
+    component:CreateGenreComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-genre/:genreId",
+    component:CreateGenreComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-genre",
+    component:ViewGenreComponent,
     canActivate: [BackAuthGuard]
   },
 ];

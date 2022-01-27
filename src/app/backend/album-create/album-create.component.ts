@@ -7,6 +7,10 @@ import {Album} from "../../frontend/models/album.model";
 import {Language} from "../../frontend/models/language.model";
 import {LanguageService} from "../../frontend/service/language.service";
 import {Subscription} from "rxjs";
+import {ArtistService} from "../../frontend/service/artist.service";
+import {Artist} from "../../frontend/models/artist.model";
+import {GenreService} from "../../frontend/service/genre.service";
+import {Genre} from "../../frontend/models/genre.model";
 
 @Component({
   selector: 'app-album-create',
@@ -24,6 +28,10 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
   public apiName: string;
   private infosSub: Subscription;
   public info: any | null;
+  artists: Artist[] = [];
+  public artistSub: Subscription;
+  genres: Genre[] = [];
+  public genresSub: Subscription;
 
   imdb: string ='';
   idString: string= '';
@@ -31,7 +39,7 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   imagePreview: string | ArrayBuffer | null;
 
-  constructor(public route: ActivatedRoute, public albumService:AlbumService, public languageService: LanguageService) { }
+  constructor(public route: ActivatedRoute, public albumService:AlbumService, public languageService: LanguageService, public artistService: ArtistService, public genreService: GenreService) { }
 
   ngOnInit(){
     this.form = new FormGroup({
@@ -42,6 +50,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       'release': new FormControl(null,{validators:[Validators.required]}),
       'year': new FormControl(null,{validators:[Validators.required]}),
       'language': new FormControl(null,{validators:[Validators.required]}),
+      'artist': new FormControl(null,{validators:[Validators.required]}),
+      'genre':new FormControl(null,{validators:[Validators.required]}),
       'image': new FormControl(null,{validators: [Validators.required], asyncValidators: [mimeType]})
     });
 
@@ -50,12 +60,22 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       this.languages = languages;
     });
 
+    this.artistService.getArtist();
+    this.artistSub = this.artistService.getArtistsUpdateListener().subscribe((artist:Artist[])=>{
+      this.artists = artist;
+    });
+
+    this.genreService.getGenre();
+    this.genresSub = this.genreService.getGenresUpdateListener().subscribe((genre:Genre[])=>{
+      this.genres = genre;
+    });
+
     this.route.paramMap.subscribe((paramMap)=>{
       if(paramMap.has('albumId')){
         this.mode="Edit";
         this.albumId = paramMap.get('albumId');
         this.albumService.getEditAlbum(this.albumId).subscribe(albumData=>{
-          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, composer:albumData.composer, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, castLink:albumData.castLink, imagePath: albumData.imagePath};
+          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, composer:albumData.composer, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, artist: albumData.artist, genre: albumData.genre, castLink:albumData.castLink, imagePath: albumData.imagePath};
           this.form.setValue({
             'name': this.album.name,
             'description': this.album.description,
@@ -64,6 +84,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
             'release': this.album.release,
             'year': this.album.year,
             'language': this.album.language,
+            'artist': this.album.artist,
+            'genre':this.album.genre,
             'image': this.album.imagePath
           });
         });
@@ -77,6 +99,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.languagesSub.unsubscribe();
+    this.artistSub.unsubscribe();
+    this.genresSub.unsubscribe();
   }
 
   createAlbum(){
@@ -84,9 +108,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       return
     }
     if(this.mode==='Create'){
-      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.idString, this.form.value.image);
+      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.idString, this.form.value.image);
     }else{
-      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.album.castLink, this.form.value.image )
+      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.album.castLink, this.form.value.image )
     }
     this.form.reset();
   }
@@ -131,6 +155,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
         'release': this.info.release,
         'year': this.info.year,
         'language': null,
+        'artist': null,
+        'genre': null,
         'image': null
       });
     });

@@ -8,5 +8,7 @@ export interface Album{
   release: string;
   year: string;
   language: string;
+  artist: string;
+  genre: string;
   imagePath: string;
 }

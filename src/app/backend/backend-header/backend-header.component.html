@@ -1,5 +1,5 @@
 <!-- sidebar  -->
-<nav [ngbCollapse]="sidebarMenu" class="sidebar vertical-scroll dark_sidebar  ps-container ps-theme-default ps-active-y">
+<nav [ngbCollapse]="sidebarMenu" class="sidebar vertical-scroll dark_sidebar overflow-auto  ps-container ps-theme-default ps-active-y">
   <div class="logo d-flex justify-content-between">
     <a href="index.html"><img src="assets/backend/image/icon/logo3.png" alt=""></a>
     <div class="sidebar_close_icon d-lg-none" (click)=" sidebarMenu = !sidebarMenu ">
@@ -185,10 +185,90 @@
           </a>
         </li>
         <li>
-          <a class="submenu-no-link" routerLink="/view-language">
+          <a class="submenu-no-link" routerLink="/view-actor">
             <div class="row justify-content-between">
               <div class="col-4">
                 Actor List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-user-tie"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="artistMenu = !artistMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Artists
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="artistMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-artist">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Add Artist
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-artist">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Artist List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-user-tie"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="genreMenu = !genreMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Genres
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="genreMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-genre">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Add Genre
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-genre">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Genre List
               </div>
               <div class="col-3">
                 <i class="fas fa-user-tie"></i>

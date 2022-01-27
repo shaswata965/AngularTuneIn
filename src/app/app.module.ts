@@ -71,6 +71,19 @@ import { ViewLanguageComponent } from './layouts/view-language/view-language.com
 import { LanguageListComponent } from './backend/language-list/language-list.component';
 import { ActorCreateComponent } from './backend/actor-create/actor-create.component';
 import { CreateActorComponent } from './layouts/create-actor/create-actor.component';
+import { ActorViewComponent } from './backend/actor-view/actor-view.component';
+import { ActorListComponent } from './backend/actor-list/actor-list.component';
+import { ViewActorComponent } from './layouts/view-actor/view-actor.component';
+import { ArtistCreateComponent } from './backend/artist-create/artist-create.component';
+import { CreateArtistComponent } from './layouts/create-artist/create-artist.component';
+import { ArtistViewComponent } from './backend/artist-view/artist-view.component';
+import { ViewArtistComponent } from './layouts/view-artist/view-artist.component';
+import { ArtistListComponent } from './backend/artist-list/artist-list.component';
+import { GenreCreateComponent } from './backend/genre-create/genre-create.component';
+import { GenreViewComponent } from './backend/genre-view/genre-view.component';
+import { GenreListComponent } from './backend/genre-list/genre-list.component';
+import { CreateGenreComponent } from './layouts/create-genre/create-genre.component';
+import { ViewGenreComponent } from './layouts/view-genre/view-genre.component';
 
 
 @NgModule({
@@ -120,7 +133,20 @@ import { CreateActorComponent } from './layouts/create-actor/create-actor.compon
     ViewLanguageComponent,
     LanguageListComponent,
     ActorCreateComponent,
-    CreateActorComponent
+    CreateActorComponent,
+    ActorViewComponent,
+    ActorListComponent,
+    ViewActorComponent,
+    ArtistCreateComponent,
+    CreateArtistComponent,
+    ArtistViewComponent,
+    ViewArtistComponent,
+    ArtistListComponent,
+    GenreCreateComponent,
+    GenreViewComponent,
+    GenreListComponent,
+    CreateGenreComponent,
+    ViewGenreComponent
   ],
   imports: [
     BrowserModule,
@@ -165,6 +191,6 @@ import { CreateActorComponent } from './layouts/create-actor/create-actor.compon
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent]
+  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent]
 })
 export class AppModule { }

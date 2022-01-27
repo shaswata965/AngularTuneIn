@@ -59,7 +59,6 @@ export class ActorCreateComponent implements OnInit {
 
       }
     });
-
   }
 
   onImagePicked(event: Event){
@@ -89,35 +88,22 @@ export class ActorCreateComponent implements OnInit {
 
   linkDecipher(val:any){
     let firstArray = val.split("/");
-    // this.actorService.searchForActor(firstArray[4]);
-    // this.infosSub = this.actorService.getInfoUpdateListener().subscribe(response=>{
-    //   this.info = {name: response.title, description: response.plot, cast: response.starList, year: response.year, release: response.releaseDate};
-    //   let firstArray = [];
-    //   let nameArray = [];
-    //   let idArray = [];
-    //   for (let p of response.starList){
-    //     firstArray.push(p);
-    //   }
-    //
-    //   for(let i = 0; i<firstArray.length; i++){
-    //     let x = " "+firstArray[i].name;
-    //     let y = " https://www.imdb.com/name/"+firstArray[i].id+"/";
-    //     nameArray.push(x);
-    //     idArray.push(y);
-    //   }
-    //   let cast = nameArray.toString();
-    //   this.idString = idArray.toString();
-    //   this.form.setValue({
-    //     'name': this.info.name,
-    //     'description': this.info.description,
-    //     'composer': null,
-    //     'cast': cast,
-    //     'release': this.info.release,
-    //     'year': this.info.year,
-    //     'language': null,
-    //     'image': null
-    //   });
-    // });
+    this.actorService.searchForActor(firstArray[4]);
+    this.infosSub = this.actorService.getActorsInfoUpdateListener().subscribe(response=>{
+      this.info = {name: response.name, description: response.summary, awards: response.awards, role: response.role, birth: response.birthDate, death: response.deathDate};
+      if(this.info.death === null){
+        this.info.death = "N/A";
+      }
+      this.form.setValue({
+        'name': this.info.name,
+        'description': this.info.description,
+        'awards': this.info.awards,
+        'role': this.info.role,
+        'birth': this.info.birth,
+        'death': this.info.death,
+        'image': null
+      });
+    });
   }
 
   resetForm(){

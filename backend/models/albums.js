@@ -9,6 +9,14 @@ const albumSchema = mongoose.Schema({
   castLink: {type:String, required:true},
   release: {type:String, required:true},
   year: {type:String, required:true},
+  genre:{
+    type: Schema.Types.ObjectId,
+    ref:'Genre'
+  },
+  artist: {
+    type: Schema.Types.ObjectId,
+    ref:'Artist'
+  },
   language:{
     type: Schema.Types.ObjectId,
     ref:'Language'

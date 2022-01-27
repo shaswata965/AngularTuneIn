@@ -4,7 +4,6 @@ import {Album} from "../../frontend/models/album.model";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AlbumService} from "../../frontend/service/album.service";
 import {AlbumListComponent} from "../album-list/album-list.component";
-import {Admin} from "../../frontend/models/admin.model";
 
 @Component({
   selector: 'app-album-view',
