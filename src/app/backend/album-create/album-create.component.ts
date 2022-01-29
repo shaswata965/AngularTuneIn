@@ -45,7 +45,6 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       'name': new FormControl(null, {validators: [Validators.required]}),
       'description': new FormControl(null,{validators:[Validators.required]}),
-      'composer': new FormControl(null,{validators:[Validators.required]}),
       'cast': new FormControl(null,{validators:[Validators.required]}),
       'release': new FormControl(null,{validators:[Validators.required]}),
       'year': new FormControl(null,{validators:[Validators.required]}),
@@ -75,11 +74,10 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
         this.mode="Edit";
         this.albumId = paramMap.get('albumId');
         this.albumService.getEditAlbum(this.albumId).subscribe(albumData=>{
-          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, composer:albumData.composer, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, artist: albumData.artist, genre: albumData.genre, castLink:albumData.castLink, imagePath: albumData.imagePath};
+          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, artist: albumData.artist, genre: albumData.genre, castLink:albumData.castLink, imagePath: albumData.imagePath};
           this.form.setValue({
             'name': this.album.name,
             'description': this.album.description,
-            'composer': this.album.composer,
             'cast': this.album.cast,
             'release': this.album.release,
             'year': this.album.year,
@@ -108,9 +106,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       return
     }
     if(this.mode==='Create'){
-      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.idString, this.form.value.image);
+      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.idString, this.form.value.image);
     }else{
-      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.composer, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.album.castLink, this.form.value.image )
+      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.album.castLink, this.form.value.image )
     }
     this.form.reset();
   }
@@ -150,7 +148,6 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       this.form.setValue({
         'name': this.info.name,
         'description': this.info.description,
-        'composer': null,
         'cast': cast,
         'release': this.info.release,
         'year': this.info.year,

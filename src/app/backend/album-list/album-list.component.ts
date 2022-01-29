@@ -10,14 +10,14 @@ import {Subscription} from "rxjs";
 })
 export class AlbumListComponent implements OnInit, OnDestroy {
   public albumDetails: any;
-  public albumLanguage: string;
+  public albumLanguage: any;
   private albumsSub: Subscription;
 
   constructor(public dialogRef: MatDialogRef<AlbumListComponent>, public albumService: AlbumService) { }
 
   ngOnInit(){
     this.albumDetails = this.albumService.getModalAlbum();
-    this.albumsSub = this.albumService.getAlbumLanguageUpdateListener().subscribe((language:string)=>{
+    this.albumsSub = this.albumService.getAlbumLanguageUpdateListener().subscribe((language:any)=>{
       this.albumLanguage = language;
     });
   }

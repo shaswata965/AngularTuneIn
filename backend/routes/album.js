@@ -51,7 +51,6 @@ router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
       const album = new Album({
         name: req.body.name,
         description: req.body.description,
-        composer: req.body.composer,
         cast: req.body.cast,
         castLink: req.body.castLink,
         release: req.body.release,
@@ -86,7 +85,6 @@ router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
         _id:req.body.id,
         name: req.body.name,
         description: req.body.description,
-        composer: req.body.composer,
         cast: req.body.cast,
         castLink: req.body.castLink,
         release: req.body.release,

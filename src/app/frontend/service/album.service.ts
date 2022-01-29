@@ -15,18 +15,17 @@ export class AlbumService{
 
   private modalAlbum: any | null;
   public albumLanguage: any | null;
-  private albumLanguageUpdated = new Subject<string>();
+  private albumLanguageUpdated = new Subject<any>();
 
   public albumInfo: any | null;
   public albumInfoUpdated = new Subject<any>();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  addAlbum(name:string, description:string, composer:string, cast:string, release:string, year: string, language:string, artist:string, genre:string, castLink: string, image: File){
+  addAlbum(name:string, description:string, cast:string, release:string, year: string, language:string, artist:string, genre:string, castLink: string, image: File){
     const albumData = new FormData();
     albumData.append('name', name);
     albumData.append('description', description);
-    albumData.append('composer', composer);
     albumData.append('cast', cast);
     albumData.append('release', release);
     albumData.append('year',year);
@@ -42,7 +41,7 @@ export class AlbumService{
       });
   }
 
-  updateAlbum(id: string | null, name: string,  description: string, composer: string, cast: string, release: string, year:string, language:string, artist:string, genre:string, castLink:string, image: File | string){
+  updateAlbum(id: string | null, name: string,  description: string, cast: string, release: string, year:string, language:string, artist:string, genre:string, castLink:string, image: File | string){
     let albumData : Album | FormData ;
     if(typeof (image) === 'object'){
       albumData = new FormData();
@@ -50,7 +49,6 @@ export class AlbumService{
       albumData.append('id', id);
       albumData.append('name', name);
       albumData.append('description', description);
-      albumData.append('composer', composer);
       albumData.append('cast', cast);
       albumData.append('release', release);
       albumData.append('year',year);
@@ -61,14 +59,14 @@ export class AlbumService{
       albumData.append('image',image,name);
     }else{
       // @ts-ignore
-      albumData = {id:id, name:name, description:description, composer:composer, cast:cast, release:release, year:year, language:language, artist:artist, genre:genre, castLink:castLink, imagePath: image};
+      albumData = {id:id, name:name, description:description, cast:cast, release:release, year:year, language:language, artist:artist, genre:genre, castLink:castLink, imagePath: image};
     }
     this.http.put("http://localhost:3000/api/albums/" +id, albumData)
       .subscribe(response=>{
         const updatedAlbum = [...this.albums];
         const oldAlbumIndex = updatedAlbum.findIndex(a => a.id === id);
         // @ts-ignore
-        const album: Album = {id:id, name:name, description:description, composer:composer, cast:cast, release:release, year:year, language:language, artist:artist, genre:genre, castLink:castLink, imagePath: response.imagePath}
+        const album: Album = {id:id, name:name, description:description, cast:cast, release:release, year:year, language:language, artist:artist, genre:genre, castLink:castLink, imagePath: response.imagePath}
         updatedAlbum[oldAlbumIndex] = album;
         this.albums = updatedAlbum;
         this.albumsUpdated.next([...this.albums]);
@@ -78,7 +76,7 @@ export class AlbumService{
 
   getEditAlbum(albumId: string | null){
     return this.http.get<{
-      _id:string, name:string, description:string, composer: string, cast:string, release:string, year:string, language:string, artist:string, genre:string, castLink:string, imagePath: string}>("http://localhost:3000/api/albums/" +albumId);
+      _id:string, name:string, description:string, cast:string, release:string, year:string, language:string, artist:string, genre:string, castLink:string, imagePath: string}>("http://localhost:3000/api/albums/" +albumId);
   }
 
   deleteAlbum(albumId:string){
@@ -103,7 +101,6 @@ export class AlbumService{
         return{
           name: album.name,
           description: album.description,
-          composer: album.composer,
           cast: album.cast,
           release: album.release,
           year: album.year,
@@ -129,7 +126,8 @@ export class AlbumService{
   getModalAlbum(){
     this.http.get<{albumDet: any}>('http://localhost:3000/api/albums/modal/'+ this.modalAlbum.language + '/'+ this.modalAlbum.artist + '/' + this.modalAlbum.genre)
       .subscribe((Data)=>{
-        console.log(Data);
+        this.albumLanguage = Data;
+        this.albumLanguageUpdated.next(this.albumLanguage)
       });
       return this.modalAlbum;
   }

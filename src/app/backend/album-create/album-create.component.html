@@ -58,7 +58,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="login-card-fields">
-          <mat-label>Album Artist</mat-label>
+          <mat-label>Album Genre</mat-label>
           <mat-select formControlName="genre">
             <mat-option *ngFor="let genre of genres"
                         [value]="genre.id">
@@ -69,10 +69,6 @@
         <mat-form-field class="login-card-fields">
           <mat-label>Album Description :</mat-label>
           <textarea type="text" formControlName="description" matInput rows="2" placeholder="Ex: Current Address" ></textarea>
-        </mat-form-field>
-        <mat-form-field class="login-card-fields">
-          <mat-label>Music Composer :</mat-label>
-          <input type="text" formControlName="composer" matInput placeholder="Ex: Music Composer Name" />
         </mat-form-field>
         <mat-form-field class="login-card-fields">
           <mat-label>Casts :</mat-label>
