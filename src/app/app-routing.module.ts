@@ -22,6 +22,8 @@ import {CreateArtistComponent} from "./layouts/create-artist/create-artist.compo
 import {ViewArtistComponent} from "./layouts/view-artist/view-artist.component";
 import {CreateGenreComponent} from "./layouts/create-genre/create-genre.component";
 import {ViewGenreComponent} from "./layouts/view-genre/view-genre.component";
+import {CreateSongComponent} from "./layouts/create-song/create-song.component";
+import {ViewSongComponent} from "./layouts/view-song/view-song.component";
 
 const routes: Routes = [
   {
@@ -147,6 +149,21 @@ const routes: Routes = [
   {
     path:"view-genre",
     component:ViewGenreComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-song",
+    component:CreateSongComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-song/:songId",
+    component:CreateSongComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-song",
+    component:ViewSongComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -56,14 +56,13 @@ router.post('', multer({storage: storage}).single("image"),(req,res,next)=>{
             error: err
           });
         });
-      console.log(admin);
+Song
     });
 });
 
 router.get('',(req,res,next)=>{
   Admin.find()
     .then(documents=>{
-      console.log(documents);
       res.status(200).json({
         message: "Admins Listed Successfully",
         admins: documents
@@ -108,7 +107,6 @@ router.post('/login',(req,res,next)=>{
 
 router.delete("/:id",(req,res,next)=>{
   Admin.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({
       message:"Admin Deleted"
     });

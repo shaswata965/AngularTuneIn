@@ -35,7 +35,6 @@ const storage = multer.diskStorage({
 router.get('',(req,res,next)=>{
   Actor.find()
     .then(documents=>{
-      console.log(documents);
       res.status(200).json({
         message: "Albums Listed Successfully",
         actors: documents
@@ -66,7 +65,6 @@ router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
         error: err
       });
     });
-  console.log(actor);
 });
 
 router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
@@ -119,7 +117,6 @@ router.get('/:id',(req,res,next)=>{
 
 router.delete("/:id",(req,res,next)=>{
   Actor.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({
       message:"Actor Deleted"
     });

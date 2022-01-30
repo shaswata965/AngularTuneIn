@@ -10,6 +10,8 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
 
 router.post('',(req,res,next)=>{
+
+  console.log(req.body.name);
   console.log(req.body.name);
   const language = new Language({
     name: req.body.name
@@ -50,7 +52,6 @@ router.put("/:id",(req,res,next)=>{
 router.get('',(req,res,next)=>{
   Language.find()
     .then(documents=>{
-      console.log(documents);
       res.status(200).json({
         message: "Languages Listed Successfully",
         languages: documents
@@ -85,7 +86,6 @@ router.get('/:id',(req,res,next)=>{
 
 router.delete("/:id",(req,res,next)=>{
   Language.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({
       message:"Language Deleted"
     });

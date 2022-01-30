@@ -38,7 +38,6 @@ const storage = multer.diskStorage({
 router.get('',(req,res,next)=>{
   Album.find()
     .then(documents=>{
-      console.log(documents);
       res.status(200).json({
         message: "Albums Listed Successfully",
         albums: documents
@@ -47,78 +46,77 @@ router.get('',(req,res,next)=>{
 });
 
 router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
-      const url = req.protocol + '://' + req.get("host");
-      const album = new Album({
-        name: req.body.name,
-        description: req.body.description,
-        cast: req.body.cast,
-        castLink: req.body.castLink,
-        release: req.body.release,
-        year: req.body.year,
-        language: req.body.language,
-        artist: req.body.artist,
-        genre: req.body.genre,
-        imagePath: url + "/image/album/" + req.file.filename,
+  const url = req.protocol + '://' + req.get("host");
+  const album = new Album({
+    name: req.body.name,
+    description: req.body.description,
+    cast: req.body.cast,
+    castLink: req.body.castLink,
+    release: req.body.release,
+    year: req.body.year,
+    language: req.body.language,
+    artist: req.body.artist,
+    genre: req.body.genre,
+    imagePath: url + "/image/album/" + req.file.filename,
+  });
+  album.save()
+    .then(result => {
+      res.status(201).json({
+        message: 'Album Created!',
+        result: result
       });
-      album.save()
-        .then(result => {
-          res.status(201).json({
-            message: 'Album Created!',
-            result: result
-          });
-        })
-        .catch(err => {
-          res.status(500).json({
-            error: err
-          });
-        });
-      console.log(album);
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
 });
 
 router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
-      let imagePath = req.body.imagePath;
-      if(req.file){
-        const url = req.protocol + '://' + req.get("host");
-        imagePath = url + "/image/album/" + req.file.filename;
-      }
-      const album = new Album({
-        _id:req.body.id,
-        name: req.body.name,
-        description: req.body.description,
-        cast: req.body.cast,
-        castLink: req.body.castLink,
-        release: req.body.release,
-        year: req.body.year,
-        language: req.body.language,
-        artist: req.body.artist,
-        genre: req.body.genre,
-        imagePath: imagePath,
+  let imagePath = req.body.imagePath;
+  if(req.file){
+    const url = req.protocol + '://' + req.get("host");
+    imagePath = url + "/image/album/" + req.file.filename;
+  }
+  const album = new Album({
+    _id:req.body.id,
+    name: req.body.name,
+    description: req.body.description,
+    cast: req.body.cast,
+    castLink: req.body.castLink,
+    release: req.body.release,
+    year: req.body.year,
+    language: req.body.language,
+    artist: req.body.artist,
+    genre: req.body.genre,
+    imagePath: imagePath,
+  });
+  Album.updateOne({_id:req.params.id}, album)
+    .then(result => {
+      res.status(201).json({
+        message: 'Album updated!',
+        result: result
       });
-      Album.updateOne({_id:req.params.id}, album)
-        .then(result => {
-          res.status(201).json({
-            message: 'Album updated!',
-            result: result
-          });
-        })
-        .catch(err => {
-          res.status(500).json({
-            error: err
-          });
-        });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
 });
 
 router.get('/:id',(req,res,next)=>{
   Album.findById(req.params.id)
     .then(album=>{
-    if(album){
-      res.status(200).json(album);
-    }else{
-      res.status(404).json({
-        message:"Album not Found"
-      });
-    }
-  }).catch(err => {
+      if(album){
+        res.status(200).json(album);
+      }else{
+        res.status(404).json({
+          message:"Album not Found"
+        });
+      }
+    }).catch(err => {
     res.status(500).json({
       error: err
     });
@@ -156,7 +154,6 @@ router.get('/modal/:id/:artist/:genre',async (req, res, next) => {
 
 router.delete("/:id",(req,res,next)=>{
   Album.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({
       message:"Album Deleted"
     });

@@ -217,3 +217,8 @@
   height:42px!important;
   width:42px!important;
 }
+
+.scrollable-sidebar{
+  overflow: auto!important;
+}
+

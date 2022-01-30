@@ -84,6 +84,11 @@ import { GenreViewComponent } from './backend/genre-view/genre-view.component';
 import { GenreListComponent } from './backend/genre-list/genre-list.component';
 import { CreateGenreComponent } from './layouts/create-genre/create-genre.component';
 import { ViewGenreComponent } from './layouts/view-genre/view-genre.component';
+import { SongCreateComponent } from './backend/song-create/song-create.component';
+import { SongListComponent } from './backend/song-list/song-list.component';
+import { SongViewComponent } from './backend/song-view/song-view.component';
+import { CreateSongComponent } from './layouts/create-song/create-song.component';
+import { ViewSongComponent } from './layouts/view-song/view-song.component';
 
 
 @NgModule({
@@ -146,7 +151,12 @@ import { ViewGenreComponent } from './layouts/view-genre/view-genre.component';
     GenreViewComponent,
     GenreListComponent,
     CreateGenreComponent,
-    ViewGenreComponent
+    ViewGenreComponent,
+    SongCreateComponent,
+    SongListComponent,
+    SongViewComponent,
+    CreateSongComponent,
+    ViewSongComponent
   ],
   imports: [
     BrowserModule,

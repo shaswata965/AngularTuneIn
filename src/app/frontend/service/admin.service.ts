@@ -39,10 +39,10 @@ export class AdminService{
       });
     }))
       .subscribe(admins=>{
-      this.admins = admins;
-      this.adminsUpdated.next([...this.admins]);
-      console.log(this.admins);
-    });
+        this.admins = admins;
+        this.adminsUpdated.next([...this.admins]);
+        console.log(this.admins);
+      });
   }
 
   getThisAdmin(){
@@ -55,7 +55,7 @@ export class AdminService{
   }
 
   addModalAdmin(admin: any){
-     this.modalAdmin = admin;
+    this.modalAdmin = admin;
   }
 
   getModalAdmin(){
@@ -65,16 +65,16 @@ export class AdminService{
   updateAdmin(id: string | null, name: string,  address: string, email: string, password: string, image: File | string){
     let adminData : Admin | FormData ;
     if(typeof (image) === 'object'){
-     adminData = new FormData();
-     // @ts-ignore
+      adminData = new FormData();
+      // @ts-ignore
       adminData.append('id', id);
-     adminData.append('name', name);
+      adminData.append('name', name);
       adminData.append('address', address);
       adminData.append('email', email);
       adminData.append('password', password);
       adminData.append('image',image,name);
     }else{
-       // @ts-ignore
+      // @ts-ignore
       adminData = {id:id, name:name, address:address, email:email, password:password, imagePath: image};
     }
     this.http.put("http://localhost:3000/api/admins/" +id, adminData)
@@ -93,9 +93,9 @@ export class AdminService{
   deleteAdmin(adminId:string){
     this.http.delete("http://localhost:3000/api/admins/" +adminId)
       .subscribe(()=>{
-          const updatedAdmins = this.admins.filter(admin=> admin.id !=adminId);
-          this.admins = updatedAdmins;
-          this.adminsUpdated.next([...this.admins]);
+        const updatedAdmins = this.admins.filter(admin=> admin.id !=adminId);
+        this.admins = updatedAdmins;
+        this.adminsUpdated.next([...this.admins]);
       });
   }
 
@@ -191,15 +191,15 @@ export class AdminService{
 
 
   private saveAuthData(token:string, expirationDate: Date, currentAdmin: string, currentAdminImage: string){
-    localStorage.setItem('token',token);
-    localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('adminToken',token);
+    localStorage.setItem('adminExpiration', expirationDate.toISOString());
     localStorage.setItem('currentAdmin', currentAdmin);
     localStorage.setItem('currentAdminImage',currentAdminImage);
   }
 
   private clearAuthData(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminExpiration');
     localStorage.removeItem('currentAdmin');
     localStorage.removeItem('currentAdminImage');
   }
@@ -214,8 +214,8 @@ export class AdminService{
   }
 
   private getAuthData(){
-    const token = localStorage.getItem('token');
-    const expirationDate = localStorage.getItem('expiration');
+    const token = localStorage.getItem('adminToken');
+    const expirationDate = localStorage.getItem('adminExpiration');
 
     if(!token || !expirationDate){
       return;

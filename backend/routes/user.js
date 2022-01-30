@@ -55,7 +55,6 @@ router.post('',multer({storage: Userstorage}).single("image"),(req,res,next)=>{
             error: err
           });
         });
-      console.log(user);
     });
 });
 
@@ -66,13 +65,11 @@ router.post('/social',(req,res,next)=>{
     imagePath: req.body.image
   });
   user.save();
-  console.log(user);
 });
 
 router.get('',(req, res, next)=>{
   User.find()
     .then(documents=>{
-      console.log(documents);
       res.status(200).json({
         message: "Users Listed Successfully",
         users: documents
@@ -82,7 +79,6 @@ router.get('',(req, res, next)=>{
 
 router.delete("/:id",(req,res,next)=>{
   User.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({
       message:"User Deleted"
     });
