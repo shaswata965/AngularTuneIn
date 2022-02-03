@@ -14,8 +14,8 @@ export class AlbumService{
   private albumsUpdated = new Subject<Album []>();
 
   private modalAlbum: any | null;
-  public albumLanguage: any | null;
-  private albumLanguageUpdated = new Subject<any>();
+  public albumDetails: any | null;
+  private albumDetailsUpdated = new Subject<any>();
 
   public albumInfo: any | null;
   public albumInfoUpdated = new Subject<any>();
@@ -126,14 +126,14 @@ export class AlbumService{
   getModalAlbum(){
     this.http.get<{albumDet: any}>('http://localhost:3000/api/albums/modal/'+ this.modalAlbum.language + '/'+ this.modalAlbum.artist + '/' + this.modalAlbum.genre)
       .subscribe((Data)=>{
-        this.albumLanguage = Data;
-        this.albumLanguageUpdated.next(this.albumLanguage)
+        this.albumDetails = Data;
+        this.albumDetailsUpdated.next(this.albumDetails)
       });
       return this.modalAlbum;
   }
 
-  getAlbumLanguageUpdateListener(){
-    return this.albumLanguageUpdated.asObservable();
+  getAlbumDetailsUpdateListener(){
+    return this.albumDetailsUpdated.asObservable();
   }
 
   searchForMovie(name: string){

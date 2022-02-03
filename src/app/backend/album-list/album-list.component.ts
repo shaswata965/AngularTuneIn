@@ -9,16 +9,16 @@ import {Subscription} from "rxjs";
   styleUrls: ['./album-list.component.css']
 })
 export class AlbumListComponent implements OnInit, OnDestroy {
+  public albumInfo: any;
   public albumDetails: any;
-  public albumLanguage: any;
   private albumsSub: Subscription;
 
   constructor(public dialogRef: MatDialogRef<AlbumListComponent>, public albumService: AlbumService) { }
 
   ngOnInit(){
-    this.albumDetails = this.albumService.getModalAlbum();
-    this.albumsSub = this.albumService.getAlbumLanguageUpdateListener().subscribe((language:any)=>{
-      this.albumLanguage = language;
+    this.albumInfo = this.albumService.getModalAlbum();
+    this.albumsSub = this.albumService.getAlbumDetailsUpdateListener().subscribe((details:any)=>{
+      this.albumDetails = details;
     });
   }
 

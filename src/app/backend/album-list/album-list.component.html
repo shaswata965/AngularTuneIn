@@ -13,7 +13,7 @@
   </mat-toolbar>
   <div class="row modal-top-row justify-content-center">
     <div class="col-3">
-      <img class="list-view-image"  [src]="albumDetails.imagePath"  [alt]="albumDetails.name" />
+      <img class="list-view-image"  [src]="albumInfo.imagePath"  [alt]="albumInfo.name" />
     </div>
   </div>
   <div class="card">
@@ -28,39 +28,39 @@
         <tbody>
         <tr>
           <td class="text-center">Album Name</td>
-          <td class="text-center">{{albumDetails.name}}</td>
+          <td class="text-center">{{albumInfo.name}}</td>
         </tr>
         <tr>
           <td class="text-center">Description</td>
-          <td class="text-center"> {{albumDetails.description}} </td>
+          <td class="text-center"> {{albumInfo.description}} </td>
         </tr>
         <tr>
           <td class="text-center">Cast</td>
-          <td class="text-center"> {{albumDetails.cast}} </td>
+          <td class="text-center"> {{albumInfo.cast}} </td>
         </tr>
         <tr>
           <td class="text-center">Release Date</td>
-          <td class="text-center"> {{albumDetails.release}} </td>
+          <td class="text-center"> {{albumInfo.release}} </td>
         </tr>
         <tr>
           <td class="text-center">Release Year</td>
-          <td class="text-center"> {{albumDetails.year}} </td>
+          <td class="text-center"> {{albumInfo.year}} </td>
         </tr>
         <tr>
           <td class="text-center">Cast IMDb Link</td>
-          <td class="text-center"> {{albumDetails.castLink}} </td>
+          <td class="text-center"> {{albumInfo.castLink}} </td>
         </tr>
         <tr>
           <td class="text-center">Language</td>
-          <td class="text-center"> {{albumLanguage[0]}} </td>
+          <td class="text-center"> {{albumDetails[0]}} </td>
         </tr>
         <tr>
           <td class="text-center">Artist</td>
-          <td class="text-center"> {{albumLanguage[1]}} </td>
+          <td class="text-center"> {{albumDetails[1]}} </td>
         </tr>
         <tr>
           <td class="text-center">Genre</td>
-          <td class="text-center"> {{albumLanguage[2]}} </td>
+          <td class="text-center"> {{albumDetails[2]}} </td>
         </tr>
         </tbody>
       </table>

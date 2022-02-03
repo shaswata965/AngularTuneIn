@@ -27,6 +27,7 @@
 
 .invisible-file-picker{
   visibility: hidden;
+  display: none;
 }
 
 .admin-image-preview{

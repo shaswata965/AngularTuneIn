@@ -1,12 +1,11 @@
 export interface Song{
   id: string;
   name: string;
-  lowSong: string;
-  highSong: string;
+  lowPath: string;
+  highPath: string;
   album: string;
   actor: string;
   language: string;
   genre: string;
-  description: string;
-  image: string;
+  imagePath: string;
 }
