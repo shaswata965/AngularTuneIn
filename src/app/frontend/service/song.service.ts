@@ -155,7 +155,7 @@ export class SongService{
     return this.modalSong;
   }
 
-  getAlbumLanguageUpdateListener(){
+  getSongInfoUpdateListener(){
     return this.songDetailsUpdated.asObservable();
   }
 
@@ -182,6 +182,10 @@ export class SongService{
         this.songs = songs;
         this.songsUpdated.next([...this.songs]);
       });
+  }
+
+  getSongsUpdateListener(){
+    return this.songsUpdated.asObservable();
   }
 
 }

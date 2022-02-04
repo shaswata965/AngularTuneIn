@@ -341,31 +341,34 @@
             </div>
           </div>
           <div class="white_card_body QA_section">
+            <form [formGroup]="taskForm" (submit)="createTask()">
             <mat-card>
               <mat-form-field class="task_assigning_form" >
                 <mat-label>
                   Please Enter The Title Of The Task :
                 </mat-label>
-                <input matInput placeholder="Ex: Hi this is the title" />
+                <input matInput formControlName="title"   placeholder="Ex: Hi this is the title" />
               </mat-form-field>
               <mat-form-field class="task_assigning_form"  >
                 <mat-label>
                   Task Assigned To :
                 </mat-label>
-                <input matInput placeholder="Ex: This is for jeffery" />
+                <input matInput formControlName="name" placeholder="Ex: This is for jeffery" />
               </mat-form-field>
               <mat-form-field class="task_assigning_form" >
                 <mat-label>
                   Task Details And Notes :
                 </mat-label>
-                <textarea matInput> Ex: This is the task </textarea>
+                <textarea matInput formControlName="task"> Ex: This is the task </textarea>
               </mat-form-field>
             </mat-card>
             <button
               mat-raised-button
+              type="submit"
               color="primary" class="task_assigning_button">
               Post Task
             </button>
+            </form>
           </div>
         </div>
       </div>

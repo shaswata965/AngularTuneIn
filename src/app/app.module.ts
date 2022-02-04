@@ -203,6 +203,6 @@ import {SanitizeUrlPipe} from "./backend/song-create/sanitize-url.pipe";
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent]
+  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent]
 })
 export class AppModule { }
