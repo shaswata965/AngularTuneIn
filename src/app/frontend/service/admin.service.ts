@@ -16,7 +16,7 @@ export class AdminService{
   private adminsUpdated = new Subject<Admin []>();
 
   // @ts-ignore
-  private token: string;
+  private adminToken: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private modalAdmin: any | null;
@@ -108,7 +108,7 @@ export class AdminService{
   }
 
   getToken(){
-    return this.token;
+    return this.adminToken;
   }
 
   getIsAuthenticated(){
@@ -138,9 +138,9 @@ export class AdminService{
     const admin: Admin = { email: email, password: password};
     this.http.post<{token: string, expiresIn: number, currentAdmin: string, currentAdminImage:string}>('http://localhost:3000/api/admins/login', admin)
       .subscribe((response)=>{
-        const token = response.token;
-        this.token = token;
-        if(token){
+        const adminToken = response.token;
+        this.adminToken = adminToken;
+        if(adminToken){
           const expiresInDuration = response.expiresIn;
           const currentAdmin = response.currentAdmin;
           const currentAdminImage = response.currentAdminImage;
@@ -149,7 +149,7 @@ export class AdminService{
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate, currentAdmin, currentAdminImage);
+          this.saveAuthData(adminToken, expirationDate, currentAdmin, currentAdminImage);
           this.router.navigate(['/backend-home']);
         }
       });
@@ -157,7 +157,7 @@ export class AdminService{
 
   logOut(){
     // @ts-ignore
-    this.token = null;
+    this.adminToken = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
@@ -175,7 +175,7 @@ export class AdminService{
     const now = new Date();
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if(expiresIn > 0){
-      this.token = authInformation.token;
+      this.adminToken = authInformation.token;
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
@@ -190,8 +190,8 @@ export class AdminService{
   }
 
 
-  private saveAuthData(token:string, expirationDate: Date, currentAdmin: string, currentAdminImage: string){
-    localStorage.setItem('adminToken',token);
+  private saveAuthData(adminToken:string, expirationDate: Date, currentAdmin: string, currentAdminImage: string){
+    localStorage.setItem('adminToken',adminToken);
     localStorage.setItem('adminExpiration', expirationDate.toISOString());
     localStorage.setItem('currentAdmin', currentAdmin);
     localStorage.setItem('currentAdminImage',currentAdminImage);

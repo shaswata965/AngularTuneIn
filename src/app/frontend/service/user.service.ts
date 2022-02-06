@@ -105,10 +105,12 @@ export class UserService {
   }
 
   addSocialUser(name: string, email:string, image:string){
+    console.log('I am here');
     // @ts-ignore
     const user: User = { name: name, email: email, image:image};
     this.http.post<{message: string}>('http://localhost:3000/api/users/social', user)
       .subscribe((responseData)=>{
+        console.log(responseData.message);
         this.router.navigate(['/']);
       });
   }

@@ -105,6 +105,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
     if(this.form.invalid){
       return
     }
+    if(!this.idString){
+      this.idString = 'N/A';
+    }
     if(this.mode==='Create'){
       this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.idString, this.form.value.image);
     }else{
@@ -126,6 +129,7 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
   }
 
   linkDecipher(val:any){
+    if(val){
     let firstArray = val.split("/");
     this.albumService.searchForMovie(firstArray[4]);
     this.infosSub = this.albumService.getInfoUpdateListener().subscribe(response=>{
@@ -136,7 +140,6 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       for (let p of response.starList){
         firstArray.push(p);
       }
-
       for(let i = 0; i<firstArray.length; i++){
         let x = " "+firstArray[i].name;
         let y = " https://www.imdb.com/name/"+firstArray[i].id+"/";
@@ -157,6 +160,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
         'image': null
       });
     });
+    }else{
+      this.idString = "N/A";
+    }
   }
 
   resetForm(){

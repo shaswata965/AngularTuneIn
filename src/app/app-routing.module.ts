@@ -24,6 +24,7 @@ import {CreateGenreComponent} from "./layouts/create-genre/create-genre.componen
 import {ViewGenreComponent} from "./layouts/view-genre/view-genre.component";
 import {CreateSongComponent} from "./layouts/create-song/create-song.component";
 import {ViewSongComponent} from "./layouts/view-song/view-song.component";
+import {ViewTaskComponent} from "./layouts/view-task/view-task.component";
 
 const routes: Routes = [
   {
@@ -164,6 +165,11 @@ const routes: Routes = [
   {
     path:"view-song",
     component:ViewSongComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-task",
+    component:ViewTaskComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -5,6 +5,7 @@ import{UserService} from "../service/user.service";
 import {Subscription} from "rxjs";
 import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import {mimeType} from "../../backend/admin-signup/signup/mime-type.validator";
+import {error} from "jquery";
 
 
 @Component({
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
+      console.log(this.socialUser);
       this.userService.addSocialUser(this.socialUser.name, this.socialUser.email, this.socialUser.photoUrl);
     });
     $('#register_modal_closer').click();
@@ -59,7 +61,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   signInWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(result=>{
+    }).catch(error=>{
+      console.log(error);
+    });
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       this.userService.socialLogIn(this.socialUser.email);
@@ -68,7 +73,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(result=>{
+    }).catch(error=>{
+      console.log(error);
+    });
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       this.userService.socialLogIn(this.socialUser.email);

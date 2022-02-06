@@ -64,7 +64,11 @@ router.post('/social',(req,res,next)=>{
     email: req.body.email,
     imagePath: req.body.image
   });
-  user.save();
+  user.save().then(result=>{
+    console.log(result);
+  }).catch(error=>{
+    console.log(error);
+  });
 });
 
 router.get('',(req, res, next)=>{
@@ -140,7 +144,9 @@ router.post('/social/login',(req,res,next)=>{
         currentEmail: fetchedUser.email,
         currentImage: fetchedUser.imagePath
       });
-    });
+    }).catch(error=>{
+      console.log(error);
+  });
 });
 
 module.exports = router;

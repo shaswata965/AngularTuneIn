@@ -19,6 +19,7 @@ export class BackendHeaderComponent implements OnInit {
   public artistMenu = true;
   public genreMenu = true;
   public songMenu = true;
+  public taskMenu = true;
 
   public currentAdminName : string | null;
   public currentAdminImage : string | null;

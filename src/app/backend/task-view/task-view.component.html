@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+  <div class="row" *ngIf="tasks.length > 0">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let task of tasks; let i=index;">
+      <div class="card card-on-hover">
+        <div class="card-body shadow-md">
+          <h4 class="task-title">{{task.title}}</h4>
+          <h6>{{task.name}}</h6>
+          <p>{{task.task}}</p>
+          <p>{{task.date}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="row" *ngIf="tasks.length <= 0">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body shadow-md">
+              <h4> NO TASKS ADDED YET </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

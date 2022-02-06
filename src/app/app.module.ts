@@ -90,6 +90,8 @@ import { SongViewComponent } from './backend/song-view/song-view.component';
 import { CreateSongComponent } from './layouts/create-song/create-song.component';
 import { ViewSongComponent } from './layouts/view-song/view-song.component';
 import {SanitizeUrlPipe} from "./backend/song-create/sanitize-url.pipe";
+import { TaskViewComponent } from './backend/task-view/task-view.component';
+import { ViewTaskComponent } from './layouts/view-task/view-task.component';
 
 
 @NgModule({
@@ -158,7 +160,9 @@ import {SanitizeUrlPipe} from "./backend/song-create/sanitize-url.pipe";
         SongViewComponent,
         CreateSongComponent,
         ViewSongComponent,
-        SanitizeUrlPipe
+        SanitizeUrlPipe,
+        TaskViewComponent,
+        ViewTaskComponent
     ],
   imports: [
     BrowserModule,

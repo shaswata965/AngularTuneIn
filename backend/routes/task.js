@@ -2,11 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Task = require('../models/tasks');
+const Song = require("../models/songs");
 
 const router = express.Router();
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: false}));
+
+router.get('',(req,res,next)=>{
+  Task.find()
+    .then(documents=>{
+      res.status(200).json({
+        message: "Tasks Listed Successfully",
+        tasks: documents
+      });
+    });
+});
 
 router.post('',(req,res,next)=>{
   const task = new Task({
