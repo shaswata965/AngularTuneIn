@@ -14,9 +14,20 @@
 
 .task-title{
   color:rgb(46,201,184);
-  font-size: 18px;
+  font-size: 22px;
   opacity: 0.8;
   margin-bottom: 10px;
+  text-align: center;
+}
+
+.bottom-task-details{
+  font-size: 10px;
+  margin-bottom: -10px;
+}
+
+.task-completion-check{
+  font-size: 15px;
+  color: #f44336;
 }
 
 .task-title::before{
@@ -37,4 +48,12 @@
   -ms-transition: all .3s ease-out 0s;
   -o-transition: all .3s ease-out 0s;
   transition: all .3s ease-out 0s
+}
+
+.task-image{
+  width: 8rem;
+  height: 8rem;
+  border-radius: 100%;
+  margin-bottom: 10px;
+  margin-left: 25%;
 }

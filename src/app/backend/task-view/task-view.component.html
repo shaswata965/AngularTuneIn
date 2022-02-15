@@ -1,14 +1,26 @@
 <div class="container-fluid">
   <div class="card">
+    <h1 class="login-card-heading text-center pt-30">
+      All Tasks
+    </h1>
+    <p class="mat-body-1 login-card-description text-center pt-10 pb-30"> List Of Every Task </p>
     <div class="card-body">
   <div class="row" *ngIf="tasks.length > 0">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let task of tasks; let i=index;">
-      <div class="card card-on-hover">
+      <div class="card card-on-hover mb-20">
         <div class="card-body shadow-md">
+          <mat-checkbox class="example-margin task-completion-check mb-20" (click)="CheckedFunction(task.id)"> Mark As Complete </mat-checkbox>
+          <img  class="task-image"  [src]="task.adminImagePath"  [alt]="task.admin" />
           <h4 class="task-title">{{task.title}}</h4>
-          <h6>{{task.name}}</h6>
           <p>{{task.task}}</p>
-          <p>{{task.date}}</p>
+          <div class="row justify-content-between">
+            <div class="col-3">
+              <p class="bottom-task-details">{{task.admin}}</p>
+            </div>
+            <div class="col-4">
+              <p class="bottom-task-details">{{task.date}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

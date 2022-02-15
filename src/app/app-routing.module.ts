@@ -25,6 +25,8 @@ import {ViewGenreComponent} from "./layouts/view-genre/view-genre.component";
 import {CreateSongComponent} from "./layouts/create-song/create-song.component";
 import {ViewSongComponent} from "./layouts/view-song/view-song.component";
 import {ViewTaskComponent} from "./layouts/view-task/view-task.component";
+import {CreateEventComponent} from "./layouts/create-event/create-event.component";
+import {ViewEventComponent} from "./layouts/view-event/view-event.component";
 
 const routes: Routes = [
   {
@@ -170,6 +172,21 @@ const routes: Routes = [
   {
     path:"view-task",
     component:ViewTaskComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-event",
+    component:CreateEventComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-event/:eventId",
+    component:CreateEventComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-event",
+    component:ViewEventComponent,
     canActivate: [BackAuthGuard]
   },
 ];

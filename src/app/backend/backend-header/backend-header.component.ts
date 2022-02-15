@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
 import {AdminService} from "../../frontend/service/admin.service";
+import {TaskService} from "../../frontend/service/task.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-backend-header',
@@ -20,11 +22,14 @@ export class BackendHeaderComponent implements OnInit {
   public genreMenu = true;
   public songMenu = true;
   public taskMenu = true;
+  public eventMenu = true;
 
   public currentAdminName : string | null;
   public currentAdminImage : string | null;
+  public tasks : any;
+  public tasksSub: Subscription;
 
-  constructor(public adminService: AdminService) {}
+  constructor(public adminService: AdminService, public tasksService: TaskService ) {}
 
   onLogOut(){
     this.adminService.logOut();
@@ -34,6 +39,11 @@ export class BackendHeaderComponent implements OnInit {
 
     this.currentAdminName = this.adminService.getThisAdmin().currentAdmin;
     this.currentAdminImage = this.adminService.getThisAdmin().currentAdminImage;
+
+    this.tasksService.getTasks();
+    this.tasksSub = this.tasksService.getTasksUpdateListener().subscribe((tasks:any)=>{
+      this.tasks = tasks;
+    });
 
     console.log(this.currentAdminImage);
 

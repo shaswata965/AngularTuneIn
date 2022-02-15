@@ -318,34 +318,74 @@
         </li>
       </ul>
     </li>
-<!--    <li class="mm-active">-->
-<!--      <span>-->
-<!--        <a class="submenu-no-link" (click)="taskMenu = !taskMenu">-->
-<!--          <div class="row justify-content-between">-->
-<!--            <div class="col-3">-->
-<!--              Tasks-->
-<!--            </div>-->
-<!--            <div class="col-3">-->
-<!--              <i class="fas fa-plus-circle"></i>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </a>-->
-<!--      </span>-->
-<!--      <ul [ngbCollapse]="taskMenu">-->
-<!--        <li>-->
-<!--          <a class="submenu-no-link" routerLink="/view-task">-->
-<!--            <div class="row justify-content-between">-->
-<!--              <div class="col-4">-->
-<!--                Task List-->
-<!--              </div>-->
-<!--              <div class="col-3">-->
-<!--                <i class="fas fa-clipboard-list"></i>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </a>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </li>-->
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="taskMenu = !taskMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Tasks
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="taskMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/view-task">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Task List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="mm-active">
+      <span>
+        <a class="submenu-no-link" (click)="eventMenu = !eventMenu">
+          <div class="row justify-content-between">
+            <div class="col-3">
+              Events
+            </div>
+            <div class="col-3">
+              <i class="fas fa-plus-circle"></i>
+            </div>
+          </div>
+        </a>
+      </span>
+      <ul [ngbCollapse]="eventMenu">
+        <li>
+          <a class="submenu-no-link" routerLink="/create-event">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Create Event
+              </div>
+              <div class="col-3">
+                <i class="fas fa-file-medical"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/view-event">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Event List
+              </div>
+              <div class="col-3">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 <!--/ sidebar  -->
@@ -365,71 +405,29 @@
               <div class="notification_Header">
                 <h4 class="backend-h4">Notifications</h4>
               </div>
-              <div class="Notification_body">
+              <div class="Notification_body" *ngIf="tasks.length > 0">
                 <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
+                <div class="single_notify d-flex align-items-center" *ngFor="let task of tasks">
                   <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/2.png" alt=""></a>
+                    <a routerLink="/view-task"><img [src]="task.adminImagePath" [alt]="task.admin"></a>
                   </div>
                   <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">Cool Marketing </h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-                <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
-                  <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/4.png" alt=""></a>
-                  </div>
-                  <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">Awesome packages</h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-                <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
-                  <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/3.png" alt=""></a>
-                  </div>
-                  <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">what a packages</h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-                <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
-                  <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/2.png" alt=""></a>
-                  </div>
-                  <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">Cool Marketing </h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-                <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
-                  <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/4.png" alt=""></a>
-                  </div>
-                  <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">Awesome packages</h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
-                  </div>
-                </div>
-                <!-- single_notify  -->
-                <div class="single_notify d-flex align-items-center">
-                  <div class="notify_thumb">
-                    <a href="#"><img src="assets/backend/image/staf/3.png" alt=""></a>
-                  </div>
-                  <div class="notify_content">
-                    <a href="#"><h5 class="backend-h5">what a packages</h5></a>
-                    <p>Lorem ipsum dolor sit amet</p>
+                    <a routerLink="/view-task"><h5 class="backend-h5">{{task.title}} </h5></a>
+                    <p>{{task.task}}</p>
                   </div>
                 </div>
               </div>
-              <div class="nofity_footer">
+              <div class="Notification_body" *ngIf="tasks.length <= 0">
+                <!-- single_notify  -->
+                <div class="single_notify d-flex align-items-center">
+                  <div class="notify_content">
+                    <p> No Tasks Added Yet </p>
+                  </div>
+                </div>
+              </div>
+              <div class="nofity_footer"  *ngIf="tasks.length > 5">
                 <div class="submit_button text-center pt_20">
-                  <a href="#" class="btn_1">See More</a>
+                  <a routerLink="/view-task" class="btn_1">See More</a>
                 </div>
               </div>
             </div>

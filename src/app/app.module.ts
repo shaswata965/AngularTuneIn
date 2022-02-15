@@ -17,7 +17,10 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
-import {MatOptionModule} from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatOptionModule} from "@angular/material/core";
+import { MatCheckboxModule} from "@angular/material/checkbox";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -92,6 +95,13 @@ import { ViewSongComponent } from './layouts/view-song/view-song.component';
 import {SanitizeUrlPipe} from "./backend/song-create/sanitize-url.pipe";
 import { TaskViewComponent } from './backend/task-view/task-view.component';
 import { ViewTaskComponent } from './layouts/view-task/view-task.component';
+import { EventCreateComponent } from './backend/event-create/event-create.component';
+import { EventViewComponent } from './backend/event-view/event-view.component';
+import { EventListComponent } from './backend/event-list/event-list.component';
+import { CreateEventComponent } from './layouts/create-event/create-event.component';
+import { ViewEventComponent } from './layouts/view-event/view-event.component';
+import { CalendarViewComponent } from './backend/calendar-view/calendar-view.component';
+import { ViewCalendarComponent } from './layouts/view-calendar/view-calendar.component';
 
 
 @NgModule({
@@ -162,7 +172,14 @@ import { ViewTaskComponent } from './layouts/view-task/view-task.component';
         ViewSongComponent,
         SanitizeUrlPipe,
         TaskViewComponent,
-        ViewTaskComponent
+        ViewTaskComponent,
+        EventCreateComponent,
+        EventViewComponent,
+        EventListComponent,
+        CreateEventComponent,
+        ViewEventComponent,
+        CalendarViewComponent,
+        ViewCalendarComponent
     ],
   imports: [
     BrowserModule,
@@ -182,9 +199,13 @@ import { ViewTaskComponent } from './layouts/view-task/view-task.component';
     MatIconModule,
     MatSelectModule,
     MatOptionModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true},
     {
       provide: 'SocialAuthServiceConfig',
@@ -207,6 +228,6 @@ import { ViewTaskComponent } from './layouts/view-task/view-task.component';
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent]
+  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent, EventListComponent]
 })
 export class AppModule { }

@@ -37,10 +37,13 @@ export class TaskService{
           task: task.task,
           date: task.date,
           id: task._id,
+          admin: task.admin,
+          adminImagePath: task.adminImagePath,
         };
       });
     }))
       .subscribe(tasks=>{
+        console.log(tasks);
         this.tasks = tasks;
         this.tasksUpdated.next([...this.tasks]);
       });
@@ -48,5 +51,14 @@ export class TaskService{
 
   getTasksUpdateListener(){
     return this.tasksUpdated.asObservable();
+  }
+
+  deleteTask(taskId:string){
+    this.http.delete("http://localhost:3000/api/tasks/" +taskId)
+      .subscribe(()=>{
+        const updatedTasks = this.tasks.filter(a=> a.id !=taskId);
+        this.tasks = updatedTasks;
+        this.tasksUpdated.next([...this.tasks]);
+      });
   }
 }

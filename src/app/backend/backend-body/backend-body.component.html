@@ -152,41 +152,26 @@
               </div>
             </div>
           </div>
-          <div class="white_card_body to_do_card_body mt_2">
-            <div class="row to-do-card-1 mb-2">
+          <div class="white_card_body to_do_card_body mt_2" *ngIf="events.length > 0">
+            <div class="row to-do-card-1 mb-2" *ngFor="let event of events">
               <div class="col-2 to-do-card-calendar">
-                <p>Dec</p>
-                <h1 class="backend-h1">24</h1>
+                <p>{{event.eventMonth}}</p>
+                <h1 class="backend-h1">{{event.eventDate}}</h1>
               </div>
               <div class="col-10 to-do-card-task">
-                <span>4:00pm</span> <span> || </span> <span> Tasked To : Robert Bruce </span>
-                <h4 class="backend-h4">Server Size Increase As Soon As Possible</h4>
-                <span> Tasked By : John Wayne </span>
+                <span>{{event.currentTime}}</span> <span> || </span> <span> Tasked To : {{event.admin}} </span>
+                <h4 class="backend-h4">{{event.description}}</h4>
+                <span> Tasked By : {{event.currentAdmin}} </span>
               </div>
             </div>
+            <div *ngIf="events.length > 3">
+            <a routerLink="/view-event"> View More... </a>
+            </div>
+          </div>
+          <div class="white_card_body to_do_card_body mt_2" *ngIf="events.length <= 0">
             <div class="row to-do-card-1 mb-2">
-              <div class="col-2 to-do-card-calendar">
-                <p>Dec</p>
-                <h1 class="backend-h1">24</h1>
-              </div>
-              <div class="col-10 to-do-card-task">
-                <span>4:00pm</span> <span> || </span> <span> Tasked To : Robert Bruce </span>
-                <h4 class="backend-h4">Server Size Increase As Soon As Possible</h4>
-                <span> Tasked By : John Wayne </span>
-              </div>
+              <h6>No Event Added Yet</h6>
             </div>
-            <div class="row to-do-card-1 mb-2">
-              <div class="col-2 to-do-card-calendar">
-                <p>Dec</p>
-                <h1 class="backend-h1">24</h1>
-              </div>
-              <div class="col-10 to-do-card-task">
-                <span>4:00pm</span> <span> || </span> <span> Tasked To : Robert Bruce </span>
-                <h4 class="backend-h4">Server Size Increase As Soon As Possible</h4>
-                <span> Tasked By : John Wayne </span>
-              </div>
-            </div>
-            <a href="#"> View More... </a>
           </div>
         </div>
       </div>
@@ -349,11 +334,14 @@
                 </mat-label>
                 <input matInput formControlName="title"   placeholder="Ex: Hi this is the title" />
               </mat-form-field>
-              <mat-form-field class="task_assigning_form"  >
-                <mat-label>
-                  Task Assigned To :
-                </mat-label>
-                <input matInput formControlName="name" placeholder="Ex: This is for jeffery" />
+              <mat-form-field class="task_assigning_form">
+                <mat-label>Task Assigned To :</mat-label>
+                <mat-select formControlName="name">
+                  <mat-option *ngFor="let admin of admins"
+                              [value]="admin.id">
+                    {{admin.name}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
               <mat-form-field class="task_assigning_form" >
                 <mat-label>

@@ -10,7 +10,7 @@ import {Subscription} from "rxjs";
 })
 export class TaskViewComponent implements OnInit {
 
-  tasks: Task[] =[];
+  tasks: any;
   private tasksSub: Subscription;
 
   constructor(public taskService: TaskService) { }
@@ -20,6 +20,10 @@ export class TaskViewComponent implements OnInit {
     this.tasksSub = this.taskService.getTasksUpdateListener().subscribe((tasks: Task[])=>{
       this.tasks = tasks;
     });
+  }
+
+  CheckedFunction(taskId: string){
+    this.taskService.deleteTask(taskId);
   }
 
 }
