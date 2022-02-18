@@ -23,7 +23,7 @@ export class TaskViewComponent implements OnInit {
   }
 
   CheckedFunction(taskId: string){
-    this.taskService.deleteTask(taskId);
+    this.taskService.markTask(taskId);
   }
 
 }

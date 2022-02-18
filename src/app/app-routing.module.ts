@@ -27,6 +27,8 @@ import {ViewSongComponent} from "./layouts/view-song/view-song.component";
 import {ViewTaskComponent} from "./layouts/view-task/view-task.component";
 import {CreateEventComponent} from "./layouts/create-event/create-event.component";
 import {ViewEventComponent} from "./layouts/view-event/view-event.component";
+import {ViewCalendarComponent} from "./layouts/view-calendar/view-calendar.component";
+import {HistoryTaskComponent} from "./layouts/history-task/history-task.component";
 
 const routes: Routes = [
   {
@@ -187,6 +189,16 @@ const routes: Routes = [
   {
     path:"view-event",
     component:ViewEventComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-calendar",
+    component:ViewCalendarComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"task-history",
+    component:HistoryTaskComponent,
     canActivate: [BackAuthGuard]
   },
 ];

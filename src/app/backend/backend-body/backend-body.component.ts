@@ -54,7 +54,8 @@ export class BackendBodyComponent implements OnInit {
     }else{
       dd = d;
     }
-    let m = date.getMonth().toString();
+    let m: string | number = date.getMonth() +1;
+    m = m.toString();
     let mLength = m.length;
     if(mLength === 1){
       mm = '0' + m;

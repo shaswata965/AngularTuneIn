@@ -98,7 +98,23 @@ export class EventService{
   }
 
   getEditEvent(eventId: string | null){
-    return this.http.get<{_id:string, title:string, description: string, admin:string,}>("http://localhost:3000/api/events/" +eventId);
+    return this.http.get<{_id:string, title:string, description: string, admin:string}>("http://localhost:3000/api/events/" +eventId);
+  }
+
+  getCalendarEvent(eventDate: any){
+    return this.http.get<{_id:string, title:string, description: string, admin:string}>("http://localhost:3000/api/events/" +eventDate);
+  }
+
+  getUpcomingEvents(upcomingDate: any){
+    return this.http.get<{_id:string, title:string, description: string, admin:string}>("http://localhost:3000/api/events/upcomingDate/" +upcomingDate);
+  }
+
+  getGoogleEvents(googleDate: any){
+    return this.http.get<{event: any}>("http://localhost:3000/api/events/googleEvents/" +googleDate);
+  }
+
+  getGoogleUpcomingEvents(googleDate: any){
+    return this.http.get<{event: any}>("http://localhost:3000/api/events/googleUpcoming/" +googleDate);
   }
 
 }

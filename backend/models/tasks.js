@@ -9,6 +9,7 @@ const taskSchema = mongoose.Schema({
   task: {type: String, required: true},
   date: {type: String, required: true},
   admin:{type: String, required: true},
+  completed:{type:String, required:true},
   adminImagePath:{type: String, required: true}
 });
 

@@ -12,6 +12,8 @@ export class TaskService{
 
   private tasks: Task[] = [];
   private tasksUpdated = new Subject<Task []>();
+  private tasksCompleted :any;
+  private tasksCompletedUpdated = new Subject<Task []>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -38,12 +40,12 @@ export class TaskService{
           date: task.date,
           id: task._id,
           admin: task.admin,
+          completed: task.completed,
           adminImagePath: task.adminImagePath,
         };
       });
     }))
       .subscribe(tasks=>{
-        console.log(tasks);
         this.tasks = tasks;
         this.tasksUpdated.next([...this.tasks]);
       });
@@ -61,4 +63,23 @@ export class TaskService{
         this.tasksUpdated.next([...this.tasks]);
       });
   }
+
+  getCalendarTask(date: any){
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string}>("http://localhost:3000/api/tasks/" +date);
+  }
+
+  markTask(taskId: any){
+    this.http.get<{message: string}>('http://localhost:3000/api/tasks/mark/' + taskId)
+      .subscribe((Data)=>{
+        this.router.navigate(['/task-history']);
+      });
+  }
+
+  getCompletedTask() {
+    let completed = 'Yes';
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string}>("http://localhost:3000/api/tasks/completed/" +completed);
+  }
+
 }

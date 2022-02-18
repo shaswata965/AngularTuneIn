@@ -102,7 +102,8 @@ import { CreateEventComponent } from './layouts/create-event/create-event.compon
 import { ViewEventComponent } from './layouts/view-event/view-event.component';
 import { CalendarViewComponent } from './backend/calendar-view/calendar-view.component';
 import { ViewCalendarComponent } from './layouts/view-calendar/view-calendar.component';
-
+import { TaskHistoryComponent } from './backend/task-history/task-history.component';
+import { HistoryTaskComponent } from './layouts/history-task/history-task.component';
 
 @NgModule({
     declarations: [
@@ -179,7 +180,9 @@ import { ViewCalendarComponent } from './layouts/view-calendar/view-calendar.com
         CreateEventComponent,
         ViewEventComponent,
         CalendarViewComponent,
-        ViewCalendarComponent
+        ViewCalendarComponent,
+        TaskHistoryComponent,
+        HistoryTaskComponent
     ],
   imports: [
     BrowserModule,

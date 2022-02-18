@@ -1,1 +1,123 @@
-<p>calendar-view works!</p>
+<div class="row justify-content-between calendar-color">
+  <div class="col-md-4 col-sm-10 mt-20">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading text-center">
+        Calendar
+      </h1>
+      <p class="mat-body-1 login-card-description text-center"> Select a date </p>
+      <mat-card class="demo-inline-calendar-card">
+        <mat-calendar [(selected)]="selected" (click)="changedDate()" ></mat-calendar>
+      </mat-card>
+    </mat-card>
+  </div>
+  <div class="col-md-7 col-sm-10">
+    <div class="row justify-content-end">
+      <div class="col-12 mt-20">
+        <mat-card class="login-card">
+          <h1 class="login-card-heading text-center">
+            All Events
+          </h1>
+          <p class="mat-body-1 login-card-description text-center mt-2"> List Of Every Events on {{taskDate}} </p>
+          <div class="card mb-10 mt-3">
+            <div class="card-body shadow-sm">
+              <h4 class="card-title"> Today's Events </h4>
+              <div  *ngIf="events.length > 0">
+                <div class="card mt-20" *ngFor="let event of events">
+                  <a routerLink="/view-event">
+                    <div class="card-body">
+                      <h6 class="card-title">{{event.title}}</h6>
+                      <p class="card-test"> {{event.description}} </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="events.length <= 0">
+                <div class="card-body">
+                  <h6 class="card-title">Oops !</h6>
+                  <p> There's No Event Scheduled Today </p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body shadow-sm mt-10">
+              <h4 class="card-title"> Upcoming Events </h4>
+              <div  *ngIf="upcomingEvents.length > 0">
+                <div class="card mt-20" *ngFor="let upcoming of currentUpcomingEvents">
+                  <a routerLink="/view-event">
+                    <div class="card-body">
+                      <h6 class="card-title">{{upcoming.title}}</h6>
+                      <p> {{upcoming.description}} </p>
+                      <p class="card-text event-card-date">{{upcoming.fullDate}}</p>
+                      <p></p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="upcomingEvents.length <= 0">
+                <div class="card-body">
+                  <h6 class="card-title">Oops !</h6>
+                  <p class="card-test"> There's No Event Scheduled </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a routerLink="/create-event"><button mat-button mat-raised-button color="primary"> Add A New Event </button></a>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12">
+    <div class="row justify-content-center">
+      <div class="col-12 mt-20">
+        <mat-card class="login-card">
+          <h1 class="login-card-heading text-center">
+            Calendar Events
+          </h1>
+          <p class="mat-body-1 login-card-description text-center mt-2"> List Of Every Public Events on {{taskDate}} </p>
+          <div class="card mb-10 mt-3">
+            <div class="card-body shadow-sm">
+              <h4 class="card-title"> Today's Public Events </h4>
+              <div  *ngIf="eventChecker.length > 0">
+                <div class="card mt-20">
+                  <a routerLink="/view-event">
+                    <div class="card-body">
+                      <h6 class="card-title">{{googleEvent.summary}}</h6>
+                      <p><span class="btn-inverse-success date-indicator">Start Date: {{googleEvent.start.date}}</span></p>
+                      <p> <span class="btn-inverse-danger date-indicator"> End Date : {{googleEvent.end.date}}</span></p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="eventChecker.length <= 0">
+                <div class="card-body">
+                  <h6 class="card-title">Oops !</h6>
+                  <p> There's No Public Event Today </p>
+                </div>
+              </div>
+            </div>
+            <div class="card-body shadow-sm">
+              <h4 class="card-title"> Upcoming Public Events </h4>
+              <div  *ngIf="googleUpcoming.length > 0">
+                <div class="card mt-20" *ngFor="let upcoming of googleUpcoming">
+                  <a routerLink="/view-event">
+                    <div class="card-body">
+                      <h6 class="card-title">{{upcoming.summary}}</h6>
+                      <p><span class="btn-inverse-success date-indicator">Start Date: {{upcoming.start.date}}</span></p>
+                      <p> <span class="btn-inverse-danger date-indicator"> End Date : {{upcoming.end.date}}</span></p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="card" *ngIf="googleUpcoming.length <= 0">
+                <div class="card-body">
+                  <h6 class="card-title">Oops !</h6>
+                  <p> There's No Upcoming Public Event </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a routerLink="/create-event"><button mat-button mat-raised-button color="primary"> Add A New Event </button></a>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

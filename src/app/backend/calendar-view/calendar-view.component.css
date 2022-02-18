@@ -1,0 +1,14 @@
+.login-card{
+  border-color: #0b0b0b;
+  border-width: 1px;
+}
+
+.event-card-date{
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.date-indicator{
+  padding: 3px;
+  border-radius: 5px;
+}
