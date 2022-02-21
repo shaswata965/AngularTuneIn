@@ -20,15 +20,8 @@
                 <div class="col-4">
                   <p class="bottom-task-details">{{task.date}}</p>
                 </div>
-                <div class="row justify-content-between mt-3">
-                  <div class="col-5">
-                    <button class="btn btn-block btn-sm btn-danger re-btn">Reallocate</button>
-                  </div>
-                  <div class="col-5 ac-div">
-                    <button class="btn btn-block btn-sm btn-success ac-btn" (click)="acceptTask(task._id)">Accept</button>
-                  </div>
-                </div>
               </div>
+              <p class="accepted-admin btn-success mb-3 mt-3 text-center">Accepted By<span class="admin-name"> {{task.acceptAdmin}}</span></p>
             </div>
           </div>
         </div>
@@ -45,3 +38,4 @@
     </div>
   </div>
 </div>
+

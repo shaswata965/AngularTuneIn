@@ -249,8 +249,6 @@ router.get('/googleUpcoming/:google',(req,res,next)=>{
     }
   }
 
-  console.log(tomorrowDate + '----' + next1Date + '----' + next2Date);
-
   let googleArray = [];
   fetch(overURL)
     .then(response => response.json())

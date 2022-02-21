@@ -20,4 +20,10 @@ export class TaskHistoryComponent implements OnInit {
     });
   }
 
+  acceptTask(taskId:any){
+    let currentAdmin = localStorage.getItem('currentAdmin');
+    this.taskService.acceptTask(taskId,currentAdmin);
+
+  }
+
 }

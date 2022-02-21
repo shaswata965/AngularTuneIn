@@ -102,6 +102,7 @@ export class EventService{
   }
 
   getCalendarEvent(eventDate: any){
+    console.log(eventDate);
     return this.http.get<{_id:string, title:string, description: string, admin:string}>("http://localhost:3000/api/events/" +eventDate);
   }
 

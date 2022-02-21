@@ -5,4 +5,6 @@ export interface Task{
   task: string;
   date: string;
   completed: string;
+  accepted: string;
+  acceptAdmin: string;
 }

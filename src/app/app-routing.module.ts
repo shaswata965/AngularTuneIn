@@ -29,6 +29,7 @@ import {CreateEventComponent} from "./layouts/create-event/create-event.componen
 import {ViewEventComponent} from "./layouts/view-event/view-event.component";
 import {ViewCalendarComponent} from "./layouts/view-calendar/view-calendar.component";
 import {HistoryTaskComponent} from "./layouts/history-task/history-task.component";
+import {CompletedTaskComponent} from "./layouts/completed-task/completed-task.component";
 
 const routes: Routes = [
   {
@@ -199,6 +200,11 @@ const routes: Routes = [
   {
     path:"task-history",
     component:HistoryTaskComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"task-accepted",
+    component:CompletedTaskComponent,
     canActivate: [BackAuthGuard]
   },
 ];

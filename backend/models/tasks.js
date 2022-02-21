@@ -10,7 +10,9 @@ const taskSchema = mongoose.Schema({
   date: {type: String, required: true},
   admin:{type: String, required: true},
   completed:{type:String, required:true},
-  adminImagePath:{type: String, required: true}
+  accepted:{type:String, required:true},
+  adminImagePath:{type: String, required: true},
+  acceptAdmin:{type: String, required:true}
 });
 
 taskSchema.plugin(uniqueValidator);

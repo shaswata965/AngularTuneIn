@@ -227,15 +227,26 @@ export class CalendarViewComponent implements OnInit{
   }
 
   eventDateFormatter(date: any){
-    let eventDate: any = [];
 
-    let day = '0' + date.getDate().toString();
-    let month = date.getMonth().toString();
+    let eventDate = [];
+
+    let d = date.getDate().toString();
+    let dLength = d.length;
+    let dd = '';
+
+    let mm  = date.getMonth();
+    if(dLength === 1){
+      dd = '0'+ d;
+    }else{
+      dd =  d;
+    }
 
     let monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-    eventDate.push(day);
-    eventDate.push(monthNames[month]);
+    console.log(monthNames[mm]);
+
+    eventDate.push(dd);
+    eventDate.push(monthNames[mm]);
 
     return eventDate;
   }

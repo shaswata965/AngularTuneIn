@@ -104,6 +104,8 @@ import { CalendarViewComponent } from './backend/calendar-view/calendar-view.com
 import { ViewCalendarComponent } from './layouts/view-calendar/view-calendar.component';
 import { TaskHistoryComponent } from './backend/task-history/task-history.component';
 import { HistoryTaskComponent } from './layouts/history-task/history-task.component';
+import { TaskCompletedComponent } from './backend/task-completed/task-completed.component';
+import { CompletedTaskComponent } from './layouts/completed-task/completed-task.component';
 
 @NgModule({
     declarations: [
@@ -182,7 +184,9 @@ import { HistoryTaskComponent } from './layouts/history-task/history-task.compon
         CalendarViewComponent,
         ViewCalendarComponent,
         TaskHistoryComponent,
-        HistoryTaskComponent
+        HistoryTaskComponent,
+        TaskCompletedComponent,
+        CompletedTaskComponent
     ],
   imports: [
     BrowserModule,

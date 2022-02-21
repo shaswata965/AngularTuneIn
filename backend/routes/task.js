@@ -30,9 +30,10 @@ router.post('',(req,res,next)=>{
       date: req.body.date,
       admin: adminName,
       completed: 'No',
+      accepted: 'No',
+      acceptAdmin: 'N/A',
       adminImagePath: adminData.imagePath,
     });
-    console.log(task);
     task.save()
       .then(result => {
         res.status(201).json({
@@ -95,10 +96,46 @@ router.get('/mark/:taskId',(req,res,next)=>{
   });
 });
 
-router.get('/completed/:complete',(req,res,next)=>{
+router.get('/accept/:taskId/:currentAdmin',(req,res,next)=>{
+  Task.findOneAndUpdate({_id:req.params.taskId},{
+    accepted: 'Yes',
+    acceptAdmin: req.params.currentAdmin
+  }).then(result=>{
+    res.status(201).json({
+      message: 'Task updated!',
+      result: result
+    });
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get('/completed/:complete/:accept',(req,res,next)=>{
+  let taskArray = [];
   Task.find({completed:req.params.complete}).then(result=>{
     if(result){
-      res.status(200).json(result);
+      taskArray = result.filter(x=> x.accepted === req.params.accept);
+      res.status(200).json(taskArray);
+    }else{
+      res.status(404).json({
+        message:"Task not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get('/accepted/:complete/:accept',(req,res,next)=>{
+  let taskArray = [];
+  Task.find({completed:req.params.complete}).then(result=>{
+    if(result){
+      taskArray = result.filter(x=> x.accepted === req.params.accept);
+      res.status(200).json(taskArray);
     }else{
       res.status(404).json({
         message:"Task not Found"

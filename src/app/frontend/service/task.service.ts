@@ -12,8 +12,6 @@ export class TaskService{
 
   private tasks: Task[] = [];
   private tasksUpdated = new Subject<Task []>();
-  private tasksCompleted :any;
-  private tasksCompletedUpdated = new Subject<Task []>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -41,7 +39,9 @@ export class TaskService{
           id: task._id,
           admin: task.admin,
           completed: task.completed,
+          accepted: task.accepted,
           adminImagePath: task.adminImagePath,
+          acceptAdmin: task.acceptAdmin,
         };
       });
     }))
@@ -78,8 +78,23 @@ export class TaskService{
 
   getCompletedTask() {
     let completed = 'Yes';
+    let accepted = 'No';
     return this.http.get<{
-      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string}>("http://localhost:3000/api/tasks/completed/" +completed);
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string}>("http://localhost:3000/api/tasks/completed/" +completed +'/'+ accepted);
+  }
+
+  acceptTask(taskId: any, currentAdmin: string | null){
+    this.http.get<{message: string}>('http://localhost:3000/api/tasks/accept/' + taskId+ '/'+ currentAdmin)
+      .subscribe((Data)=>{
+        this.router.navigate(['/task-accepted']);
+      });
+  }
+
+  getAcceptedTask() {
+    let completed = 'Yes';
+    let accepted = 'Yes';
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
   }
 
 }
