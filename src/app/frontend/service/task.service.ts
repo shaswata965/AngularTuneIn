@@ -97,4 +97,11 @@ export class TaskService{
       _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
   }
 
+  getReallocationTask(taskId:any) {
+    let completed = 'No';
+    let accepted = 'No';
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
+  }
+
 }

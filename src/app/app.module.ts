@@ -106,6 +106,8 @@ import { TaskHistoryComponent } from './backend/task-history/task-history.compon
 import { HistoryTaskComponent } from './layouts/history-task/history-task.component';
 import { TaskCompletedComponent } from './backend/task-completed/task-completed.component';
 import { CompletedTaskComponent } from './layouts/completed-task/completed-task.component';
+import { TaskReallocationComponent } from './backend/task-reallocation/task-reallocation.component';
+import { ReallocationTaskComponent } from './layouts/reallocation-task/reallocation-task.component';
 
 @NgModule({
     declarations: [
@@ -186,7 +188,9 @@ import { CompletedTaskComponent } from './layouts/completed-task/completed-task.
         TaskHistoryComponent,
         HistoryTaskComponent,
         TaskCompletedComponent,
-        CompletedTaskComponent
+        CompletedTaskComponent,
+        TaskReallocationComponent,
+        ReallocationTaskComponent
     ],
   imports: [
     BrowserModule,

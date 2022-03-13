@@ -30,6 +30,7 @@ import {ViewEventComponent} from "./layouts/view-event/view-event.component";
 import {ViewCalendarComponent} from "./layouts/view-calendar/view-calendar.component";
 import {HistoryTaskComponent} from "./layouts/history-task/history-task.component";
 import {CompletedTaskComponent} from "./layouts/completed-task/completed-task.component";
+import {ReallocationTaskComponent} from "./layouts/reallocation-task/reallocation-task.component";
 
 const routes: Routes = [
   {
@@ -205,6 +206,11 @@ const routes: Routes = [
   {
     path:"task-accepted",
     component:CompletedTaskComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"task-reallocation/:taskId",
+    component:ReallocationTaskComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -13,7 +13,6 @@ import {Album} from "../../frontend/models/album.model";
 import {ActivatedRoute} from "@angular/router";
 import {Song} from "../../frontend/models/song.model";
 import {SongService} from "../../frontend/service/song.service";
-import {SanitizeUrlPipe} from "./sanitize-url.pipe";
 
 @Component({
   selector: 'app-song-create',
