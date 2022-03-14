@@ -5,28 +5,44 @@
     </h1>
     <p class="mat-body-1 login-card-description text-center pt-10 pb-30"> List Of Every Task </p>
     <div class="card-body">
-      <div class="row" *ngIf="tasks.length > 0">
-        <div class="col-12 col-md-6 col-lg-4" *ngFor="let task of tasks; let i=index;">
+      <div class="row justify-content-center" *ngIf="tasks.length > 0">
+        <div class="col-12 col-md-8 col-lg-6" *ngFor="let task of tasks; let i=index;">
           <div class="card card-on-hover mb-20">
             <div class="card-body shadow-md">
-              <p class="marked-admin mb-3 text-center">Completed By<span class="admin-name"> {{task.admin}}</span></p>
-              <img  class="task-image"  [src]="task.adminImagePath"  [alt]="task.admin" />
-              <h4 class="task-title">{{task.title}}</h4>
-              <p>{{task.task}}</p>
-              <div class="row justify-content-between">
-                <div class="col-4">
-                  <p class="bottom-task-details">{{task.admin}}</p>
+              <div class="card internal-border-color">
+                <div class="card-body shadow-md">
+                  <p class="marked-admin mb-3 text-center">Completed By<span class="admin-name"> {{task.admin}}</span></p>
+                  <img  class="task-image"  [src]="task.adminImagePath"  [alt]="task.admin" />
+                  <h4 class="task-title">{{task.title}}</h4>
+                  <p class="task-reallocation-text">{{task.task}}</p>
+                  <div class="row justify-content-between">
+                    <div class="col-4">
+                      <p class="bottom-task-details">{{task.admin}}</p>
+                    </div>
+                    <div class="col-4">
+                      <p class="bottom-task-details">{{task.date}}</p>
+                    </div>
                 </div>
-                <div class="col-4">
-                  <p class="bottom-task-details">{{task.date}}</p>
-                </div>
-                <div class="row justify-content-between mt-3">
-                  <div class="col-5">
-                    <a [routerLink]="['/task-reallocation',task._id]" class="btn btn-block btn-sm btn-danger re-btn">Reallocate</a>
-                  </div>
-                  <div class="col-5 ac-div">
-                    <button class="btn btn-block btn-sm btn-success ac-btn" (click)="acceptTask(task._id)">Accept</button>
-                  </div>
+              </div>
+              </div>
+              <div class="row justify-content-center mt-4">
+                <div class="col-8 ml-3">
+                  <form [formGroup]="form" (submit)="reallocateTask()">
+                    <mat-form-field class="login-card-fields">
+                      <mat-label>Task Update Remarks :</mat-label>
+                      <textarea type="text" formControlName="update" matInput placeholder="Ex: Update Task Text" ></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="login-card-fields">
+                      <mat-label>Reallocated Admin</mat-label>
+                      <mat-select formControlName="name">
+                        <mat-option *ngFor="let admin of admins"
+                                    [value]="admin.id">
+                          {{admin.name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <button type="submit" class="btn btn-block btn-danger re-btn">Reallocate</button>
+                  </form>
                 </div>
               </div>
             </div>

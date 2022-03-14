@@ -21,8 +21,13 @@
 }
 
 .bottom-task-details{
-  font-size: 10px;
+  font-size: 13px;
   margin-bottom: -10px;
+  margin-left: 10%;
+}
+
+.task-reallocation-text{
+  font-size: 15px;
 }
 
 .task-completion-check{
@@ -55,7 +60,7 @@
   height: 8rem;
   border-radius: 100%;
   margin-bottom: 10px;
-  margin-left: 25%;
+  margin-left: 35%;
 }
 
 .marked-admin{
@@ -80,4 +85,14 @@
 
 .ac-div{
   margin-right: -15px!important;
+}
+
+.internal-border-color{
+  border-color: #3F51B5;
+  border-radius: 10px;
+  border-width: 2px;
+}
+
+.login-card-fields{
+  display: block;
 }

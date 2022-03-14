@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Task} from "../models/task.model";
 import {map} from "rxjs/operators";
 import {Subject} from "rxjs";
+import {Language} from "../models/language.model";
 
 @Injectable({
   providedIn: 'root'
@@ -97,11 +98,20 @@ export class TaskService{
       _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
   }
 
+  reallocateTask( reallocate: string | null, update: string | null, id: string | null, acceptAdmin: string | null, accepted: string | null, admin: string | null, adminImagePath: string | null, completed: string | null, date: string | null, name: string | null, task: string | null, title: string | null  ){
+    console.log('I am Here');
+    let reallocateData : Task | FormData ;
+    // @ts-ignore
+    reallocateData = {id:id, acceptAdmin: acceptAdmin, accepted: accepted, admin: admin, adminImagePath: adminImagePath, completed: completed, date: date, name: name, task: task, title: title, reallocate:reallocate, update:update}
+    this.http.put("http://localhost:3000/api/tasks/reallocateTask/" +id, reallocateData)
+      .subscribe(response=>{
+        this.router.navigate(['/view-task']);
+      });
+  }
+
   getReallocationTask(taskId:any) {
-    let completed = 'No';
-    let accepted = 'No';
     return this.http.get<{
-      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/reallocate/" + taskId);
   }
 
 }

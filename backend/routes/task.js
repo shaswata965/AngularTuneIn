@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const Task = require('../models/tasks');
 const Admin = require("../models/admins");
+const Language = require("../models/languages");
 
 const router = express.Router();
 
@@ -33,6 +34,8 @@ router.post('',(req,res,next)=>{
       accepted: 'No',
       acceptAdmin: 'N/A',
       adminImagePath: adminData.imagePath,
+      update:'N/A',
+      reallocate:'N/A'
     });
     task.save()
       .then(result => {
@@ -146,6 +149,52 @@ router.get('/accepted/:complete/:accept',(req,res,next)=>{
       error: err
     });
   });
+});
+
+router.get('/reallocate/:taskId',(req,res,next)=>{
+  Task.find({_id:req.params.taskId}).then(result=>{
+    if(result){
+      res.status(200).json(result);
+    }else{
+      res.status(404).json({
+        message:"Task not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.put("/reallocateTask/:id",(req,res,next)=>{
+  const task = new Task({
+    _id:req.body.id,
+    title: req.body.title,
+    name: req.body.name,
+    task: req.body.task,
+    date: req.body.date,
+    admin: req.body.adminName,
+    completed: 'No',
+    accepted: 'No',
+    acceptAdmin: 'N/A',
+    adminImagePath: req.body.adminImagePath,
+    update:req.body.update,
+    reallocate:req.body.reallocate
+  });
+
+  Task.updateOne({_id:req.params.id}, task)
+    .then(result => {
+      res.status(201).json({
+        message: 'Task updated!',
+        result: result
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
 });
 
 module.exports = router;

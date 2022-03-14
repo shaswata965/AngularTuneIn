@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../../frontend/service/task.service";
 import {ActivatedRoute} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {mimeType} from "../admin-signup/signup/mime-type.validator";
+import {Admin} from "../../frontend/models/admin.model";
+import {AdminService} from "../../frontend/service/admin.service";
 
 @Component({
   selector: 'app-task-reallocation',
@@ -14,9 +18,24 @@ export class TaskReallocationComponent implements OnInit {
   private tasksSub: Subscription;
   public taskId: any;
 
-  constructor(public taskService: TaskService, public route: ActivatedRoute) { }
+  public adminsSub: Subscription;
+  public admins: any;
+
+  form: FormGroup;
+
+  constructor(public taskService: TaskService, public route: ActivatedRoute, public adminService: AdminService) { }
 
   ngOnInit(){
+
+    this.form = new FormGroup({
+      'update': new FormControl(null, {validators: [Validators.required]}),
+      'name': new FormControl(null,{validators:[Validators.required]}),
+    });
+
+    this.adminService.getAdmins();
+    this.adminsSub = this.adminService.getAdminsUpdateListener().subscribe((admin: Admin[])=>{
+      this.admins = admin;
+    });
 
     this.route.paramMap.subscribe((paramMap)=>{
 
@@ -24,16 +43,19 @@ export class TaskReallocationComponent implements OnInit {
 
       this.taskService.getTasks();
       this.tasksSub = this.taskService.getReallocationTask(this.taskId).subscribe((tasks: any)=>{
+        console.log(tasks);
         this.tasks = tasks;
       });
     });
 
   }
 
-  acceptTask(taskId:any){
-    let currentAdmin = localStorage.getItem('currentAdmin');
-    this.taskService.acceptTask(taskId,currentAdmin);
-
+  reallocateTask(){
+    if(this.form.invalid){
+      return
+    }
+    this.taskService.reallocateTask( this.form.value.name, this.form.value.update, this.taskId, this.tasks.acceptAdmin, this.tasks.accepted, this.tasks.admin, this.tasks.adminImagePath, this.tasks.completed, this.tasks.date, this.tasks.name, this.tasks.task, this.tasks.title);
+    this.form.reset();
   }
 
 }

@@ -1,5 +1,6 @@
 const mongoose = require ('mongoose'), Schema = mongoose.Schema;
 const uniqueValidator = require('mongoose-unique-validator');
+const Language = require("./languages");
 
 const taskSchema = mongoose.Schema({
   title: {type: String, required: true},
@@ -12,8 +13,15 @@ const taskSchema = mongoose.Schema({
   completed:{type:String, required:true},
   accepted:{type:String, required:true},
   adminImagePath:{type: String, required: true},
-  acceptAdmin:{type: String, required:true}
+  acceptAdmin:{type: String, required:true},
+  update:{type:String, required:true},
+  reallocate:{
+    type: Schema.Types.ObjectId,
+    ref: 'Admin'
+  }
 });
+
+
 
 taskSchema.plugin(uniqueValidator);
 

@@ -7,4 +7,6 @@ export interface Task{
   completed: string;
   accepted: string;
   acceptAdmin: string;
+  update: string;
+  reallocate: string;
 }

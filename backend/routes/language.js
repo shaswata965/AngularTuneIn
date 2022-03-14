@@ -11,8 +11,6 @@ router.use(bodyParser.urlencoded({extended: false}));
 
 router.post('',(req,res,next)=>{
 
-  console.log(req.body.name);
-  console.log(req.body.name);
   const language = new Language({
     name: req.body.name
   });
