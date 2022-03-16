@@ -37,5 +37,58 @@
       </div>
     </div>
   </div>
+
+  <div class="card mt-10">
+    <h1 class="login-card-heading text-center pt-30">
+      All Relocated Tasks
+    </h1>
+    <p class="mat-body-1 login-card-description text-center pt-10 pb-30"> List Of Every Reallocated Task </p>
+    <div class="card-body">
+      <div class="row" *ngIf="reallocates.length > 0">
+        <div class="col-12 col-md-8 col-lg-6" *ngFor="let reallocate of reallocates; let i=index;">
+          <div class="card card-on-hover mb-20">
+            <div class="card-body shadow-md">
+              <div class="card internal-border-color">
+                <div class="card-body shadow-md">
+                  <p class="marked-admin mb-3 text-center">Completed By<span class="admin-name"> {{reallocate.reallocate}}</span></p>
+                  <img  class="task-image"  [src]="reallocate.adminImagePath"  [alt]="reallocate.admin" />
+                  <h4 class="task-title">{{reallocate.title}}</h4>
+                  <p>{{reallocate.task}}</p>
+                  <div class="row justify-content-between">
+                    <div class="col-3">
+                      <p class="bottom-task-details">{{reallocate.admin}}</p>
+                    </div>
+                    <div class="col-4">
+                      <p class="bottom-task-details">{{reallocate.date}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-10">
+                <div class="col-6">
+                  <h5>Reallocation Update:</h5>
+                  <p class="pt-2">{{reallocate.update}}</p>
+                </div>
+                <div class="col-4">
+                  <h5>Reallocated Admin:</h5>
+                  <p class="pt-2">{{reallocate.reallocate}}</p>
+                </div>
+              </div>
+              <p class="accepted-admin btn-success mb-3 mt-3 text-center">Accepted By<span class="admin-name"> {{reallocate.acceptAdmin}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="reallocates.length <= 0">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body shadow-md">
+              <h4> NO TASKS REALLOCATED YET </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

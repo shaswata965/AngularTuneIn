@@ -12,11 +12,37 @@ router.use(bodyParser.urlencoded({extended: false}));
 
 router.get('',(req,res,next)=>{
   let value = 'No';
+  let taskArray = [];
   Task.find({completed: value})
     .then(documents=>{
+        taskArray = documents.filter(x=> x.update === "N/A");
+        res.status(200).json({
+          message: "Tasks Listed Successfully",
+          tasks: taskArray
+        });
+    })
+    .catch(err=>{
+      res.status(500).json({
+        error: err
+      });
+    });
+});
+
+router.get('/reallocated',(req,res,next)=>{
+  let value = 'No';
+  let taskArray = [];
+  Task.find({completed: value})
+    .then(documents=>{
+      taskArray = documents.filter(x=> x.update !== "N/A");
+      console.log(taskArray);
       res.status(200).json({
         message: "Tasks Listed Successfully",
-        tasks: documents
+        tasks: taskArray
+      });
+    })
+    .catch(err=>{
+      res.status(500).json({
+        error: err
       });
     });
 });
@@ -117,10 +143,32 @@ router.get('/accept/:taskId/:currentAdmin',(req,res,next)=>{
 
 router.get('/completed/:complete/:accept',(req,res,next)=>{
   let taskArray = [];
+  let reallocateArray = [];
   Task.find({completed:req.params.complete}).then(result=>{
     if(result){
       taskArray = result.filter(x=> x.accepted === req.params.accept);
-      res.status(200).json(taskArray);
+      reallocateArray = taskArray.filter(x=> x.update === "N/A");
+      res.status(200).json(reallocateArray);
+    }else{
+      res.status(404).json({
+        message:"Task not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get('/completed/reallocated/:complete/:accept',(req,res,next)=>{
+  let taskArray = [];
+  let reallocateArray = [];
+  Task.find({completed:req.params.complete}).then(result=>{
+    if(result){
+      taskArray = result.filter(x=> x.accepted === req.params.accept);
+      reallocateArray = taskArray.filter(x=> x.update !== "N/A");
+      res.status(200).json(reallocateArray);
     }else{
       res.status(404).json({
         message:"Task not Found"
@@ -135,10 +183,32 @@ router.get('/completed/:complete/:accept',(req,res,next)=>{
 
 router.get('/accepted/:complete/:accept',(req,res,next)=>{
   let taskArray = [];
+  let reallocateArray = [];
   Task.find({completed:req.params.complete}).then(result=>{
     if(result){
       taskArray = result.filter(x=> x.accepted === req.params.accept);
-      res.status(200).json(taskArray);
+      reallocateArray = taskArray.filter(x=> x.update === "N/A");
+      res.status(200).json(reallocateArray);
+    }else{
+      res.status(404).json({
+        message:"Task not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+});
+
+router.get('/accepted/reallocated/:complete/:accept',(req,res,next)=>{
+  let taskArray = [];
+  let reallocateArray = [];
+  Task.find({completed:req.params.complete}).then(result=>{
+    if(result){
+      taskArray = result.filter(x=> x.accepted === req.params.accept);
+      reallocateArray = taskArray.filter(x=> x.update !== "N/A");
+      res.status(200).json(reallocateArray);
     }else{
       res.status(404).json({
         message:"Task not Found"
@@ -168,33 +238,37 @@ router.get('/reallocate/:taskId',(req,res,next)=>{
 });
 
 router.put("/reallocateTask/:id",(req,res,next)=>{
-  const task = new Task({
-    _id:req.body.id,
-    title: req.body.title,
-    name: req.body.name,
-    task: req.body.task,
-    date: req.body.date,
-    admin: req.body.adminName,
-    completed: 'No',
-    accepted: 'No',
-    acceptAdmin: 'N/A',
-    adminImagePath: req.body.adminImagePath,
-    update:req.body.update,
-    reallocate:req.body.reallocate
-  });
 
-  Task.updateOne({_id:req.params.id}, task)
-    .then(result => {
-      res.status(201).json({
-        message: 'Task updated!',
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
+  Admin.findById({_id:req.body.reallocate}).then(result=>{
+    let reAdminName = result.name;
+    const task = new Task({
+      _id:req.body.id,
+      title: req.body.title,
+      name: req.body.name,
+      task: req.body.task,
+      date: req.body.date,
+      admin: req.body.adminName,
+      completed: 'No',
+      accepted: 'No',
+      acceptAdmin: 'N/A',
+      adminImagePath: req.body.adminImagePath,
+      update:req.body.update,
+      reallocate:reAdminName
     });
+
+    Task.updateOne({_id:req.params.id}, task)
+      .then(result => {
+        res.status(201).json({
+          message: 'Task updated!',
+          result: result
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
 });
 
 module.exports = router;

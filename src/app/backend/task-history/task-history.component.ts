@@ -11,6 +11,9 @@ export class TaskHistoryComponent implements OnInit {
    public tasks: any;
   private tasksSub: Subscription;
 
+  public reallocates: any;
+  private reallocatesSub: Subscription;
+
   constructor(public taskService: TaskService) { }
 
   ngOnInit(){
@@ -18,6 +21,12 @@ export class TaskHistoryComponent implements OnInit {
     this.tasksSub = this.taskService.getCompletedTask().subscribe((tasks: any)=>{
       this.tasks = tasks;
     });
+
+    this.taskService.getReallocatedTasks();
+    this.reallocatesSub = this.taskService.getReallocatedCompletedTask().subscribe((tasks: any)=>{
+      this.reallocates = tasks;
+    });
+
   }
 
   acceptTask(taskId:any){

@@ -14,6 +14,9 @@ export class TaskService{
   private tasks: Task[] = [];
   private tasksUpdated = new Subject<Task []>();
 
+  private reallocates: Task[] = [];
+  private reallocatesUpdated = new Subject<Task []>();
+
   constructor(private http: HttpClient, private router: Router) {}
 
   addTask(title:string,name:string,task:string,date:string){
@@ -43,6 +46,8 @@ export class TaskService{
           accepted: task.accepted,
           adminImagePath: task.adminImagePath,
           acceptAdmin: task.acceptAdmin,
+          update: task.update,
+          reallocate: task.reallocate,
         };
       });
     }))
@@ -84,6 +89,13 @@ export class TaskService{
       _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string}>("http://localhost:3000/api/tasks/completed/" +completed +'/'+ accepted);
   }
 
+  getReallocatedCompletedTask(){
+    let completed = 'Yes';
+    let accepted = 'No';
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, update:string, reallocate:string}>("http://localhost:3000/api/tasks/completed/reallocated/" +completed +'/'+ accepted);
+  }
+
   acceptTask(taskId: any, currentAdmin: string | null){
     this.http.get<{message: string}>('http://localhost:3000/api/tasks/accept/' + taskId+ '/'+ currentAdmin)
       .subscribe((Data)=>{
@@ -96,6 +108,13 @@ export class TaskService{
     let accepted = 'Yes';
     return this.http.get<{
       _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/accepted/" +completed +'/'+ accepted);
+  }
+
+  getReallocatedAcceptedTask(){
+    let completed = 'Yes';
+    let accepted = 'Yes';
+    return this.http.get<{
+      _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string, update:string, reallocate:string}>("http://localhost:3000/api/tasks/accepted/reallocated/" +completed +'/'+ accepted);
   }
 
   reallocateTask( reallocate: string | null, update: string | null, id: string | null, acceptAdmin: string | null, accepted: string | null, admin: string | null, adminImagePath: string | null, completed: string | null, date: string | null, name: string | null, task: string | null, title: string | null  ){
@@ -112,6 +131,38 @@ export class TaskService{
   getReallocationTask(taskId:any) {
     return this.http.get<{
       _id:string, title:string, name:string, task:string, date:string,admin:string, adminImagePath:string, acceptAdmin: string}>("http://localhost:3000/api/tasks/reallocate/" + taskId);
+  }
+
+  getReallocatedTasks(){
+    this.http.get<{message:string, tasks: any }>(
+      "http://localhost:3000/api/tasks/reallocated"
+    ).pipe(map((taskData)=>{
+      // @ts-ignore
+      return taskData.tasks.map(task=>{
+        return{
+          title: task.title,
+          name: task.name,
+          task: task.task,
+          date: task.date,
+          id: task._id,
+          admin: task.admin,
+          completed: task.completed,
+          accepted: task.accepted,
+          adminImagePath: task.adminImagePath,
+          acceptAdmin: task.acceptAdmin,
+          update: task.update,
+          reallocate: task.reallocate,
+        };
+      });
+    }))
+      .subscribe(tasks=>{
+        this.reallocates = tasks;
+        this.reallocatesUpdated.next([...this.reallocates]);
+      });
+  }
+
+  getReallocatedTasksUpdateListener(){
+    return this.reallocatesUpdated.asObservable();
   }
 
 }

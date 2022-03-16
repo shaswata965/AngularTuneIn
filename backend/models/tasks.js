@@ -15,10 +15,7 @@ const taskSchema = mongoose.Schema({
   adminImagePath:{type: String, required: true},
   acceptAdmin:{type: String, required:true},
   update:{type:String, required:true},
-  reallocate:{
-    type: Schema.Types.ObjectId,
-    ref: 'Admin'
-  }
+  reallocate:{type:String, required:true}
 });
 
 

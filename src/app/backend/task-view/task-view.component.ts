@@ -13,12 +13,20 @@ export class TaskViewComponent implements OnInit {
   tasks: any;
   private tasksSub: Subscription;
 
+  reallocates: any;
+  private reallocatesSub: Subscription;
+
   constructor(public taskService: TaskService) { }
 
   ngOnInit(){
     this.taskService.getTasks();
     this.tasksSub = this.taskService.getTasksUpdateListener().subscribe((tasks: Task[])=>{
       this.tasks = tasks;
+    });
+
+    this.taskService.getReallocatedTasks();
+    this.reallocatesSub = this.taskService.getReallocatedTasksUpdateListener().subscribe((tasks: Task[])=>{
+      this.reallocates = tasks;
     });
   }
 
