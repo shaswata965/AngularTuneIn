@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Event = require('../models/events');
 const Admin = require('../models/admins');
 const fetch = require("cross-fetch");
+const Actor = require('../models/actors');
 
 const router = express.Router();
 
@@ -285,6 +286,128 @@ router.get('/:id',(req,res,next)=>{
       });
     }
   });
+});
+
+router.get('/birthday/:eventDate',(req,res,next)=>{
+  let day = req.params.eventDate[0]+req.params.eventDate[1];
+  let mm = req.params.eventDate[3]+req.params.eventDate[4]+req.params.eventDate[5];
+  let month ='';
+  switch(mm){
+    case 'Jan':
+      month = '01';
+      break;
+    case 'Feb':
+      month = '02';
+      break;
+    case 'Mar':
+      month = '03';
+      break;
+    case 'Apr':
+      month = '04';
+      break;
+    case 'May':
+      month = '05';
+      break;
+    case 'Jun':
+      month = '06';
+      break;
+    case 'Jul':
+      month = '07';
+      break;
+    case 'Aug':
+      month = '08';
+      break;
+    case 'Sep':
+      month = '09';
+      break;
+    case 'Oct':
+      month = '10';
+      break;
+    case 'Nov':
+      month = '11';
+      break;
+    case 'Dec':
+      month = '12';
+  }
+  let actorArray = [];
+
+  Actor.find({birthMonth: month}).then(result=>{
+    if(result){
+      actorArray = result.filter(x=> x.birthDay === day);
+      res.status(200).json(actorArray);
+    }else{
+      res.status(404).json({
+        message:"Actor not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+
+});
+
+router.get('/birthday/upcoming/:eventDate',(req,res,next)=>{
+  let d1 = req.params.eventDate[0]+req.params.eventDate[1];
+  let d2 = req.params.eventDate[3]+req.params.eventDate[4];
+  let d3 = req.params.eventDate[6]+req.params.eventDate[7];
+  let mm = req.params.eventDate[9]+req.params.eventDate[10]+req.params.eventDate[11];
+  let month ='';
+  switch(mm){
+    case 'Jan':
+      month = '01';
+      break;
+    case 'Feb':
+      month = '02';
+      break;
+    case 'Mar':
+      month = '03';
+      break;
+    case 'Apr':
+      month = '04';
+      break;
+    case 'May':
+      month = '05';
+      break;
+    case 'Jun':
+      month = '06';
+      break;
+    case 'Jul':
+      month = '07';
+      break;
+    case 'Aug':
+      month = '08';
+      break;
+    case 'Sep':
+      month = '09';
+      break;
+    case 'Oct':
+      month = '10';
+      break;
+    case 'Nov':
+      month = '11';
+      break;
+    case 'Dec':
+      month = '12';
+  }
+  let actorArray = [];
+
+  Actor.find({birthMonth: month}).then(result=>{
+    if(result){
+      actorArray = result.filter(x=> x.birthDay === d1 || x.birthDay === d2 || x.birthDay === d3);
+      res.status(200).json(actorArray);
+    }else{
+      res.status(404).json({
+        message:"Actor not Found"
+      });
+    }
+  }).catch(err=>{
+    res.status(500).json({
+      error: err
+    });
+  });
+
 });
 
 router.delete("/:id",(req,res,next)=>{

@@ -24,6 +24,8 @@ export class CalendarViewComponent implements OnInit{
   currentUpcomingEvents:any = [];
   public googleCalendarDate: any;
   public googleUpcoming: any;
+  public artistBirthday: any;
+  public artistUpcomingBirthday: any;
 
   constructor(public taskService: TaskService, public eventService: EventService ) { }
 
@@ -96,10 +98,8 @@ export class CalendarViewComponent implements OnInit{
     this.eventService.getEvents();
     this.eventService.getGoogleEvents(this.googleCalendarDate).subscribe((events:any)=>{
       this.eventChecker = events.event;
-      console.log(this.eventChecker.length);
       if(events.event.length > 0) {
         this.googleEvent = events.event[0];
-        console.log(this.googleEvent.summary);
       }
       else{
         this.googleEvent = events.event;
@@ -109,8 +109,18 @@ export class CalendarViewComponent implements OnInit{
 
     this.eventService.getEvents();
     this.eventService.getGoogleUpcomingEvents(this.googleCalendarDate).subscribe((events:any)=>{
-      console.log(events.event);
       this.googleUpcoming = events.event;
+    });
+
+    this.eventService.getEvents();
+    this.eventService.getArtistBirthday(this.eventDate).subscribe((events:any)=>{
+      this.artistBirthday = events;
+    });
+
+    this.eventService.getEvents();
+    this.eventService.getArtistUpcomingBirthday(this.upcomingDate).subscribe((events:any)=>{
+      console.log(events);
+      this.artistUpcomingBirthday = events;
     });
 
   }
@@ -195,6 +205,18 @@ export class CalendarViewComponent implements OnInit{
     this.eventService.getGoogleUpcomingEvents(this.googleCalendarDate).subscribe((events:any)=>{
       this.googleUpcoming = events.event;
     });
+
+    this.eventService.getEvents();
+    this.eventService.getArtistBirthday(this.eventDate).subscribe((events:any)=>{
+      this.artistBirthday = events;
+    });
+
+    this.eventService.getEvents();
+    this.eventService.getArtistUpcomingBirthday(this.upcomingDate).subscribe((events:any)=>{
+      console.log(events);
+      this.artistUpcomingBirthday = events;
+    });
+
   }
 
   taskDateFormatter(date:any){

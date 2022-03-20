@@ -102,7 +102,6 @@ export class EventService{
   }
 
   getCalendarEvent(eventDate: any){
-    console.log(eventDate);
     return this.http.get<{_id:string, title:string, description: string, admin:string}>("http://localhost:3000/api/events/" +eventDate);
   }
 
@@ -116,6 +115,14 @@ export class EventService{
 
   getGoogleUpcomingEvents(googleDate: any){
     return this.http.get<{event: any}>("http://localhost:3000/api/events/googleUpcoming/" +googleDate);
+  }
+
+  getArtistBirthday(eventDate: any){
+    return this.http.get<{_id:string, name:string, description: string, awards:string, role:string, birth:string, death: string, imagePath: string}>("http://localhost:3000/api/events/birthday/" +eventDate);
+  }
+
+  getArtistUpcomingBirthday(eventDate: any){
+    return this.http.get<{_id:string, name:string, description: string, awards:string, role:string, birth:string, death: string, imagePath: string}>("http://localhost:3000/api/events/birthday/upcoming/" +eventDate);
   }
 
 }

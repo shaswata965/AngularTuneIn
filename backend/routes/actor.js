@@ -44,6 +44,21 @@ router.get('',(req,res,next)=>{
 
 router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
   const url = req.protocol + '://' + req.get("host");
+  let birthDate = [];
+  let deathDate= [];
+  let deathDay = '';
+  let deathMonth = '';
+  birthDate = req.body.birth.split('-');
+  if(req.body.death === "N/A"){
+    deathDay = "N/A";
+    deathMonth ="N/A";
+  }else{
+    deathDate = req.body.death.split('-');
+    deathDay = deathDate[0];
+    deathMonth = deathDate[1];
+  }
+  let birthDay = birthDate[0];
+  let birthMonth = birthDate[1];
   const actor = new Actor({
     name: req.body.name,
     description: req.body.description,
@@ -51,6 +66,10 @@ router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
     role: req.body.role,
     birth: req.body.birth,
     death: req.body.death,
+    birthDay: birthDay,
+    birthMonth: birthMonth,
+    deathDay: deathDay,
+    deathMonth: deathMonth,
     imagePath: url + "/image/actorImage/" + req.file.filename,
   });
   actor.save()

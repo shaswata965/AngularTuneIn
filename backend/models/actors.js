@@ -8,7 +8,11 @@ const actorSchema = mongoose.Schema({
   awards: {type:String, required:true},
   birth: {type:String, required:true},
   death: {type:String, required:true},
-  imagePath: {type: String, required:true}
+  imagePath: {type: String, required:true},
+  birthDay:{type:String, required:true},
+  birthMonth:{type:String, required:true},
+  deathDay:{type:String, required:true},
+  deathMonth:{type:String, required:true}
 });
 
 actorSchema.plugin(uniqueValidator);

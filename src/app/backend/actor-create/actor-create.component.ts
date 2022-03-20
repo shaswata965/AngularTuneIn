@@ -19,6 +19,8 @@ export class ActorCreateComponent implements OnInit {
   public actor: Actor;
   private infosSub: Subscription;
   public info: any | null;
+  public birthDay: any | null;
+  public deathDay: any | null;
 
   imagePreview: string| ArrayBuffer | null;
   imdb: string ='';
@@ -91,19 +93,30 @@ export class ActorCreateComponent implements OnInit {
     this.actorService.searchForActor(firstArray[4]);
     this.infosSub = this.actorService.getActorsInfoUpdateListener().subscribe(response=>{
       this.info = {name: response.name, description: response.summary, awards: response.awards, role: response.role, birth: response.birthDate, death: response.deathDate};
-      if(this.info.death === null){
-        this.info.death = "N/A";
-      }
+      this.birthDay = this.dateFormatter(this.info.birth);
+      this.deathDay = this.dateFormatter(this.info.death);
       this.form.setValue({
         'name': this.info.name,
         'description': this.info.description,
         'awards': this.info.awards,
         'role': this.info.role,
-        'birth': this.info.birth,
-        'death': this.info.death,
+        'birth': this.birthDay,
+        'death': this.deathDay,
         'image': null
       });
     });
+  }
+
+  dateFormatter(date: any){
+    let finalDate= '';
+    if(date === null){
+      finalDate = "N/A";
+      return finalDate;
+    }
+    let newDate = [];
+    newDate = date.split('-');
+     finalDate = newDate[2]+'-'+newDate[1]+'-'+newDate[0];
+    return finalDate;
   }
 
   resetForm(){
