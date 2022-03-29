@@ -11,7 +11,6 @@ import {mimeType} from "./mime-type.validator";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit{
-  public notificationBell = true;
   public sidebarMenu = false;
   public adminMenu = true;
   public mode = "Create";

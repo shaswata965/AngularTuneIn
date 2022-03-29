@@ -24,6 +24,7 @@ export class BackendHeaderComponent implements OnInit {
   public taskMenu = true;
   public eventMenu = true;
   public calendarMenu = true;
+  public contactMenu = true;
 
   public currentAdminName : string | null;
   public currentAdminImage : string | null;

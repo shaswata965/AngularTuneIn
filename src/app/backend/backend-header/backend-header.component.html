@@ -412,10 +412,10 @@
     </li>
     <li class="mm-active">
       <span>
-        <a class="submenu-no-link" (click)="calendarMenu = !calendarMenu">
+        <a class="submenu-no-link" (click)="contactMenu = !contactMenu">
           <div class="row justify-content-between">
             <div class="col-3">
-              Calendars
+              Emails
             </div>
             <div class="col-3">
               <i class="fas fa-plus-circle"></i>
@@ -423,15 +423,27 @@
           </div>
         </a>
       </span>
-      <ul [ngbCollapse]="calendarMenu">
+      <ul [ngbCollapse]="contactMenu">
         <li>
-          <a class="submenu-no-link" routerLink="/view-calendar">
+          <a class="submenu-no-link" routerLink="/contacts">
             <div class="row justify-content-between">
               <div class="col-4">
-                Calendar List
+                All Emails
               </div>
               <div class="col-3">
-                <i class="fas fa-calendar"></i>
+                <i class="fas fa-mail-bulk"></i>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="submenu-no-link" routerLink="/contacts-starred">
+            <div class="row justify-content-between">
+              <div class="col-4">
+                Starred Emails
+              </div>
+              <div class="col-3">
+                <i class="fas fa-star"></i>
               </div>
             </div>
           </a>

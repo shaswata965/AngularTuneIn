@@ -31,6 +31,8 @@ import {ViewCalendarComponent} from "./layouts/view-calendar/view-calendar.compo
 import {HistoryTaskComponent} from "./layouts/history-task/history-task.component";
 import {CompletedTaskComponent} from "./layouts/completed-task/completed-task.component";
 import {ReallocationTaskComponent} from "./layouts/reallocation-task/reallocation-task.component";
+import {ViewContactsComponent} from "./layouts/view-contacts/view-contacts.component";
+import {StarredContactsComponent} from "./layouts/starred-contacts/starred-contacts.component";
 
 const routes: Routes = [
   {
@@ -211,6 +213,16 @@ const routes: Routes = [
   {
     path:"task-reallocation/:taskId",
     component:ReallocationTaskComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"contacts",
+    component:ViewContactsComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"contacts-starred",
+    component:StarredContactsComponent,
     canActivate: [BackAuthGuard]
   },
 ];

@@ -108,6 +108,11 @@ import { TaskCompletedComponent } from './backend/task-completed/task-completed.
 import { CompletedTaskComponent } from './layouts/completed-task/completed-task.component';
 import { TaskReallocationComponent } from './backend/task-reallocation/task-reallocation.component';
 import { ReallocationTaskComponent } from './layouts/reallocation-task/reallocation-task.component';
+import { ContactComponent } from './frontend/contact/contact.component';
+import { ContactViewComponent } from './backend/contact-view/contact-view.component';
+import { ContactStarredComponent } from './backend/contact-starred/contact-starred.component';
+import { ViewContactsComponent } from './layouts/view-contacts/view-contacts.component';
+import { StarredContactsComponent } from './layouts/starred-contacts/starred-contacts.component';
 
 @NgModule({
     declarations: [
@@ -190,7 +195,12 @@ import { ReallocationTaskComponent } from './layouts/reallocation-task/reallocat
         TaskCompletedComponent,
         CompletedTaskComponent,
         TaskReallocationComponent,
-        ReallocationTaskComponent
+        ReallocationTaskComponent,
+        ContactComponent,
+        ContactViewComponent,
+        ContactStarredComponent,
+        ViewContactsComponent,
+        StarredContactsComponent
     ],
   imports: [
     BrowserModule,

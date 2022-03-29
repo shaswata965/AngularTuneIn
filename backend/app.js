@@ -13,6 +13,7 @@ const genreRoutes = require("./routes/genre");
 const songRoutes = require("./routes/song");
 const taskRoutes = require("./routes/task");
 const eventRoutes = require("./routes/event");
+const contactRoutes = require("./routes/contact");
 
 mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongodb.net/Tunein?retryWrites=true&w=majority')
   .then(()=>{
@@ -47,5 +48,6 @@ app.use("/api/genres", genreRoutes);
 app.use("/api/songs", songRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/contacts', contactRoutes);
 
 module.exports= app;
