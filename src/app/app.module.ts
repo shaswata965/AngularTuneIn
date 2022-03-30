@@ -113,7 +113,10 @@ import { ContactViewComponent } from './backend/contact-view/contact-view.compon
 import { ContactStarredComponent } from './backend/contact-starred/contact-starred.component';
 import { ViewContactsComponent } from './layouts/view-contacts/view-contacts.component';
 import { StarredContactsComponent } from './layouts/starred-contacts/starred-contacts.component';
+import { ContactListComponent } from './backend/contact-list/contact-list.component';
 
+// @ts-ignore
+// @ts-ignore
 @NgModule({
     declarations: [
         AppComponent,
@@ -200,7 +203,8 @@ import { StarredContactsComponent } from './layouts/starred-contacts/starred-con
         ContactViewComponent,
         ContactStarredComponent,
         ViewContactsComponent,
-        StarredContactsComponent
+        StarredContactsComponent,
+        ContactListComponent
     ],
   imports: [
     BrowserModule,
@@ -249,6 +253,6 @@ import { StarredContactsComponent } from './layouts/starred-contacts/starred-con
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent, EventListComponent]
+  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent, EventListComponent, ContactListComponent]
 })
 export class AppModule { }

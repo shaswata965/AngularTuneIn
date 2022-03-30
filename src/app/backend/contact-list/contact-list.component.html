@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <mat-toolbar>
+    <div class="row justify-content-between modal-top-row">
+      <div class="col-4">
+    <span>
+      <h4 class="text-center card-title">Email Details</h4>
+    </span>
+      </div>
+      <div class="col-2">
+        <button class="btn btn-block btn-inverse-danger"  (click)="onClose()" tabindex="-1"><i class="far fa-window-close"></i></button>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div class="card">
+    <div class="card-body shadow-sm">
+      <p class="text-center important-text mb-10">{{contact.firstName}} {{contact.lastName}}</p>
+      <p><span class="important-text">Subject :</span>{{contact.subject}}</p>
+      <p><span class="important-text">Starred :</span>{{contact.starred}}</p>
+      <p>{{contact.text}}</p>
+      <p class="mt-3">{{contact.email}}</p>
+      <p>{{contact.currentTime}}</p>
+    </div>
+  </div>
+</div>

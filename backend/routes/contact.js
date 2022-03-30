@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const Contact = require('../models/contacts');
-const Actor = require("../models/actors");
 
 const router = express.Router();
 
@@ -44,24 +43,22 @@ router.get('',(req,res,next)=>{
     });
 });
 
-router.get('/starred/:id/:starred',(req,res,next)=>{
-
+router.put('/starred/:id',(req,res,next)=>{
   const contact = new Contact({
-    _id:req.body.id,
+    _id:req.params.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     subject: req.body.subject,
     text: req.body.text,
-    starred: req.params.starred,
-    currentTime: req.params.currentTime,
+    starred: req.body.starred,
+    currentTime: req.body.currentTime,
   });
 
   Contact.updateOne({_id:req.params.id}, contact)
     .then(result => {
-      console.log(result);
       res.status(201).json({
-        message: 'Contact updated!',
+        message: 'Message updated!',
         result: result
       });
     })

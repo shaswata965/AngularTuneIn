@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from "rxjs";
+import {Contact} from "../../frontend/models/contact.model";
+import {ContactService} from "../../frontend/service/contact.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ContactListComponent} from "../contact-list/contact-list.component";
 
 @Component({
   selector: 'app-contact-starred',
@@ -7,9 +12,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactStarredComponent implements OnInit {
 
-  constructor() { }
+  public contactsSub: Subscription;
+  public contacts: Contact[] = [];
 
-  ngOnInit(): void {
+  constructor(public contactService: ContactService, private Dialog: MatDialog ) { }
+
+  ngOnInit(){
+
+    this.contactService.getContacts();
+    this.contactsSub = this.contactService.getContactsUpdateListener().subscribe((contacts: Contact[])=>{
+      let contact = [];
+      for(let i = 0; i< contacts.length ; i++){
+        if(contacts[i].starred === "Yes"){
+          contact.push(contacts[i]);
+        }
+      }
+      this.contacts = contact;
+    });
+
+  }
+
+  onDelete(contactId: string){
+    this.contactService.deleteContact(contactId);
+  }
+
+  openViewModal(contact : any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "60%";
+    this.Dialog.open(ContactListComponent, dialogConfig);
+    this.contactService.addModalContact(contact);
   }
 
 }

@@ -1,25 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ContactService} from "../../frontend/service/contact.service";
 import { Subscription} from "rxjs";
 import {Contact} from "../../frontend/models/contact.model";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ContactListComponent} from "../contact-list/contact-list.component";
 
 @Component({
   selector: 'app-contact-view',
   templateUrl: './contact-view.component.html',
   styleUrls: ['./contact-view.component.css']
 })
-export class ContactViewComponent implements OnInit {
+export class ContactViewComponent implements OnInit, OnDestroy {
 
   public contactsSub: Subscription;
   public contacts: Contact[] = [];
 
-  constructor(public contactService: ContactService ) { }
+  constructor(public contactService: ContactService, private Dialog: MatDialog ) { }
 
   ngOnInit(){
 
     this.contactService.getContacts();
     this.contactsSub = this.contactService.getContactsUpdateListener().subscribe((contacts: Contact[])=>{
-      this.contacts = contacts;
+      let contact = [];
+      for(let i = 0; i< contacts.length ; i++){
+        if(contacts[i].starred === "N/A"){
+          contact.push(contacts[i]);
+        }
+      }
+      this.contacts = contact;
     });
 
   }
@@ -28,10 +36,20 @@ export class ContactViewComponent implements OnInit {
     this.contactService.deleteContact(contactId);
   }
 
-  onStar(contactId: string){
-    this.contactService.starContact(contactId).subscribe(contact =>{
-      console.log(contact);
-    });
+  onStar(contact: any){
+    this.contactService.starContact(contact);
+  }
+
+  openViewModal(contact : any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "60%";
+    this.Dialog.open(ContactListComponent, dialogConfig);
+    this.contactService.addModalContact(contact);
+  }
+
+  ngOnDestroy() {
+    this.contactsSub.unsubscribe();
   }
 
 }

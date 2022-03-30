@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Contact} from "../models/contact.model";
 import {map} from "rxjs/operators";
 import {Subject} from "rxjs";
+import {Genre} from "../models/genre.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ContactService{
 
   private contacts: Contact[]=[];
   private contactsUpdated = new Subject<Contact []>();
+  public modalContact: any | null ;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -62,11 +64,22 @@ export class ContactService{
       });
   }
 
-  starContact(contactId: string | null){
-    let starred = "Yes";
-    return this.http.get<{
-      _id:string, firstName:string, lastName:string, email: string, subject:string, text:string, starred:string, currentTime: string}>("http://localhost:3000/api/contacts/starred/" +contactId + "/" + starred);
+  starContact(contact: any | null){
+    let messageData : Contact | FormData ;
+    // @ts-ignore
+    messageData = {firstName:contact.firstName, lastName:contact.lastName, email: contact.email, subject: contact.subject, text: contact.text, currentTime: contact.currentTime, starred: "Yes"}
+    this.http.put<{message: string}>('http://localhost:3000/api/contacts/starred/'+ contact.id, messageData)
+      .subscribe((response)=>{
+        this.router.navigate(['/contacts-starred']);
+      });
   }
 
+  addModalContact(contact: any){
+    this.modalContact = contact;
+  }
+
+  getModalContact(){
+    return this.modalContact;
+  }
 
 }
