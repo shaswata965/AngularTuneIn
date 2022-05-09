@@ -24,189 +24,54 @@ import {MatNativeDateModule} from "@angular/material/core";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './frontend/header/header.component';
-import { FooterComponent } from './frontend/footer/footer.component';
-import { HomeComponent } from './frontend/home/home.component';
-import { QuickLinksComponent } from './frontend/quick-links/quick-links.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LandingComponent } from './layouts/landing/landing.component';
-import { ProfileDetailsComponent } from './frontend/profile-details/profile-details.component';
-import { ProfilePlaylistComponent } from './frontend/profile-playlist/profile-playlist.component';
-import { ProfileFavouriteComponent } from './frontend/profile-favourite/profile-favourite.component';
-import { ProfileComponent } from './layouts/profile/profile.component';
-import { AlbumFilterComponent } from './frontend/album-filter/album-filter.component';
-import { AlbumsComponent } from './layouts/albums/albums.component';
-import { FilteredResultsComponent } from './frontend/filtered-results/filtered-results.component';
-import { FilterComponent } from './layouts/filter/filter.component';
-import { AlbumProfileComponent } from './frontend/album-profile/album-profile.component';
-import { AlbumSongsComponent } from './frontend/album-songs/album-songs.component';
-import { AlbumSuggestionsComponent } from './frontend/album-suggestions/album-suggestions.component';
-import { SingleAlbumComponent } from './layouts/single-album/single-album.component';
-import { BackendHomeComponent } from './layouts/backend-home/backend-home.component';
-import { BackendHeaderComponent } from './backend/backend-header/backend-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
-import { BackendLoginComponent } from './backend/backend-login/backend-login.component';
-import { PlayerComponentComponent } from './frontend/player-component/player-component.component';
+import { BackendLoginComponent } from './backend/backend-landing/backend-login/backend-login.component';
 import {AuthInterceptor} from "./frontend/interceptor/auth-interceptor";
-import { SignupComponent } from './backend/admin-signup/signup/signup.component';
 import {BackAuthInterceptor} from "./frontend/interceptor/back-auth-interceptor";
-import { BackendBodyComponent } from './backend/backend-body/backend-body.component';
-import { BackendFooterComponent } from './backend/backend-footer/backend-footer.component';
-import { BackendDashboardComponent } from './backend/backend-dashboard/backend-dashboard.component';
-import { AdminCreateComponent } from './layouts/admin-create/admin-create.component';
-import { BackendAdminListComponent } from './backend/backend-admin-list/backend-admin-list.component';
-import { BackendUserListComponent } from './layouts/backend-user-list/backend-user-list.component';
-import { UserListComponent } from './backend/user-list/user-list.component';
-import { GeneralUserListComponent } from './layouts/general-user-list/general-user-list.component';
-import { ListViewComponent } from './backend/list-view/list-view.component';
-import { GeneralUserViewComponent } from './backend/general-user-view/general-user-view.component';
-import { ProfileModalComponent } from './frontend/profile-modal/profile-modal.component';
-import { AlbumCreateComponent } from './backend/album-create/album-create.component';
-import { AlbumViewComponent } from './backend/album-view/album-view.component';
-import { AlbumListComponent } from './backend/album-list/album-list.component';
-import { CreateAlbumComponent } from './layouts/create-album/create-album.component';
-import { ViewAlbumComponent } from './layouts/view-album/view-album.component';
-import { LanguageCreateComponent } from './backend/language-create/language-create.component';
-import { LanguageViewComponent } from './backend/language-view/language-view.component';
-import { CreateLanguageComponent } from './layouts/create-language/create-language.component';
-import { ViewLanguageComponent } from './layouts/view-language/view-language.component';
-import { LanguageListComponent } from './backend/language-list/language-list.component';
-import { ActorCreateComponent } from './backend/actor-create/actor-create.component';
-import { CreateActorComponent } from './layouts/create-actor/create-actor.component';
-import { ActorViewComponent } from './backend/actor-view/actor-view.component';
-import { ActorListComponent } from './backend/actor-list/actor-list.component';
-import { ViewActorComponent } from './layouts/view-actor/view-actor.component';
-import { ArtistCreateComponent } from './backend/artist-create/artist-create.component';
-import { CreateArtistComponent } from './layouts/create-artist/create-artist.component';
-import { ArtistViewComponent } from './backend/artist-view/artist-view.component';
-import { ViewArtistComponent } from './layouts/view-artist/view-artist.component';
-import { ArtistListComponent } from './backend/artist-list/artist-list.component';
-import { GenreCreateComponent } from './backend/genre-create/genre-create.component';
-import { GenreViewComponent } from './backend/genre-view/genre-view.component';
-import { GenreListComponent } from './backend/genre-list/genre-list.component';
-import { CreateGenreComponent } from './layouts/create-genre/create-genre.component';
-import { ViewGenreComponent } from './layouts/view-genre/view-genre.component';
-import { SongCreateComponent } from './backend/song-create/song-create.component';
-import { SongListComponent } from './backend/song-list/song-list.component';
-import { SongViewComponent } from './backend/song-view/song-view.component';
-import { CreateSongComponent } from './layouts/create-song/create-song.component';
-import { ViewSongComponent } from './layouts/view-song/view-song.component';
-import {SanitizeUrlPipe} from "./backend/song-create/sanitize-url.pipe";
-import { TaskViewComponent } from './backend/task-view/task-view.component';
-import { ViewTaskComponent } from './layouts/view-task/view-task.component';
-import { EventCreateComponent } from './backend/event-create/event-create.component';
-import { EventViewComponent } from './backend/event-view/event-view.component';
-import { EventListComponent } from './backend/event-list/event-list.component';
-import { CreateEventComponent } from './layouts/create-event/create-event.component';
-import { ViewEventComponent } from './layouts/view-event/view-event.component';
-import { CalendarViewComponent } from './backend/calendar-view/calendar-view.component';
-import { ViewCalendarComponent } from './layouts/view-calendar/view-calendar.component';
-import { TaskHistoryComponent } from './backend/task-history/task-history.component';
-import { HistoryTaskComponent } from './layouts/history-task/history-task.component';
-import { TaskCompletedComponent } from './backend/task-completed/task-completed.component';
-import { CompletedTaskComponent } from './layouts/completed-task/completed-task.component';
-import { TaskReallocationComponent } from './backend/task-reallocation/task-reallocation.component';
-import { ReallocationTaskComponent } from './layouts/reallocation-task/reallocation-task.component';
-import { ContactComponent } from './frontend/contact/contact.component';
-import { ContactViewComponent } from './backend/contact-view/contact-view.component';
-import { ContactStarredComponent } from './backend/contact-starred/contact-starred.component';
-import { ViewContactsComponent } from './layouts/view-contacts/view-contacts.component';
-import { StarredContactsComponent } from './layouts/starred-contacts/starred-contacts.component';
-import { ContactListComponent } from './backend/contact-list/contact-list.component';
+import {AlbumModule} from "./frontend/album/album.module";
+import {LandingModule} from "./frontend/landing/landing.module";
+import {ProfileModule} from "./frontend/profile/profile.module";
+import {BlandingModule} from "./backend/backend-landing/blanding.module";
+import {ActorModule} from "./backend/actor/actor.module";
+import {AdModule} from "./backend/ad/ad.module";
+import {AdminModule} from "./backend/Admin/admin.module";
+import {BackendAlbumModule} from "./backend/album/backend-album.module";
+import {ContactModule} from "./backend/Contact/contact.module";
+import {GenreModule} from "./backend/Genre/genre.module";
+import {LanguageModule} from "./backend/Language/language.module";
+import {SongModule} from "./backend/Song/song.module";
+import {TaskModule} from "./backend/Task/task.module";
+import {EventModule} from "./backend/Event/event.module";
+import { UserModule} from "./backend/User/user.module";
+import {ArtistModule} from "./backend/Artist/artist.module";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-    declarations: [
-        AppComponent,
-        HeaderComponent,
-        FooterComponent,
-        HomeComponent,
-        QuickLinksComponent,
-        LandingComponent,
-        ProfileDetailsComponent,
-        ProfilePlaylistComponent,
-        ProfileFavouriteComponent,
-        ProfileComponent,
-        AlbumFilterComponent,
-        AlbumsComponent,
-        FilteredResultsComponent,
-        FilterComponent,
-        AlbumProfileComponent,
-        AlbumSongsComponent,
-        AlbumSuggestionsComponent,
-        SingleAlbumComponent,
-        BackendHomeComponent,
-        BackendHeaderComponent,
-        BackendLoginComponent,
-        PlayerComponentComponent,
-        SignupComponent,
-        BackendBodyComponent,
-        BackendFooterComponent,
-        BackendDashboardComponent,
-        AdminCreateComponent,
-        BackendAdminListComponent,
-        BackendUserListComponent,
-        UserListComponent,
-        GeneralUserListComponent,
-        ListViewComponent,
-        GeneralUserViewComponent,
-        ProfileModalComponent,
-        AlbumCreateComponent,
-        AlbumViewComponent,
-        AlbumListComponent,
-        CreateAlbumComponent,
-        ViewAlbumComponent,
-        LanguageCreateComponent,
-        LanguageViewComponent,
-        CreateLanguageComponent,
-        ViewLanguageComponent,
-        LanguageListComponent,
-        ActorCreateComponent,
-        CreateActorComponent,
-        ActorViewComponent,
-        ActorListComponent,
-        ViewActorComponent,
-        ArtistCreateComponent,
-        CreateArtistComponent,
-        ArtistViewComponent,
-        ViewArtistComponent,
-        ArtistListComponent,
-        GenreCreateComponent,
-        GenreViewComponent,
-        GenreListComponent,
-        CreateGenreComponent,
-        ViewGenreComponent,
-        SongCreateComponent,
-        SongListComponent,
-        SongViewComponent,
-        CreateSongComponent,
-        ViewSongComponent,
-        SanitizeUrlPipe,
-        TaskViewComponent,
-        ViewTaskComponent,
-        EventCreateComponent,
-        EventViewComponent,
-        EventListComponent,
-        CreateEventComponent,
-        ViewEventComponent,
-        CalendarViewComponent,
-        ViewCalendarComponent,
-        TaskHistoryComponent,
-        HistoryTaskComponent,
-        TaskCompletedComponent,
-        CompletedTaskComponent,
-        TaskReallocationComponent,
-        ReallocationTaskComponent,
-        ContactComponent,
-        ContactViewComponent,
-        ContactStarredComponent,
-        ViewContactsComponent,
-        StarredContactsComponent,
-        ContactListComponent
-    ],
+  declarations: [
+    AppComponent,
+    BackendLoginComponent,
+  ],
   imports: [
+    AlbumModule,
+    LandingModule,
+    ProfileModule,
+    BlandingModule,
+    ActorModule,
+    AdModule,
+    AdminModule,
+    BackendAlbumModule,
+    ContactModule,
+    GenreModule,
+    LanguageModule,
+    SongModule,
+    TaskModule,
+    EventModule,
+    UserModule,
+    ArtistModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
@@ -227,9 +92,10 @@ import { ContactListComponent } from './backend/contact-list/contact-list.compon
     FormsModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatProgressSpinnerModule
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: BackAuthInterceptor, multi: true},
     {
@@ -253,6 +119,6 @@ import { ContactListComponent } from './backend/contact-list/contact-list.compon
       } as SocialAuthServiceConfig,
     }],
   bootstrap: [AppComponent],
-  entryComponents: [ListViewComponent, GeneralUserViewComponent, AlbumListComponent, LanguageListComponent, ActorListComponent, ArtistListComponent, GenreListComponent, SongListComponent, EventListComponent, ContactListComponent]
+  entryComponents: []
 })
 export class AppModule { }

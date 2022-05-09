@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <div  *ngIf="isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <mat-spinner></mat-spinner>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-sm-8" *ngIf="!isLoading">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Event
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Event </p>
+      <form [formGroup]="form" (submit)="createEvent()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Event Title :</mat-label>
+          <input type="text" formControlName="title" matInput placeholder="Ex: Event Title" />
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Event Description :</mat-label>
+          <textarea type="text" formControlName="description"  matInput rows="2" placeholder="Ex: Instructions For Event"></textarea>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Tasked To:</mat-label>
+          <mat-select formControlName="admin">
+            <mat-option *ngFor="let admin of admins"
+                        [value]="admin.id">
+              {{admin.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Task Date :</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Event
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+

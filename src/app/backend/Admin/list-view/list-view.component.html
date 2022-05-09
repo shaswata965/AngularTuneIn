@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <mat-toolbar>
+    <div class="row justify-content-between modal-top-row">
+      <div class="col-4">
+    <span>
+      <h4 class="text-center card-title">Admin Details</h4>
+    </span>
+      </div>
+      <div class="col-2">
+    <button class="btn btn-block btn-inverse-danger"  (click)="onClose()" tabindex="-1"><i class="far fa-window-close"></i></button>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div *ngIf="isLoading">
+    <div class="card">
+      <div class="card-body shadow-sm">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isLoading">
+  <div class="row modal-top-row justify-content-center">
+    <div class="col-3">
+  <img class="list-view-image"  [src]="adminDetails.imagePath"  [alt]="adminDetails.name" />
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body shadow-sm">
+  <table class="table table-striped table-responsive-lg table-bordered table-hover mt-20">
+    <thead>
+    <tr>
+      <th class="text-center">Field Name</th>
+      <th class="text-center">Field Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="text-center">User Name</td>
+      <td class="text-center">{{adminDetails.name}}</td>
+    </tr>
+    <tr>
+      <td class="text-center">Address</td>
+      <td class="text-center"> {{adminDetails.address}} </td>
+    </tr>
+    <tr>
+      <td class="text-center">Email</td>
+      <td class="text-center"> {{adminDetails.email}} </td>
+    </tr>
+    </tbody>
+  </table>
+    </div>
+  </div>
+  </div>
+</div>

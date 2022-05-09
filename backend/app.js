@@ -14,6 +14,7 @@ const songRoutes = require("./routes/song");
 const taskRoutes = require("./routes/task");
 const eventRoutes = require("./routes/event");
 const contactRoutes = require("./routes/contact");
+const adRoutes = require("./routes/ad");
 
 mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongodb.net/Tunein?retryWrites=true&w=majority')
   .then(()=>{
@@ -30,6 +31,7 @@ app.use("/image/artistImage/", express.static(path.join("src/assets/backend/imag
 app.use("/image/genreImage/", express.static(path.join("src/assets/backend/image/genreImage/")));
 app.use("/image/songImage/", express.static(path.join("src/assets/backend/image/songImage/")));
 app.use("/songs/", express.static(path.join("src/assets/backend/songs/")));
+app.use("/image/Ad/", express.static(path.join("src/assets/backend/image/Ad/")));
 
 app.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Origin','*');
@@ -49,5 +51,6 @@ app.use("/api/songs", songRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/contacts', contactRoutes);
+app.use('/api/ads', adRoutes);
 
 module.exports= app;

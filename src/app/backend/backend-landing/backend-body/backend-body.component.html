@@ -1,0 +1,525 @@
+<div class="row" *ngIf="isLoading">
+  <div class="col=lg-12">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+    <!-- page title  -->
+    <div class="row " *ngIf="!isLoading">
+      <div class="col-lg-12 card_height_100">
+        <div class="white_card mb_20">
+          <div class="row justify-content-around pt-20 pb-20">
+            <div class="col-lg-3 background_card_1 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts">
+                  <p class="info-card-heading">Total Registration</p>
+                  <h3 class="backend-h3">{{users}}</h3>
+                </div>
+                <div class="col-md-4 info-card-icon custom-info-card-icon">
+                  <i class="fas fa-user-plus"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 background_card_2 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts custom-info-card-text">
+                  <p class="info-card-heading">Live Visitors</p>
+                  <h3 class="backend-h3">N/A</h3>
+                </div>
+                <div class="col-md-4 info-card-icon custom-info-card-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 background_card_3 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts">
+                  <p class="info-card-heading">Total Orders</p>
+                  <h3 class="backend-h3">N/A</h3>
+                </div>
+                <div class="col-md-4 info-card-icon">
+                  <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 background_card_3 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts">
+                  <p class="info-card-heading">Total Songs</p>
+                  <h3 class="backend-h3">{{songs}}</h3>
+                </div>
+                <div class="col-md-4 info-card-icon">
+                  <i class="fas fa-music"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 background_card_2 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts">
+                  <p class="info-card-heading">Total Albums</p>
+                  <h3 class="backend-h3">{{albums}}</h3>
+                </div>
+                <div class="col-md-4 info-card-icon">
+                  <i class="fas fa-compact-disc"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 background_card_1 info-card-back">
+              <div class="row pt-30 pb-30">
+                <div class="col-md-8 info-card-texts">
+                  <p class="info-card-heading">Total Comments</p>
+                  <h3 class="backend-h3">{{contacts}}</h3>
+                </div>
+                <div class="col-md-4 info-card-icon">
+                  <i class="fas fa-comment-alt"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="white_card mb_20">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Revenue</h3>
+              </div>
+              <div class="float-lg-right float-none sales_renew_btns justify-content-end">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">This Week</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Last Week</a>
+                  </li>
+                  <li class="nav-item"><a class="nav-link" href="#">Last Month</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div style="display: block;">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [colors]="barChartColors"
+                    [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h2 class="m-0 backend-h3">Profit Distribution</h2>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body">
+            <p class="server_distribution_header mt-4">Profit 1</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="80" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+            <p class="server_distribution_header mt-5">Profit 2</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="40" color="primary" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+            <p class="server_distribution_header mt-5">Profit 3</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="20" color="warn" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+            <p class="server_distribution_header mt-5">Profit 4</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="75" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100 mb_20">
+          <div class="white_card_header to-do-card-header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Upcoming Events</h3>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body to_do_card_body mt_2" *ngIf="events.length > 0">
+            <div class="row to-do-card-1 mb-2" *ngFor="let event of events">
+              <div class="col-2 to-do-card-calendar">
+                <p>{{event.eventMonth}}</p>
+                <h1 class="backend-h1">{{event.eventDate}}</h1>
+              </div>
+              <div class="col-10 to-do-card-task">
+                <span>{{event.currentTime}}</span> <span> || </span> <span> Tasked To : {{event.admin}} </span>
+                <h4 class="backend-h4">{{event.description}}</h4>
+                <span> Tasked By : {{event.currentAdmin}} </span>
+              </div>
+            </div>
+            <div *ngIf="events.length > 3">
+            <a routerLink="/view-event"> View More... </a>
+            </div>
+          </div>
+          <div class="white_card_body to_do_card_body mt_2" *ngIf="events.length <= 0">
+            <div class="row to-do-card-1 mb-2">
+              <h6>No Event Added Yet</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100 mb-10">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h2 class="m-0 backend-h3">Server Distribution</h2>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body">
+            <p class="server_distribution_header mt-4">Server 1</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="80" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+            <p class="server_distribution_header mt-4">Server 2</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="60" color="primary" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+            <p class="server_distribution_header mt-4">Server 3</p>
+            <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="90" color="warn" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100 mb_20">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Total order</h3>
+              </div>
+              <div class="float-lg-right float-none sales_renew_btns justify-content-end">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">This week</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div  class="white_card_body d-flex align-items-center" style="height:140px" >
+            <h4 class="f_w_900 f_s_60 mb-0 mr-2 backend-h4" >356</h4>
+              <div style="display: block;">
+                <canvas baseChart
+                        [datasets]="orderChartData"
+                        [labels]="orderChartLabels"
+                        [options]="orderChartOptions"
+                        [plugins]="orderChartPlugins"
+                        [legend]="orderChartLegend"
+                        [colors]="orderChartColors"
+                        [chartType]="orderChartType">
+                </canvas>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100  mb_20">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Transaction</h3>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body">
+            <div class="table-responsive">
+              <table class="table bayer_table m-0">
+                <tbody>
+                <tr>
+                  <td >
+                    <img class="byder_thumb wh_56" src="../../../../assets/backend/image/Payment/1.png" alt="">
+                  </td>
+                  <td>
+                    <div class="payment_gatway">
+                      <h5 class="byer_name  f_s_16 f_w_700 color_theme backend-h5">Electricity Bill</h5>
+                      <p class="color_gray f_s_12 f_w_700 ">10 Aug 03:00PM</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="payment_gatway text-right">
+                      <h5 class="byer_name  f_s_16 f_w_700 text_color_4 backend-h5">- $ 1254.00</h5>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                    <img class="byder_thumb wh_56" src="../../../../assets/backend/image/Payment/1.png" alt="">
+                  </td>
+                  <td>
+                    <div class="payment_gatway">
+                      <h5 class="byer_name  f_s_16 f_w_700 color_theme backend-h5">Showroom Rent</h5>
+                      <p class="color_gray f_s_12 f_w_700 ">10 Aug 03:00PM</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="payment_gatway text-right">
+                      <h5 class="byer_name  f_s_16 f_w_700 text_color_5 backend-h5">+ $ 1254.00</h5>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                    <img class="byder_thumb wh_56" src="../../../../assets/backend/image/Payment/1.png" alt="">
+                  </td>
+                  <td>
+                    <div class="payment_gatway">
+                      <h5 class="byer_name  f_s_16 f_w_700 color_theme backend-h5">Iron Costing</h5>
+                      <p class="color_gray f_s_12 f_w_700 ">10 Aug 03:00PM</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="payment_gatway text-right">
+                      <h5 class="byer_name  f_s_16 f_w_700 text_color_5 backend-h5">+ $ 1254.00</h5>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td >
+                    <img class="byder_thumb wh_56" src="../../../../assets/backend/image/Payment/1.png" alt="">
+                  </td>
+                  <td>
+                    <div class="payment_gatway">
+                      <h5 class="byer_name  f_s_16 f_w_700 color_theme backend-h5">Packeging Cost</h5>
+                      <p class="color_gray f_s_12 f_w_700 ">10 Aug 03:00PM</p>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="payment_gatway text-right">
+                      <h5 class="byer_name  f_s_16 f_w_700 text_color_5 backend-h5">+ $ 1254.00</h5>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="white_card card_height_100 mb_20 ">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Task Announcement</h3>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body QA_section">
+            <form [formGroup]="taskForm" (submit)="createTask()">
+            <mat-card>
+              <mat-form-field class="task_assigning_form" >
+                <mat-label>
+                  Please Enter The Title Of The Task :
+                </mat-label>
+                <input matInput formControlName="title"   placeholder="Ex: Hi this is the title" />
+              </mat-form-field>
+              <mat-form-field class="task_assigning_form">
+                <mat-label>Task Assigned To :</mat-label>
+                <mat-select formControlName="name">
+                  <mat-option *ngFor="let admin of admins"
+                              [value]="admin.id">
+                    {{admin.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="task_assigning_form" >
+                <mat-label>
+                  Task Details And Notes :
+                </mat-label>
+                <textarea matInput formControlName="task"> Ex: This is the task </textarea>
+              </mat-form-field>
+            </mat-card>
+            <button
+              mat-raised-button
+              type="submit"
+              color="primary" class="task_assigning_button">
+              Post Task
+            </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="white_card card_height_100 mb_20">
+          <mat-card class="demo-inline-calendar-card">
+            <mat-calendar (click)="calendarClicked()"></mat-calendar>
+          </mat-card>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="white_card card_height_100  mb-10">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Top Global Sales</h3>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body pb-0">
+            <div class="row justify-content-center mt-10">
+              <div class="col-lg-9">
+                <div class="row">
+                  <div class="col-lg-6 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="f_s_14 f_w_400 backend-h6" >USA</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="10" color="primary" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Australia</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="5" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Brazil</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="20" color="warn" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Latvia</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="7" color="primary" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="f_s_14 f_w_400 backend-h6" >India</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="60" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5 pb-2">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Nepal</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="40" color="warn" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Brazil</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="10" color="primary" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 pt-5">
+                    <div class="single_progressbar">
+                      <h6 class="backend-h6">Bhutan</h6>
+                      <mat-progress-bar class="mt-1 mb-2" mode="determinate" value="30" color="accent" style="height: 10px!important; border-radius: 4px;"></mat-progress-bar>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="white_card card_height_100 mb_30 ">
+          <div class="white_card_header">
+            <div class="box_header m-0">
+              <div class="main-title">
+                <h3 class="m-0 backend-h3">Monthly Invoices</h3>
+              </div>
+            </div>
+          </div>
+          <div class="white_card_body QA_section">
+            <div class="QA_table ">
+              <!-- table-responsive -->
+              <table class="table lms_table_active2 p-0">
+                <thead>
+                <tr>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Invoice</th>
+                  <th scope="col">Price</th>
+                  <th scope="col" class="text-center">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/1.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_1">Pending</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/2.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_2">Paid</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/3.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_3">Shipped</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/4.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_3">Shipped</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/5.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_2">Paid</a></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="customer d-flex align-items-center">
+                      <div class="thumb_34 mr_15 mt-0"><img class="img-fluid radius_50" src="../../../../assets/backend/image/customers/6.png" alt=""></div>
+                      <span class="f_s_14 f_w_400 color_text_1" >Customer</span>
+                    </div>
+
+                  </td>
+                  <td class="f_s_14 f_w_400 color_text_2">Membership</td>
+                  <td class="f_s_14 f_w_400 color_text_3">#DE2548</td>
+                  <td class="f_s_14 f_w_400 color_text_4">$350</td>
+                  <td class="f_s_14 f_w_400 text-center"><a href="#" class="badge_btn_4 ">Delivered</a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+

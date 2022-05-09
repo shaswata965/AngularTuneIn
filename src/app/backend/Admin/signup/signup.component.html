@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div *ngIf="isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <mat-spinner></mat-spinner>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-sm-8" *ngIf="!isLoading">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Admin
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Admin </p>
+      <form [formGroup]="form" (submit)="createAdmin()">
+      <mat-form-field class="login-card-fields">
+        <mat-label>Username :</mat-label>
+        <input type="text" formControlName="name" matInput placeholder="Ex: Username" />
+      </mat-form-field>
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
+          <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="admin-image-preview" *ngIf="imagePreview !== '' && imagePreview">
+            <img [src]="imagePreview" [alt]="form.value.name" />
+        </div>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Address :</mat-label>
+          <input type="text" formControlName="address" matInput placeholder="Ex: Current Address" />
+        </mat-form-field>
+      <mat-form-field class="login-card-fields">
+        <mat-label>Email :</mat-label>
+        <input type="email" formControlName="email" matInput placeholder="Ex: Email" />
+      </mat-form-field>
+      <mat-form-field class="login-card-fields">
+        <mat-label>Password :</mat-label>
+        <input type="password" formControlName="password"  matInput placeholder="Ex: Password" />
+      </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Admin
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

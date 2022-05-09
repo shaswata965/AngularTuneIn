@@ -1,0 +1,14 @@
+mat-spinner{
+  padding-top: 5rem;
+  margin: auto;
+}
+
+.actor-preview-image{
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+}
+
+.actor-data-margin{
+  padding-top: 18px;
+}

@@ -6,7 +6,7 @@ import { AlbumsComponent } from "./layouts/albums/albums.component";
 import { FilterComponent } from "./layouts/filter/filter.component";
 import { SingleAlbumComponent } from "./layouts/single-album/single-album.component";
 import { BackendHomeComponent } from "./layouts/backend-home/backend-home.component";
-import { BackendLoginComponent } from "./backend/backend-login/backend-login.component";
+import { BackendLoginComponent } from "./backend/backend-landing/backend-login/backend-login.component";
 import { AdminCreateComponent } from "./layouts/admin-create/admin-create.component";
 import { BackendUserListComponent } from "./layouts/backend-user-list/backend-user-list.component";
 import {GeneralUserListComponent} from "./layouts/general-user-list/general-user-list.component";
@@ -33,6 +33,8 @@ import {CompletedTaskComponent} from "./layouts/completed-task/completed-task.co
 import {ReallocationTaskComponent} from "./layouts/reallocation-task/reallocation-task.component";
 import {ViewContactsComponent} from "./layouts/view-contacts/view-contacts.component";
 import {StarredContactsComponent} from "./layouts/starred-contacts/starred-contacts.component";
+import {CreateAdComponent} from "./layouts/create-ad/create-ad.component";
+import {ViewAdComponent} from "./layouts/view-ad/view-ad.component";
 
 const routes: Routes = [
   {
@@ -76,12 +78,12 @@ const routes: Routes = [
     canActivate: [BackAuthGuard]
   },
   {
-    path:"admin-list",
+    path:"view-admin",
     component:BackendUserListComponent,
     canActivate: [BackAuthGuard]
   },
   {
-    path:"user-list",
+    path:"view-user",
     component:GeneralUserListComponent,
     canActivate: [BackAuthGuard]
   },
@@ -223,6 +225,21 @@ const routes: Routes = [
   {
     path:"contacts-starred",
     component:StarredContactsComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-ad",
+    component:CreateAdComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-ad/:adId",
+    component:CreateAdComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-ad",
+    component:ViewAdComponent,
     canActivate: [BackAuthGuard]
   },
 ];

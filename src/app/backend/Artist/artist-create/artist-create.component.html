@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+  <div  *ngIf="isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <mat-spinner></mat-spinner>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-sm-8" *ngIf="!isLoading">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Artist
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Artist </p>
+      <form [formGroup]="form" (submit)="createArtist()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Artist Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Artist Name" />
+        </mat-form-field>
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
+          <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="admin-image-preview" *ngIf="imagePreview !== '' && imagePreview">
+          <img [src]="imagePreview" [alt]="form.value.name" />
+        </div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Artist
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
+

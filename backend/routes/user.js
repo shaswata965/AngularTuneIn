@@ -1,10 +1,8 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const multer = require('multer');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 
-const User = require('../models/users');
+const userController = require('../controllers/user');
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -33,120 +31,16 @@ const Userstorage = multer.diskStorage({
   }
 });
 
-router.post('',multer({storage: Userstorage}).single("image"),(req,res,next)=>{
-  bcrypt.hash(req.body.password, 10)
-    .then(hash=> {
-      const url = req.protocol + '://' + req.get("host");
-      const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        imagePath: url + "/image/userImage/" + req.file.filename,
-        password: hash
-      });
-      user.save()
-        .then(result => {
-          res.status(201).json({
-            message: 'User Created!',
-            result: result
-          });
-        })
-        .catch(err => {
-          res.status(500).json({
-            error: err
-          });
-        });
-    });
-});
+router.post('',multer({storage: Userstorage}).single("image"), userController.createUser);
 
-router.post('/social',(req,res,next)=>{
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    imagePath: req.body.image
-  });
-  user.save().then(result=>{
-    console.log(result);
-  }).catch(error=>{
-    console.log(error);
-  });
-});
+router.post('/social', userController.createSocialUser);
 
-router.get('',(req, res, next)=>{
-  User.find()
-    .then(documents=>{
-      res.status(200).json({
-        message: "Users Listed Successfully",
-        users: documents
-      });
-    });
-});
+router.get('',userController.getUser);
 
-router.delete("/:id",(req,res,next)=>{
-  User.deleteOne({_id: req.params.id}).then(result=>{
-    res.status(200).json({
-      message:"User Deleted"
-    });
-  });
-});
+router.delete("/:id",userController.deleteUser);
 
-router.post('/login',(req,res,next)=>{
-  let fetchedUser;
-  User.findOne({ email: req.body.email })
-    .then(user=>{
-      if(!user){
-        return res.status(401).json({
-          message: " Auth Failed"
-        });
-      }
-      fetchedUser = user;
-      return bcrypt.compare(req.body.password, user.password);
-    })
-    .then(result=>{
-      if(!result){
-        return res.status(401).json({
-          message: "Auth Failed"
-        });
-      }
-      const token = jwt.sign({name: fetchedUser.name, email: fetchedUser.email}, 'This_is_the_secret',
-        {expiresIn: '1h'});
-      res.status(200).json({
-        token: token,
-        expiresIn: 3600,
-        currentUser: fetchedUser.name,
-        currentEmail: fetchedUser.email,
-        currentImage: fetchedUser.imagePath
-      });
-    })
-    .catch(err=>{
-      return res.status(401).json({
-        message: "Auth Failed"
-      });
-    });
+router.post('/login', userController.logInUser);
 
-});
-
-router.post('/social/login',(req,res,next)=>{
-  let fetchedUser;
-  User.findOne({ email: req.body.email })
-    .then(user=>{
-      if(!user){
-        return res.status(401).json({
-          message: " Auth Failed"
-        });
-      }
-      fetchedUser = user;
-      const token = jwt.sign({name: fetchedUser.name, email: fetchedUser.email}, 'This_is_the_secret',
-        {expiresIn: '1h'});
-      res.status(200).json({
-        token: token,
-        expiresIn: 3600,
-        currentUser: fetchedUser.name,
-        currentEmail: fetchedUser.email,
-        currentImage: fetchedUser.imagePath
-      });
-    }).catch(error=>{
-      console.log(error);
-  });
-});
+router.post('/social/login', userController.socialLogIn);
 
 module.exports = router;

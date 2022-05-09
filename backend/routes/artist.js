@@ -3,6 +3,7 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 
 const Artist = require('../models/artists');
+const artistController = require('../controllers/artist');
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -31,89 +32,14 @@ const storage = multer.diskStorage({
   }
 });
 
-router.get('',(req,res,next)=>{
-  Artist.find()
-    .then(documents=>{
-      res.status(200).json({
-        message: "Albums Listed Successfully",
-        artists: documents
-      });
-    });
-});
+router.get('', artistController.getArtist);
 
-router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
-  const url = req.protocol + '://' + req.get("host");
-  const artist = new Artist({
-    name: req.body.name,
-    imagePath: url + "/image/artistImage/" + req.file.filename,
-  });
-  artist.save()
-    .then(result => {
-      res.status(201).json({
-        message: 'Artist Created!',
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+router.post('',multer({storage: storage}).single("image"),artistController.createArtist);
 
-router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
-  let imagePath = req.body.imagePath;
-  if(req.file){
-    const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/image/artistImage/" + req.file.filename;
-  }
-  const artist = new Artist({
-    _id:req.body.id,
-    name: req.body.name,
-    imagePath: imagePath,
-  });
+router.put("/:id", multer({storage: storage}).single("image"), artistController.updateArtist);
 
-  Artist.updateOne({_id:req.params.id}, artist)
-    .then(result => {
-      res.status(201).json({
-        message: 'Actor updated!',
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+router.get('/:id',artistController.findArtist);
 
-router.get('/:id',(req,res,next)=>{
-  Artist.findById(req.params.id)
-    .then(artist=>{
-      if(artist){
-        res.status(200).json(artist);
-      }else{
-        res.status(404).json({
-          message:"Actor not Found"
-        });
-      }
-    }).catch(err => {
-    res.status(500).json({
-      error: err
-    });
-  });
-});
-
-router.delete("/:id",(req,res,next)=>{
-  Artist.deleteOne({_id: req.params.id}).then(result=>{
-    res.status(200).json({
-      message:"Artist Deleted"
-    });
-  }).catch(err => {
-    res.status(500).json({
-      error: err
-    });
-  });
-});
+router.delete("/:id",artistController.deleteArtist);
 
 module.exports = router;

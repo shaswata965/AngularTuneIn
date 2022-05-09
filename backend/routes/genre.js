@@ -3,6 +3,7 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 
 const Genre = require('../models/genres');
+const genreController = require('../controllers/genre');
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -31,89 +32,14 @@ const storage = multer.diskStorage({
   }
 });
 
-router.get('',(req,res,next)=>{
-  Genre.find()
-    .then(documents=>{
-      res.status(200).json({
-        message: "Albums Listed Successfully",
-        genres: documents
-      });
-    });
-});
+router.get('', genreController.getGenre);
 
-router.post('',multer({storage: storage}).single("image"),(req,res,next)=>{
-  const url = req.protocol + '://' + req.get("host");
-  const genre = new Genre({
-    name: req.body.name,
-    imagePath: url + "/image/genreImage/" + req.file.filename,
-  });
-  genre.save()
-    .then(result => {
-      res.status(201).json({
-        message: 'Genre Created!',
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+router.post('',multer({storage: storage}).single("image"), genreController.createGenre);
 
-router.put("/:id", multer({storage: storage}).single("image"),(req,res,next)=>{
-  let imagePath = req.body.imagePath;
-  if(req.file){
-    const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/image/genreImage/" + req.file.filename;
-  }
-  const genre = new Genre({
-    _id:req.body.id,
-    name: req.body.name,
-    imagePath: imagePath,
-  });
+router.put("/:id", multer({storage: storage}).single("image"), genreController.updateGenre);
 
-  Genre.updateOne({_id:req.params.id}, genre)
-    .then(result => {
-      res.status(201).json({
-        message: 'Actor updated!',
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+router.get('/:id',genreController.findGenre);
 
-router.get('/:id',(req,res,next)=>{
-  Genre.findById(req.params.id)
-    .then(genre=>{
-      if(genre){
-        res.status(200).json(genre);
-      }else{
-        res.status(404).json({
-          message:"Genre not Found"
-        });
-      }
-    }).catch(err => {
-    res.status(500).json({
-      error: err
-    });
-  });
-});
-
-router.delete("/:id",(req,res,next)=>{
-  Genre.deleteOne({_id: req.params.id}).then(result=>{
-    res.status(200).json({
-      message:"Genre Deleted"
-    });
-  }).catch(err => {
-    res.status(500).json({
-      error: err
-    });
-  });
-});
+router.delete("/:id",genreController.deleteGenre);
 
 module.exports = router;

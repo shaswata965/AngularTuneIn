@@ -86,7 +86,7 @@ export class AdminService{
         updatedAdmin[oldAdminIndex] = admin;
         this.admins = updatedAdmin;
         this.adminsUpdated.next([...this.admins]);
-        this.router.navigate(['/admin-list']);
+        this.router.navigate(['/view-admin']);
       });
   }
 

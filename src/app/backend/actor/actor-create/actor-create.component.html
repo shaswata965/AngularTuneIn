@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+  <div  *ngIf="isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <mat-spinner></mat-spinner>
+    </mat-card>
+  </div>
+  <div  *ngIf="!isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Actor
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Actor </p>
+      <div class="row justify-content-between modal-top-row">
+        <div class="col-6">
+          <mat-form-field class="login-card-fields">
+            <mat-label>IMDb :</mat-label>
+            <input type="text" [(ngModel)]="imdb" matInput placeholder="Ex: IMDb link goes here" />
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <button
+            mat-raised-button
+            color="accent"
+            class="login-card-button" (click)="linkDecipher(imdb)">
+            Search
+          </button>
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        color="warn"
+        class="login-card-button pt-10" (click)="resetForm()">
+        Reset Form
+      </button>
+      <form [formGroup]="form" (submit)="createActor()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Actor Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Actor Name" />
+        </mat-form-field>
+        <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
+          <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="admin-image-preview" *ngIf="imagePreview !== '' && imagePreview">
+          <img [src]="imagePreview" [alt]="form.value.name" />
+        </div>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Actor Description :</mat-label>
+          <textarea type="text" formControlName="description" matInput rows="2" placeholder="Ex: Actor Description" ></textarea>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Actor Awards :</mat-label>
+          <textarea type="text" formControlName="awards" matInput rows="2" placeholder="Ex: Actor Awards" ></textarea>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Actor Role :</mat-label>
+          <input type="text" formControlName="role" matInput placeholder="Ex: Actor Roles" />
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Birthdate :</mat-label>
+          <input type="text" formControlName="birth"  matInput placeholder="Ex: Birth Date DD/MM/YYYY" />
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Deathdate :</mat-label>
+          <input type="text" formControlName="death"  matInput placeholder="Ex: Death Date DD/MM/YYYY" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Actor
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

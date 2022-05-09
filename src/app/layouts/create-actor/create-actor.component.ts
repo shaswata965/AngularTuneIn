@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateActorComponent implements OnInit {
 
+  public title1: string = "Actor"
+  public title2: string = "Create"
+
   constructor() { }
 
   ngOnInit(): void {
