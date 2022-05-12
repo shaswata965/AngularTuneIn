@@ -10,6 +10,8 @@ import {RouterModule} from "@angular/router";
 import {PlayerComponentComponent} from "./player-component/player-component.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {BrowserModule} from "@angular/platform-browser";
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserModule,
+    SwiperModule
   ]
 })
 

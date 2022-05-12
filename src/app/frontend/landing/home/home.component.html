@@ -16,19 +16,13 @@
                 <div class=relaese_viewall_wrapper>
                   <a href=#>view all <i class=flaticon-right-arrow></i></a>
                 </div>
-                <div class=release_tabs_wrapper>
+                <div class=release_tabs_wrapper *ngIf="songLanguages.length >0">
                   <ul class="nav nav-tabs">
-                    <li class=nav-item><a href=#trend_home class="nav-link active" data-toggle=tab>hindi</a>
+                    <li class=nav-item><a href=#trend_home class="nav-link active" data-toggle=tab>
+                      {{firstSongLanguage.name}}</a>
                     </li>
-                    <li class=nav-item><a href=#trend_menu1 class=nav-link data-toggle=tab>english</a>
-                    </li>
-                    <li class=nav-item><a href=#trend_menu2 class=nav-link data-toggle=tab>telugu</a>
-                    </li>
-                    <li class=nav-item><a href=#trend_menu3 class=nav-link data-toggle=tab>punjabi</a>
-                    </li>
-                    <li class=nav-item><a href=#trend_menu4 class=nav-link data-toggle=tab>marathi </a>
-                    </li>
-                    <li class=nav-item><a href=#trend_menu5 class=nav-link data-toggle=tab>bhojpuri</a>
+                    <li class=nav-item *ngFor="let songLanguage of songLanguages"><a href=#trend_home class="nav-link" data-toggle=tab>
+                      {{songLanguage.name}}</a>
                     </li>
                   </ul>
                 </div>

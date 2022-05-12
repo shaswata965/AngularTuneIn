@@ -104,49 +104,19 @@
     <div class=row>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
         <div class="treanding_album_slider treanding_album_slider2 top-album-slider">
-          <div class="owl-carousel owl-theme">
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;Hindi</p>
-                </div>
-              </div>
-            </a>
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;English</p>
-                </div>
-              </div>
-            </a>
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;Punjabi</p>
-                </div>
-              </div>
-            </a>
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;Telugu</p>
-                </div>
-              </div>
-            </a>
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;Marathi</p>
-                </div>
-              </div>
-            </a>
-            <a routerLink="/albums">
-              <div class=item>
-                <div class="m24_cover treanding_slider_main_box top-album-slider-main-box">
-                  <p><i class="flaticon-playlist"></i> &nbsp;Bhojpuri</p>
-                </div>
-              </div>
-            </a>
+          <swiper       [config]="config"
+                        #swiperSlideShow
+                        (swiper)="onSwiper($event)"
+                        (slideChange)="onSlideChange()"
+                        *ngIf="languages.length > 0">
+              <ng-template swiperSlide *ngFor="let language of languages" >
+                <a routerLink="/albums" class="custom-swiper">
+                  <p><i class="flaticon-playlist"></i> &nbsp;{{language.name}}</p>
+                </a>
+              </ng-template>
+          </swiper>
+          <div class="mt-20">
+
           </div>
         </div>
       </div>

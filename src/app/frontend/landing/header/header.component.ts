@@ -1,13 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import{UserService} from "../../service/user.service";
 import {Subscription} from "rxjs";
 import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import {mimeType} from "../../../backend/Admin/signup/mime-type.validator";
-import {error} from "jquery";
+import SwiperCore, {SwiperOptions, Autoplay, Navigation} from "swiper";
+import {SwiperComponent} from "swiper/angular";
+import {LanguageService} from "../../service/language.service";
 
-
+SwiperCore.use([Autoplay]);
+SwiperCore.use([Navigation]);
+// @ts-ignore
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -25,12 +29,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public currentUser: string | null;
   public firstName: string | null;
   public currentImage: string | null;
+  public languages: any;
 
   form : FormGroup;
   logForm: FormGroup;
   imagePreview: string | ArrayBuffer | null;
 
-  constructor(public userService: UserService, private socialAuthService: SocialAuthService) { }
+  @ViewChild('swiperSlideShow') swiperSlideShow!: SwiperComponent;
+  config: SwiperOptions = {}
+
+
+  constructor(public userService: UserService, private socialAuthService: SocialAuthService, private languageService: LanguageService) { }
 
   createUser(){
     if(this.form.invalid){
@@ -121,6 +130,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;
     });
+
+    this.languageService.getLanguages();
+    this.languageService.getLanguagesUpdateListener().subscribe((language:any)=>{
+      this.languages = language;
+    });
+
+  }
+
+  ngAfterViewInit(): void
+  {
+    this.config = {
+      slidesPerView: 4,
+      spaceBetween: 10,
+      pagination: { clickable: true },
+      scrollbar: { draggable: true },
+      autoplay: {
+        delay: 2000
+      },
+      navigation: true,
+    }
+    this.swiperSlideShow.swiperRef.autoplay.start();
+  }
+
+  // @ts-ignore
+  onSwiper([swiper]) {
+    console.log(swiper);
+  }
+  onSlideChange() {
+    console.log('slide change');
   }
 
   onImagePicked(event: Event){
