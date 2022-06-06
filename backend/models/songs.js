@@ -5,6 +5,7 @@ const songSchema = mongoose.Schema({
   name: {type: String, required: true},
   lowPath: {type: String},
   highPath: {type: String},
+  trending: {type: String},
   genre:{
     type: Schema.Types.ObjectId,
     ref:'Genre'
@@ -21,7 +22,10 @@ const songSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref:'Album'
   },
-  imagePath: {type:String}
+  artist:{type: String},
+  industry:{type: String},
+  imagePath: {type:String},
+  duration: {type: String}
 });
 
 songSchema.plugin(uniqueValidator);

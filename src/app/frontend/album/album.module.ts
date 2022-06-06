@@ -10,6 +10,14 @@ import {FilterComponent} from "../../layouts/filter/filter.component";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {LandingModule} from "../landing/landing.module";
+import { LanguageComponent } from './language/language.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {StylePaginatorDirective} from "./language/style-paginator.directive";
+import { AllSongComponent } from './all-song/all-song.component';
+import { AllAlbumComponent } from './all-album/all-album.component';
+import {AllAlbumLayoutComponent} from "../../layouts/all-album-layout/all-album-layout.component";
+import { AlbumLanguageComponent } from './album-language/album-language.component';
+import { FilteredYearComponent } from './filtered-year/filtered-year.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +29,26 @@ import {LandingModule} from "../landing/landing.module";
     SingleAlbumComponent,
     FilteredResultsComponent,
     FilterComponent,
+    LanguageComponent,
+    StylePaginatorDirective,
+    AllSongComponent,
+    AllAlbumComponent,
+    AllAlbumLayoutComponent,
+    AlbumLanguageComponent,
+    FilteredYearComponent
   ],
-  imports : [
+    exports: [
+        LanguageComponent,
+        AllSongComponent,
+        AllAlbumComponent,
+        AlbumLanguageComponent,
+        FilteredYearComponent
+    ],
+  imports: [
     CommonModule,
     RouterModule,
-    LandingModule
+    LandingModule,
+    MatPaginatorModule
   ]
 })
 

@@ -103,66 +103,6 @@
           }
         }),
 
-        // // ----------- treanding wrapper slider js -------------//
-        // $(document).ready(function() {
-        //   $(".treanding_album_slider .owl-carousel").owlCarousel({
-        //     loop: false,
-        //     rewind: true,
-        //     margin: 10,
-        //     autoplay: true,
-        //     autoplayTimeout: 3000,
-        //     autoplayHoverPause: true,
-        //     smartSpeed: 1200,
-        //     responsiveClass: !0,
-        //     navText: ['<i class="flaticon-left-arrow"></i>', '<i class="flaticon-right-arrow"></i>'],
-        //     responsive: {
-        //       0: {
-        //         items: 1,
-        //         nav: !0
-        //       },
-        //       600: {
-        //         items: 3,
-        //         nav: !0
-        //       },
-        //       1000: {
-        //         items: 5,
-        //         nav: !0,
-        //         loop: !0,
-        //       }
-        //     }
-        //   })
-        // }),
-
-        //----------- treanding wrapper slider js -------------//
-        $(document).ready(function() {
-          $(".treanding_song_slider .owl-carousel").owlCarousel({
-            loop: !0,
-            margin: 15,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            smartSpeed: 1200,
-            responsiveClass: !0,
-            navText: ['<i class="flaticon-left-arrow"></i>', '<i class="flaticon-right-arrow"></i>'],
-            responsive: {
-              0: {
-                items: 1,
-                nav: !0
-              },
-              600: {
-                items: 3,
-                nav: !0
-              },
-              1000: {
-                items: 5,
-                nav: !0,
-                loop: !0,
-                margin: 20
-              }
-            }
-          })
-        }),
-
 //----------- treanding wrapper slider js -------------//
         $(document).ready(function() {
           $(".index4_treanding_new_slider .owl-carousel").owlCarousel({
@@ -472,55 +412,5 @@
       const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]'),
         currentTheme = localStorage.getItem("theme");
 
-      function switchTheme(e) {
-        e.target.checked ? (document.documentElement.setAttribute("data-theme", "dark"), localStorage.setItem("theme", "dark")) : (document.documentElement.setAttribute("data-theme", "light"), localStorage.setItem("theme", "light"))
-      }
-      currentTheme && (document.documentElement.setAttribute("data-theme", currentTheme), "dark" === currentTheme && (toggleSwitch.checked = !0)), toggleSwitch.addEventListener("change", switchTheme, !1);
-      var Dashboard = (global_tooltipOptions = {
-          placement: "right"
-        }, sidebarChangeWidth = function() {
-          $("li .menu-item__title"), $("body").toggleClass("sidebar-is-reduced sidebar-is-expanded"), $(".hamburger-toggle").toggleClass("is-opened"), $("body").hasClass("sidebar-is-expanded") ? $('[data-toggle="tooltip"]').tooltip("destroy") : $('[data-toggle="tooltip"]').tooltip(global_tooltipOptions)
-        }, {
-          init: function() {
-            $(".js-hamburger").on("click", sidebarChangeWidth), $(".js-menu li").on("click", function(e) {
-              menuChangeActive(e.currentTarget)
-            }), $('[data-toggle="tooltip"]').tooltip(global_tooltipOptions)
-          }
-        }),
-        global_tooltipOptions, sidebarChangeWidth;
-      Dashboard.init();
-      var $circleCursor = $(".cursor");
-
-      function moveCursor(e) {
-        var t = e.clientX + "px",
-          a = e.clientY + "px";
-        TweenMax.to($circleCursor, .2, {
-          left: t,
-          top: a,
-          ease: "Power1.easeOut"
-        })
-      }
-
-      function zoomCursor(e) {
-        TweenMax.to($circleCursor, .1, {
-          scale: 3,
-          ease: "Power1.easeOut"
-        }), $($circleCursor).removeClass("cursor-close")
-      }
-
-      function closeCursor(e) {
-        TweenMax.to($circleCursor, .1, {
-          scale: 3,
-          ease: "Power1.easeOut"
-        }), $($circleCursor).addClass("cursor-close")
-      }
-
-      function defaultCursor(e) {
-        TweenLite.to($circleCursor, .1, {
-          scale: 1,
-          ease: "Power1.easeOut"
-        }), $($circleCursor).removeClass("cursor-close")
-      }
-      $(window).on("mousemove", moveCursor), $("a, .zoom-cursor").on("mouseenter", zoomCursor), $(".trigger-close").on("mouseenter", closeCursor), $("a, .zoom-cursor, .trigger-close, .trigger-plus").on("mouseleave", defaultCursor)
     })
 }(jQuery);

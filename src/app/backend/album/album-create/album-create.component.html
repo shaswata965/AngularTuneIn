@@ -57,7 +57,7 @@
           <mat-label>Album Artist</mat-label>
           <mat-select formControlName="artist">
             <mat-option *ngFor="let artist of artists"
-                        [value]="artist.id">
+                        [value]="artist.name">
               {{artist.name}}
             </mat-option>
           </mat-select>
@@ -68,6 +68,15 @@
             <mat-option *ngFor="let genre of genres"
                         [value]="genre.id">
               {{genre.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Album Industry</mat-label>
+          <mat-select formControlName="industry">
+            <mat-option *ngFor="let industry of industries"
+                        [value]="industry.id">
+              {{industry.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>

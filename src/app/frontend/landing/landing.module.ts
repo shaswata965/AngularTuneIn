@@ -12,6 +12,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
 import {SwiperModule} from "swiper/angular";
+import {CarouselModule} from "ngx-owl-carousel-o";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {StylePaginatorDirective} from "../../backend/album/album-view/style-paginator.directive";
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import {SwiperModule} from "swiper/angular";
     LandingComponent,
     ContactComponent,
     PlayerComponentComponent,
+    StylePaginatorDirective,
   ],
   exports: [
     FooterComponent,
@@ -35,7 +39,8 @@ import {SwiperModule} from "swiper/angular";
     ReactiveFormsModule,
     NgbModule,
     BrowserModule,
-    SwiperModule
+    CarouselModule,
+    MatPaginatorModule
   ]
 })
 

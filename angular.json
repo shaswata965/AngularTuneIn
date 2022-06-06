@@ -38,6 +38,8 @@
               "src/assets/frontend/css/fonts.css",
               "src/assets/frontend/css/flaticon.css",
               "src/assets/frontend/css/font-awesome.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/assets/frontend/css/owl.carousel.css",
               "src/assets/frontend/css/owl.theme.default.css",
               "src/assets/frontend/css/nice-select.css",

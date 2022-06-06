@@ -46,6 +46,7 @@
         </tr>
         </thead>
       </table>
+          <mat-paginator appStylePaginator showFirstLastButtons *ngIf="songs.length > 0" [length]="totalSongs" [pageSize]="3" (page)="onChangedPage($event)"></mat-paginator>
     </mat-card>
   </div>
 </div>

@@ -25,6 +25,7 @@ export class BackendHeaderComponent implements OnInit {
   public calendarMenu = true;
   public contactMenu = true;
   public adMenu = true;
+  public industryMenu = true;
   isLoading = false;
 
   public currentAdminName : string | null;

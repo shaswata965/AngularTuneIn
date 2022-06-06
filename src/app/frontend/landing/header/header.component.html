@@ -99,22 +99,21 @@
     </div>
   </div>
 </div>
-<div class="m24_cover treanding_songs_wrapper index3_treanding_wraaper treanding_index_wrapper slider-top-margin pt-120">
+<div class="m24_cover treanding_songs_wrapper index3_treanding_wraaper treanding_index_wrapper slider-top-margin pt-60">
   <div class="container-fluid">
     <div class=row>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
         <div class="treanding_album_slider treanding_album_slider2 top-album-slider">
-          <swiper       [config]="config"
-                        #swiperSlideShow
-                        (swiper)="onSwiper($event)"
-                        (slideChange)="onSlideChange()"
+          <owl-carousel-o [options]="customOptions"
                         *ngIf="languages.length > 0">
-              <ng-template swiperSlide *ngFor="let language of languages" >
-                <a routerLink="/albums" class="custom-swiper">
-                  <p><i class="flaticon-playlist"></i> &nbsp;{{language.name}}</p>
+            <ng-container *ngFor="let slide of languages">
+              <ng-template carouselSlide>
+                <a [routerLink]="['/language-song', slide.id]" class="custom-swiper">
+                  <p><i class="flaticon-playlist"></i> &nbsp;{{slide.name}}</p>
                 </a>
               </ng-template>
-          </swiper>
+            </ng-container>
+          </owl-carousel-o>
           <div class="mt-20">
 
           </div>

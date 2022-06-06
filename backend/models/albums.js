@@ -12,13 +12,14 @@ const albumSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref:'Genre'
   },
-  artist: {
-    type: Schema.Types.ObjectId,
-    ref:'Artist'
-  },
+  artist: {type: String},
   language:{
     type: Schema.Types.ObjectId,
     ref:'Language'
+  },
+  industry:{
+    type: Schema.Types.ObjectId,
+    ref:'Industry'
   },
   imagePath: {type:String}
 });

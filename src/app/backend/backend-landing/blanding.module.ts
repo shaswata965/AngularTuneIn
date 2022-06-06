@@ -20,6 +20,7 @@ import {AppComponent} from "../../app.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ChartsModule} from "ng2-charts";
+import {StylePaginatorDirective} from "../Song/song-view/style-paginator.directive";
 
 @NgModule({
     declarations: [
@@ -28,12 +29,14 @@ import {ChartsModule} from "ng2-charts";
         BackendBodyComponent,
         BackendFooterComponent,
         BackendDashboardComponent,
+        StylePaginatorDirective,
     ],
-  exports: [
-    BackendFooterComponent,
-    BackendDashboardComponent,
-    BackendHeaderComponent
-  ],
+    exports: [
+        BackendFooterComponent,
+        BackendDashboardComponent,
+        BackendHeaderComponent,
+        StylePaginatorDirective
+    ],
     imports: [
         RouterModule,
         NgbModule,

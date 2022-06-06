@@ -1,0 +1,108 @@
+
+<div class="ad-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1 left-sidebar-ad pt-60">
+        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      </div>
+      <div class="col-10">
+        <div class="m24_cover treanding_songs_wrapper index3_release_wrapper release_wrapper pb-30">
+          <div class=container>
+            <div class=row>
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="m24_heading_wrapper white_heading_wrapper">
+                  <h1>All Songs
+                  </h1>
+                </div>
+                <div class=release_tabs_wrapper *ngIf="songLanguages.length >0">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item"><a [routerLink]="['/language-song',firstLanguage.id]" class="nav-text" data-toggle=tab>
+                      {{firstLanguage.name}}</a>
+                    </li>
+                    <li class=nav-item *ngFor="let songLanguage of songLanguages"><a [routerLink]="['/language-song',songLanguage.id]" class="nav-link">
+                      {{songLanguage.name}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class=tab-content>
+                  <div class="tab-pane active" id=radio>
+                    <div class=row>
+                      <ng-container *ngIf="songs.length > 0">
+                        <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let song of songs">
+                          <div class="m24_cover treanding_slider_main_box release_box_main_content">
+                            <img alt=img [src]="song.imagePath">
+                            <div class="release_content_artist release_content_artist2">
+                              <p><a routerLink="/singles">{{song.name}}</a></p>
+                              <p class=various_artist_text><a href=#>{{song.artist}}</a></p>
+                            </div>
+                            <div class="m24_treanding_box_overlay release_box_overlay">
+                              <div class=m24_tranding_box_overlay></div>
+                              <div class=m24_tranding_more_icon>
+                                <i class=flaticon-menu></i>
+                              </div>
+                              <ul class=tranding_more_option>
+                                <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
+                                <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
+                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                              </ul>
+                              <div class=tranding_play_icon>
+                                <a href="#">
+                                  <i class=flaticon-play-button></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination-container">
+              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="songs.length > 0" [length]="totalSongs" [pageSize]="12" (page)="onChangedPage($event)"></mat-paginator>
+            </div>
+          </div>
+        </div>
+    </div>
+      <div class="col-1 right-sidebar-ad pt-60">
+        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      </div>
+  </div>
+</div>
+</div>
+<div class="overflow-mockup-design">
+  <div class="download_wrapper m24_cover">
+    <div class="concert_overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="download_app_store m24_cover">
+            <h1>DOWNLOAD THIS APP</h1>
+
+            <p>There are many variations of passages of Lorem Ipsum available, but passages of Lorem this is wow.</p>
+            <div class="app_btn m24_cover">
+              <a href="#">get the app now</a>
+
+            </div>
+            <ul class="download_app_logo">
+              <li><a href="#"><i class="flaticon-android-logo"></i></a></li>
+              <li><a href="#"><i class="flaticon-apple"></i></a></li>
+              <li><a href="#"><i class="flaticon-windows"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="download_mockup_design m24_cover">
+
+            <img src="../../../../assets/frontend/image/download/mockup.png" class="img-responsive" alt="img">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <app-contact></app-contact>
+</div>

@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Song} from "../models/song.model";
 import {Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {count, map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -11,21 +11,29 @@ import {map} from "rxjs/operators";
 export class SongService{
 
   private songs: Song[] = [];
-  private songsUpdated = new Subject<Song []>();
+  private songsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+  private bollywoodSongs: Song[] = [];
+  private bollywoodSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
   private modalSong: any | null;
   public songDetails: any | null;
   private songDetailsUpdated = new Subject<any>();
+  public songData: any | null;
+  private songsDataUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  addSong(name:string, language:string, actor:string, genre:string, album: string, image:File, lowSong:File, highSong:File){
+  addSong(name:string, language:string, actor:string, genre:string, album: string, artist: string, trending: string, duration: string, industry: string, image:File, lowSong:File, highSong:File){
     const songData = new FormData();
     songData.append('name', name);
     songData.append('language', language);
     songData.append('actor', actor);
     songData.append('genre', genre);
     songData.append('album',album);
+    songData.append('artist',artist);
+    songData.append('trending',trending);
+    songData.append('duration',duration);
+    songData.append('industry',industry);
     songData.append('image',image,name);
     songData.append('lowSong',lowSong,name);
     songData.append('highSong',highSong,name);
@@ -36,7 +44,7 @@ export class SongService{
       });
   }
 
-  updateSong(id: string | null, name: string,  language: string, actor: string, genre: string, album:string, image:File | string, lowSong: File | string, highSong:File | string){
+  updateSong(id: string | null, name: string,  language: string, actor: string, genre: string, album:string, artist:string, trending:string,  duration: string, industry: string, image:File | string, lowSong: File | string, highSong:File | string){
     let songData : Song | FormData ;
     if(typeof (image) === 'object' && typeof (lowSong) === 'object' && typeof (highSong) === 'object'){
       songData = new FormData();
@@ -47,6 +55,10 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image,name);
       songData.append('lowSong',lowSong,name);
       songData.append('highSong',highSong,name);
@@ -59,6 +71,10 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image);
       songData.append('lowSong',lowSong,name);
       songData.append('highSong',highSong,name);
@@ -71,6 +87,10 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image);
       songData.append('lowSong',lowSong);
       songData.append('highSong',highSong,name);
@@ -83,6 +103,10 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image,name);
       songData.append('lowSong',lowSong);
       songData.append('highSong',highSong,name);
@@ -95,6 +119,10 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image,name);
       songData.append('lowSong',lowSong);
       songData.append('highSong',highSong);
@@ -107,39 +135,48 @@ export class SongService{
       songData.append('actor', actor);
       songData.append('genre', genre);
       songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
       songData.append('image',image,name);
+      songData.append('lowSong',lowSong,name);
+      songData.append('highSong',highSong);
+    }
+    else if(typeof (image) === 'string' && typeof (lowSong) === 'object' && typeof (highSong) === 'string'){
+      songData = new FormData();
+      // @ts-ignore
+      songData.append('id', id);
+      songData.append('name', name);
+      songData.append('language', language);
+      songData.append('actor', actor);
+      songData.append('genre', genre);
+      songData.append('album',album);
+      songData.append('artist',artist);
+      songData.append('trending',trending);
+      songData.append('duration',duration);
+      songData.append('industry',industry);
+      songData.append('image',image);
       songData.append('lowSong',lowSong,name);
       songData.append('highSong',highSong);
     }
     else{
       // @ts-ignore
-      songData = {id:id, name:name, language:language, actor:actor, genre:genre, album:album, imagePath:image, lowPath:lowSong, highPath:highSong};
+      songData = {id:id, name:name, language:language, actor:actor, genre:genre, album:album, artist:artist, trending:trending,  duration: duration, industry: industry, imagePath:image, lowPath:lowSong, highPath:highSong};
     }
     this.http.put("http://localhost:3000/api/songs/" +id, songData)
       .subscribe(response=>{
-        const updatedSong = [...this.songs];
-        const oldSongIndex = updatedSong.findIndex(a => a.id === id);
-        // @ts-ignore
-        const song: Song = {id:id, name:name, language:language, actor:actor, genre:genre, album:album, imagePath:response.imagePath, lowPath:response.lowPath, highPath:response.highPath}
-        updatedSong[oldSongIndex] = song;
-        this.songs = updatedSong;
-        this.songsUpdated.next([...this.songs]);
         this.router.navigate(['/view-song']);
       });
   }
 
   getEditSong(songId: string | null){
     return this.http.get<{
-      _id:string, name:string, language:string, actor:string, genre:string, album:string, imagePath:string, lowPath:string, highPath:string}>("http://localhost:3000/api/songs/" +songId);
+      _id:string, name:string, language:string, actor:string, genre:string, album:string, artist:string, trending:string, duration:string, industry: string, imagePath:string, lowPath:string, highPath:string}>("http://localhost:3000/api/songs/" +songId);
   }
 
   deleteSong(songId:string){
-    this.http.delete("http://localhost:3000/api/songs/" +songId)
-      .subscribe(()=>{
-        const updatedSongs = this.songs.filter(a=> a.id !=songId);
-        this.songs = updatedSongs;
-        this.songsUpdated.next([...this.songs]);
-      });
+    return this.http.delete("http://localhost:3000/api/songs/" +songId);
   }
 
   addModalSong(song: any){
@@ -159,33 +196,107 @@ export class SongService{
     return this.songDetailsUpdated.asObservable();
   }
 
-  getSongs(){
-    this.http.get<{message:string, songs: any }>(
-      "http://localhost:3000/api/songs"
+  getSongs(songsPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs"+ queryParams
     ).pipe(map((songData)=>{
       // @ts-ignore
-      return songData.songs.map(song=>{
+      return { songs: songData.songs.map(song=>{
         return{
           name: song.name,
           language: song.language,
           actor: song.actor,
           genre: song.genre,
           album: song.album,
+          artist: song.artist,
+          trending: song.trending,
+          duration: song.duration,
+          industry: song.industry,
           id: song._id,
           imagePath: song.imagePath,
           lowPath:song.lowPath,
           highPath: song.highPath
         };
-      });
+      }), songCount: songData.count};
     }))
-      .subscribe(songs=>{
-        this.songs = songs;
-        this.songsUpdated.next([...this.songs]);
+      .subscribe(songData=>{
+        this.songs = songData.songs;
+        this.songsUpdated.next({songs:[...this.songs], songCount: songData.songCount});
       });
   }
 
   getSongsUpdateListener(){
     return this.songsUpdated.asObservable();
+  }
+
+  getBollywoodSongs(songsPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs/bollywood"+ queryParams
+    ).pipe(map((songData)=>{
+      // @ts-ignore
+      return { songs: songData.songs.map(song=>{
+          return{
+            name: song.name,
+            language: song.language,
+            actor: song.actor,
+            genre: song.genre,
+            album: song.album,
+            artist: song.artist,
+            trending: song.trending,
+            duration: song.duration,
+            industry: song.industry,
+            id: song._id,
+            imagePath: song.imagePath,
+            lowPath:song.lowPath,
+            highPath: song.highPath
+          };
+        }), songCount: songData.count};
+    }))
+      .subscribe(songData=>{
+        this.bollywoodSongs = songData.songs;
+        this.bollywoodSongsUpdated.next({songs:[...this.bollywoodSongs], songCount: songData.songCount});
+      });
+  }
+
+  getBollywoodSongsUpdateListener(){
+    return this.bollywoodSongsUpdated.asObservable();
+  }
+
+  getSongLanguage(languageId: string | null, songsPerPage: number, currentPage: number) {
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs/find-language/"+languageId + queryParams
+    ).pipe(map((songData)=>{
+      // @ts-ignore
+      return { songs: songData.songs.map(song=>{
+          return{
+            name: song.name,
+            language: song.language,
+            actor: song.actor,
+            genre: song.genre,
+            album: song.album,
+            artist: song.artist,
+            trending: song.trending,
+            duration: song.duration,
+            industry: song.industry,
+            id: song._id,
+            imagePath: song.imagePath,
+            lowPath:song.lowPath,
+            highPath: song.highPath
+          };
+        }), songCount: songData.count};
+    }))
+      .subscribe(songData=>{
+        console.log(songData.songCount);
+        this.songs = songData.songs;
+        this.songsDataUpdated.next({songs:[...this.songs], songCount: songData.songCount});
+      });
+  }
+
+  getDataUpdateListener(){
+    return this.songsDataUpdated.asObservable();
   }
 
 }

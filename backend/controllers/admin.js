@@ -57,7 +57,7 @@ exports.logIn = (req,res,next)=>{
         });
       }
       const token = jwt.sign({name: fetchedAdmin.name, email: fetchedAdmin.email}, 'This_is_the_secret',
-        {expiresIn: '1h'});
+        {expiresIn: '10h'});
       res.status(200).json({
         token: token,
         expiresIn: 3600,

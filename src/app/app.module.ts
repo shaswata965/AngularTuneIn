@@ -47,6 +47,9 @@ import {EventModule} from "./backend/Event/event.module";
 import { UserModule} from "./backend/User/user.module";
 import {ArtistModule} from "./backend/Artist/artist.module";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {IndustryModule} from "./backend/Industry/industry.module";
+import { AlbumLanguageLayoutComponent } from './layouts/album-language-layout/album-language-layout.component';
+import { FilteredYearLayoutComponent } from './layouts/filtered-year-layout/filtered-year-layout.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -54,6 +57,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   declarations: [
     AppComponent,
     BackendLoginComponent,
+    AlbumLanguageLayoutComponent,
+    FilteredYearLayoutComponent
   ],
   imports: [
     AlbumModule,
@@ -72,6 +77,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     EventModule,
     UserModule,
     ArtistModule,
+    IndustryModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,

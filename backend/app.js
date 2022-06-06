@@ -15,6 +15,7 @@ const taskRoutes = require("./routes/task");
 const eventRoutes = require("./routes/event");
 const contactRoutes = require("./routes/contact");
 const adRoutes = require("./routes/ad");
+const industryRoutes = require("./routes/industry");
 
 mongoose.connect('mongodb+srv://Shaswata-web:AtlasPassword@cluster0.qqhb3.mongodb.net/Tunein?retryWrites=true&w=majority')
   .then(()=>{
@@ -52,5 +53,6 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/ads', adRoutes);
+app.use('/api/industries', industryRoutes);
 
 module.exports= app;

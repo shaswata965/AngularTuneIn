@@ -39,10 +39,19 @@ router.put("/:id", multer({storage: storage}).single("image"), albumController.u
 
 router.get('/:id', albumController.findAlbum);
 
-router.get('/modal/:id/:artist/:genre', albumController.albumDetails);
+router.get('/modal/:id/:genre/:industry', albumController.albumDetails);
 
 router.delete("/:id", albumController.deleteAlbum);
 
 router.get("/imdb/:name", albumController.imdbAlbum);
+
+router.get("/find-language/:languageId", albumController.findLanguageAlbum);
+
+router.get("/find-industry/:industryId", albumController.findIndustryAlbum);
+
+router.get("/find-letter/:filter/:industryId", albumController.findLetterAlbum);
+
+router.get("/find-year/:filter/:industryId", albumController.findYearAlbum);
+
 
 module.exports = router;

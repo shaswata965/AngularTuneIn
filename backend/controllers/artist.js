@@ -1,12 +1,82 @@
 const Artist = require("../models/artists");
+const Song = require("../models/songs");
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
 exports.getArtist = (req,res,next)=>{
-  Artist.find()
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const artistQuery = Artist.find();
+  let artists;
+  if(pageSize && currentPage){
+    artistQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+  artistQuery.find()
     .then(documents=>{
+      artists = documents;
+      return Artist.count();
+    })
+    .then(count=>{
       res.status(200).json({
-        message: "Albums Listed Successfully",
-        artists: documents
+        message: "Artists Listed Successfully",
+        artists: artists,
+        count: count
       });
+    });
+};
+
+exports.getFeaturedArtist = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const artistQuery = Artist.find();
+  let artists = [];
+  let artistCount = [];
+  let updatedArtist ={
+    _id: '',
+    name: '',
+    imagePath:'',
+    songs: ''
+  }
+  if(pageSize && currentPage){
+    artistQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+  artistQuery.find()
+    .then( documents => {
+      for (let i = 0; i < documents.length; i++) {
+        let n = documents[i].name;
+        let m =[];
+        m.push(Song.find({artist: n}).count());
+        let o = Promise.all(m);
+        o.then(result=>{
+          artists.push(
+            updatedArtist = {
+              _id: documents[i]._id,
+              name: documents[i].name,
+              imagePath:documents[i].imagePath,
+              songs: result
+            });
+          return {documents, artists}
+        }).then(r=> {
+          if (r.documents.length === r.artists.length){
+            res.status(200).json({
+              message: "Artists Listed Successfully",
+              artists: r.artists,
+              count: r.documents.length
+            });
+          }
+            })
+      }
+    })
+    .then(results=>{
+      // res.status(200).json({
+      //   message: "Artists Listed Successfully",
+      //   artists: results,
+      //   count: artistCount
+      // });
     });
 };
 

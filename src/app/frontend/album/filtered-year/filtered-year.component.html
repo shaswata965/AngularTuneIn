@@ -1,0 +1,184 @@
+<div class="ad-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1 left-sidebar-ad pt-60">
+        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/>
+      </div>
+      <div class="col-10">
+        <div class="m24-cover featured_albums_wrapper">
+          <div class="container">
+            <div class="row pt-30 pb-30">
+              <div class="col-md-3">
+                <div class="music_navigation_wrapper">
+                  <a routerLink="/albums" class="navigation_title">Music Section</a>
+                  <div *ngFor="let industry of allIndustries">
+                    <a [routerLink]="['/filter',industry.id]" (click)="addActive()" class="album_name industry_dynamic_name" id="{{industry.id}}"><i class="fal fa-music"></i>&nbsp;&nbsp;&nbsp;&nbsp; {{industry.name}}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-9 featured-col-9 pb-60">
+                <div class="featured_album_year_filter mt-20">
+                  <p>Filter <span>{{industry.name}}</span> By Year</p>
+                  <div class="year_list2 mt-30 pt-10" id="firstYears">
+                    <a [routerLink]="['/filter-year', industry.id]" (click)="yearFilter(year2)" *ngFor="let year2 of yearCount2">{{year2}}</a>
+                  </div>
+                  <div class="year_list mt-30 pt-10" id="secondYears">
+                    <a [routerLink]="['/filter-year', industry.id]" (click)="yearFilter(year1)" *ngFor="let year1 of yearCount1">{{year1}}</a>
+                  </div>
+                  <div class="mt-10 year_list-navigation">
+                    <button class="btn" id="previous" (click)="previousClicker()"><i class="fas fa-arrow-left"></i></button><button class="btn" id="next" (click)="nextClicker()"><i class="fas fa-arrow-right"></i></button>
+                  </div>
+                </div>
+                <div class="m24_cover treanding_songs_wrapper mt-300 index3_release_wrapper release_wrapper">
+                  <div class=container>
+                    <div class=row>
+                      <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="filter.length === 0">
+                        <div class="featured_album_letter_filter mb-20">
+                          <p>Filter <span>{{industry.name}}</span> By Year <span>None</span></p>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="filter.length > 0">
+                        <div class="featured_album_letter_filter mb-20">
+                          <p>Filter <span>{{industry.name}}</span> By Alphabet <span>{{filter}}</span></p>
+                        </div>
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12">
+                        <div class=tab-content>
+                          <div class="tab-pane active" id=home>
+                            <div class=row *ngIf="filter.length === 0">
+                              <ng-container *ngIf="industryAlbums.length > 0">
+                                <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-4 pd1" *ngFor="let album of industryAlbums">
+                                  <div class="m24_cover treanding_slider_main_box release_box_main_content">
+                                    <img [alt]="album.name" [src]="album.imagePath">
+                                    <div class="release_content_artist release_content_artist2 release_content_box">
+                                      <p><a class="various_artist_name" routerLink="/albums">{{album.name}}</a></p>
+                                      <p class=various_artist_text><a href=#>{{album.year}}</a></p>
+                                    </div>
+                                    <div class="m24_treanding_box_overlay release_box_overlay">
+                                      <div class=m24_tranding_box_overlay></div>
+                                      <div class=m24_tranding_more_icon (click)="OpenTrending()">
+                                        <i class=flaticon-menu></i>
+                                      </div>
+                                      <ul class="tranding_more_option icon-option-wrapper" >
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                      </ul>
+                                      <div class=tranding_play_icon>
+                                        <a href="#">
+                                          <i class=flaticon-play-button></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div class=row *ngIf="filter.length> 0">
+                              <ng-container *ngIf="yearAlbums.length > 0">
+                                <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-4 pd1" *ngFor="let album of yearAlbums">
+                                  <div class="m24_cover treanding_slider_main_box release_box_main_content">
+                                    <img [alt]="album.name" [src]="album.imagePath">
+                                    <div class="release_content_artist release_content_artist2 release_content_box">
+                                      <p><a class="various_artist_name" routerLink="/albums">{{album.name}}</a></p>
+                                      <p class=various_artist_text><a href=#>{{album.year}}</a></p>
+                                    </div>
+                                    <div class="m24_treanding_box_overlay release_box_overlay">
+                                      <div class=m24_tranding_box_overlay></div>
+                                      <div class=m24_tranding_more_icon (click)="OpenTrending()">
+                                        <i class=flaticon-menu></i>
+                                      </div>
+                                      <ul class="tranding_more_option icon-option-wrapper" >
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                      </ul>
+                                      <div class=tranding_play_icon>
+                                        <a href="#">
+                                          <i class=flaticon-play-button></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div class="pagination-container" *ngIf="filter.length === 0">
+                              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="industryAlbums.length > 6" [length]="totalSongs" [pageSize]="6" (page)="onChangedPage($event)"></mat-paginator>
+                            </div>
+                            <div class="pagination-container" *ngIf="filter.length> 0">
+                              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="industryAlbums.length > 6" [length]="totalSongs" [pageSize]="6" (page)="onChangedYearPage($event, filter)"></mat-paginator>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60">
+        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad Image" />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row download-row-right-padding">
+  <div class="col-12">
+    <div class="overflow-mockup-design">
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80">
+        <div class=container>
+          <div class=row>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="m24_cover add_banner_img_wrapper">
+                <a href=#><img alt=img src="./assets/frontend/image/ad/add2.png" class=img-responsive></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m24_cover download_wrapper">
+        <div class=concert_overlay></div>
+        <div class=container>
+          <div class=row>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="m24_cover download_app_store">
+                <h1>DOWNLOAD THIS APP</h1>
+                <p>There are many variations of passages of Lorem Ipsum available, but passages of Lorem this is wow.</p>
+                <div class="m24_cover app_btn">
+                  <a href=#>get the app now</a>
+                </div>
+                <ul class=download_app_logo>
+                  <li><a href=#><i class=flaticon-android-logo></i></a></li>
+                  <li><a href=#><i class=flaticon-apple></i></a></li>
+                  <li><a href=#><i class=flaticon-windows></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="m24_cover download_mockup_design">
+                <img alt=img src="../../../../assets/frontend/image/download/mockup.png" class=img-responsive>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-contact></app-contact>
+    </div>
+  </div>
+</div>
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+  <div class=container>
+    <div class=row>
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="m24_cover add_banner_img_wrapper">
+          <a href=#><img alt=img src="./assets/frontend/image/ad/add7.png" class=img-responsive></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
-import {map} from "rxjs/operators";
+import {count, map} from "rxjs/operators";
 import {Artist} from "../models/artist.model";
 
 @Injectable({
@@ -11,7 +11,9 @@ import {Artist} from "../models/artist.model";
 export class ArtistService{
 
   public artists: Artist[] = [];
-  public artistsUpdated = new Subject<Artist []>();
+  public artistsUpdated = new Subject<{artists : Artist [], artistCount: number}>();
+  public featuredArtists: any[] = [];
+  public featuredArtistsUpdated = new Subject<{artists : any [], artistCount: number}>();
   public modalArtist: any | null ;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -26,27 +28,53 @@ export class ArtistService{
       });
   }
 
-  getArtist(){
-    this.http.get<{message:string, artists: any }>(
-      "http://localhost:3000/api/artists"
+  getArtist(artistPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${artistPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, artists: any, count:number}>(
+      "http://localhost:3000/api/artists" + queryParams
     ).pipe(map((artistData)=>{
       // @ts-ignore
-      return artistData.artists.map(artist=>{
+      return {artists: artistData.artists.map(artist=>{
         return{
           name: artist.name,
           id: artist._id,
           imagePath: artist.imagePath
         };
-      });
+      }), artistCount: artistData.count};
     }))
-      .subscribe(artist=>{
-        this.artists = artist;
-        this.artistsUpdated.next([...this.artists]);
+      .subscribe(artistData=>{
+        this.artists = artistData.artists;
+        this.artistsUpdated.next({artists : [...this.artists], artistCount: artistData.artistCount});
       });
   }
 
   getArtistsUpdateListener(){
     return this.artistsUpdated.asObservable();
+  }
+
+  getFeaturedArtist(artistPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${artistPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, artists: any, count:number}>(
+      "http://localhost:3000/api/artists/featured-artists" + queryParams
+    ).pipe(map((artistData)=>{
+      // @ts-ignore
+      return {artists: artistData.artists.map(artist=>{
+          return{
+            name: artist.name,
+            id: artist._id,
+            imagePath: artist.imagePath,
+            songs: artist.songs
+          };
+        }), artistCount: artistData.count};
+    }))
+      .subscribe(artistData=>{
+        this.featuredArtists = artistData.artists;
+        this.featuredArtistsUpdated.next({artists : [...this.featuredArtists], artistCount: artistData.artistCount});
+      });
+  }
+
+  getFeaturedArtistsUpdateListener(){
+    return this.featuredArtistsUpdated.asObservable();
   }
 
   updateArtist(id: string | null, name: string, image: File | string){
@@ -63,13 +91,6 @@ export class ArtistService{
     }
     this.http.put("http://localhost:3000/api/artists/" +id, artistData)
       .subscribe(response=>{
-        const updatedArtist = [...this.artists];
-        const oldArtistIndex = updatedArtist.findIndex(a => a.id === id);
-        // @ts-ignore
-        const artist: Artist = {id:id, name:name, imagePath: response.imagePath}
-        updatedArtist[oldArtistIndex] = artist;
-        this.artists = updatedArtist;
-        this.artistsUpdated.next([...this.artists]);
         this.router.navigate(['/view-artist']);
       });
   }
@@ -88,12 +109,7 @@ export class ArtistService{
   }
 
   deleteArtist(artistId:string){
-    this.http.delete("http://localhost:3000/api/artists/" +artistId)
-      .subscribe(()=>{
-        const updatedArtists = this.artists.filter(a=> a.id !=artistId);
-        this.artists = updatedArtists;
-        this.artistsUpdated.next([...this.artists]);
-      });
+    return this.http.delete("http://localhost:3000/api/artists/" +artistId);
   }
 
 

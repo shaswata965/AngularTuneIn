@@ -29,7 +29,6 @@ export class UserService {
     ).pipe(map((userData)=>{
       // @ts-ignore
       return userData.users.map(user=>{
-        console.log(user);
         return{
           name: user.name,
           email: user.email,
@@ -41,7 +40,6 @@ export class UserService {
       .subscribe(users=>{
         this.users = users;
         this.userUpdated.next([...this.users]);
-        console.log(this.users);
       });
   }
 

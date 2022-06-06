@@ -34,6 +34,8 @@ const storage = multer.diskStorage({
 
 router.get('', artistController.getArtist);
 
+router.get('/featured-artists', artistController.getFeaturedArtist);
+
 router.post('',multer({storage: storage}).single("image"),artistController.createArtist);
 
 router.put("/:id", multer({storage: storage}).single("image"), artistController.updateArtist);

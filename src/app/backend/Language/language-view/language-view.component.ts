@@ -4,6 +4,7 @@ import {Language} from "../../../frontend/models/language.model";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {LanguageService} from "../../../frontend/service/language.service";
 import {LanguageListComponent} from "../language-list/language-list.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-language-view',
@@ -16,15 +17,17 @@ export class LanguageViewComponent implements OnInit , OnDestroy{
   private languagesSub: Subscription;
   public modalLanguage : any | null;
   isLoading = false;
+  totalSongs = 0;
 
   constructor(public languageService: LanguageService,
               private Dialog: MatDialog) { }
 
   ngOnInit(){
     this.isLoading = true;
-    this.languageService.getLanguages();
-    this.languagesSub = this.languageService.getLanguagesUpdateListener().subscribe((languages: Language[])=>{
-      this.languages = languages;
+    this.languageService.getLanguages(3,1);
+    this.languagesSub = this.languageService.getLanguagesUpdateListener().subscribe((languageData:{languages: Language[], languageCount:number})=>{
+      this.languages = languageData.languages;
+      this.totalSongs = languageData.languageCount;
       this.isLoading = false;
     });
   }
@@ -34,7 +37,10 @@ export class LanguageViewComponent implements OnInit , OnDestroy{
   }
 
   onDelete(languageId: string){
-    this.languageService.deleteLanguage(languageId);
+    this.isLoading = true;
+    this.languageService.deleteLanguage(languageId).subscribe(()=>{
+      this.languageService.getLanguages(3,1);
+    });
   }
 
   openViewModal(language : any){
@@ -45,6 +51,10 @@ export class LanguageViewComponent implements OnInit , OnDestroy{
     this.Dialog.open(LanguageListComponent, dialogConfig);
     this.languageService.addModalLanguage(language);
     this.isLoading = false;
+  }
+
+  onChangedPage(pageEvent: PageEvent){
+    this.languageService.getLanguages(pageEvent.pageSize, pageEvent.pageIndex+1);
   }
 
 }

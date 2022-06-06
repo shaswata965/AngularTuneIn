@@ -1,0 +1,41 @@
+.album-heading{
+  font-size: 35px!important;
+}
+
+.pagination-container .mat-paginator{
+  background-color: #04031D;
+  font-size: 20px!important;
+  color: #FA5840!important;
+}
+
+.custom-button{
+  color: #FA5840!important;
+}
+
+::ng-deep .mat-paginator .mat-button{
+  color: #FA5840!important;
+}
+
+::ng-deep .mat-paginator .mat-button-disabled{
+  color: #FA5840!important;
+  opacity: 0.2;
+}
+
+::ng-deep .mat-paginator-page-size {
+  display: none!important;
+}
+
+.mat-custom-page{
+  font-size: 20px!important;
+}
+
+.nav-text{
+  color:#FA5840!important;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: capitalize;
+  text-align: center;
+  padding: 10px 10px;
+  position: absolute;
+  right:24.1rem;
+}

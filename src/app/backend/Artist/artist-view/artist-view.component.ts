@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {Artist} from "../../../frontend/models/artist.model";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ArtistListComponent} from "../artist-list/artist-list.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-artist-view',
@@ -15,14 +16,16 @@ export class ArtistViewComponent implements OnInit {
   public artistsSub: Subscription;
   public artists: any | null;
   isLoading = false;
+  totalSongs = 0;
 
   constructor( public artistService: ArtistService, private Dialog: MatDialog) { }
 
   ngOnInit(){
     this.isLoading = true;
-    this.artistService.getArtist();
-    this.artistsSub = this.artistService.getArtistsUpdateListener().subscribe((artists: Artist[])=>{
-      this.artists = artists;
+    this.artistService.getArtist(3,1);
+    this.artistsSub = this.artistService.getArtistsUpdateListener().subscribe((artistData:{artists: Artist[], artistCount: number})=>{
+      this.artists = artistData.artists;
+      this.totalSongs = artistData.artistCount;
       this.isLoading = false;
     });
   }
@@ -38,7 +41,14 @@ export class ArtistViewComponent implements OnInit {
   }
 
   onDelete(artistId: string){
-    this.artistService.deleteArtist(artistId);
+    this.isLoading = true;
+    this.artistService.deleteArtist(artistId).subscribe(()=>{
+      this.artistService.getArtist(3,1);
+    });
+  }
+
+  onChangedPage(pageEvent: PageEvent){
+    this.artistService.getArtist(pageEvent.pageSize, pageEvent.pageIndex+1);
   }
 
 }

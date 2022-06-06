@@ -15,6 +15,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {StylePaginatorDirective} from "./artist-view/style-paginator.directive";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     CreateArtistComponent,
     ArtistViewComponent,
     ViewArtistComponent,
-    ArtistListComponent
+    ArtistListComponent,
+    StylePaginatorDirective,
   ],
   imports: [
     RouterModule,
@@ -36,7 +39,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatButtonModule,
     BrowserModule,
     CommonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   entryComponents: [ArtistListComponent]
 })

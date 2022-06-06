@@ -11,6 +11,8 @@ import {ArtistService} from "../../../frontend/service/artist.service";
 import {Artist} from "../../../frontend/models/artist.model";
 import {GenreService} from "../../../frontend/service/genre.service";
 import {Genre} from "../../../frontend/models/genre.model";
+import {Industry} from "../../../frontend/models/industry.model";
+import {IndustryService} from "../../../frontend/service/industry.service";
 
 @Component({
   selector: 'app-album-create',
@@ -32,6 +34,8 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
   public artistSub: Subscription;
   genres: Genre[] = [];
   public genresSub: Subscription;
+  industries: Industry[] = [];
+  public industriesSub: Subscription;
 
   imdb: string ='';
   idString: string= '';
@@ -40,7 +44,12 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
   imagePreview: string | ArrayBuffer | null;
   isLoading = false;
 
-  constructor(public route: ActivatedRoute, public albumService:AlbumService, public languageService: LanguageService, public artistService: ArtistService, public genreService: GenreService) { }
+  constructor(public route: ActivatedRoute,
+              public albumService:AlbumService,
+              public languageService: LanguageService,
+              public artistService: ArtistService,
+              public genreService: GenreService,
+              public industryService: IndustryService) { }
 
   ngOnInit(){
     this.form = new FormGroup({
@@ -52,19 +61,20 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       'language': new FormControl(null,{validators:[Validators.required]}),
       'artist': new FormControl(null,{validators:[Validators.required]}),
       'genre':new FormControl(null,{validators:[Validators.required]}),
+      'industry':new FormControl(null,{validators:[Validators.required]}),
       'image': new FormControl(null,{validators: [Validators.required], asyncValidators: [mimeType]})
     });
 
     this.isLoading = true;
 
-    this.languageService.getLanguages();
-    this.languagesSub = this.languageService.getLanguagesUpdateListener().subscribe((languages: Language[])=>{
-      this.languages = languages;
+    this.languageService.getLanguages(1000,1);
+    this.languagesSub = this.languageService.getLanguagesUpdateListener().subscribe((languageData:{languages: Language[], languageCount: number})=>{
+      this.languages = languageData.languages;
     });
 
-    this.artistService.getArtist();
-    this.artistSub = this.artistService.getArtistsUpdateListener().subscribe((artist:Artist[])=>{
-      this.artists = artist;
+    this.artistService.getArtist(1000,1);
+    this.artistSub = this.artistService.getArtistsUpdateListener().subscribe((artistData:{artists: Artist[], artistCount: number})=>{
+      this.artists = artistData.artists;
     });
 
     this.genreService.getGenre();
@@ -73,13 +83,18 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
       this.isLoading = false;
     });
 
+    this.industryService.getIndustries(1000,1);
+    this.industriesSub = this.industryService.getIndustriesUpdateListener().subscribe((industryData:{industries: Industry[], industryCount: number})=>{
+      this.industries = industryData.industries;
+    });
+
     this.route.paramMap.subscribe((paramMap)=>{
       if(paramMap.has('albumId')){
         this.mode="Edit";
         this.isLoading = true;
         this.albumId = paramMap.get('albumId');
         this.albumService.getEditAlbum(this.albumId).subscribe(albumData=>{
-          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, artist: albumData.artist, genre: albumData.genre, castLink:albumData.castLink, imagePath: albumData.imagePath};
+          this.album = {id:albumData._id, name:albumData.name,  description:albumData.description, cast:albumData.cast, release:albumData.release, year: albumData.year, language: albumData.language, artist: albumData.artist, genre: albumData.genre, industry: albumData.industry, castLink:albumData.castLink, imagePath: albumData.imagePath};
           this.form.setValue({
             'name': this.album.name,
             'description': this.album.description,
@@ -89,6 +104,7 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
             'language': this.album.language,
             'artist': this.album.artist,
             'genre':this.album.genre,
+            'industry':this.album.industry,
             'image': this.album.imagePath
           });
           this.isLoading = false;
@@ -116,9 +132,9 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     if(this.mode==='Create'){
-      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.idString, this.form.value.image);
+      this.albumService.addAlbum(this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.form.value.industry, this.idString, this.form.value.image);
     }else{
-      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.album.castLink, this.form.value.image )
+      this.albumService.updateAlbum(this.albumId,this.form.value.name, this.form.value.description, this.form.value.cast, this.form.value.release, this.form.value.year, this.form.value.language, this.form.value.artist, this.form.value.genre, this.form.value.industry, this.album.castLink, this.form.value.image )
     }
     this.form.reset();
   }
@@ -164,6 +180,7 @@ export class AlbumCreateComponent implements OnInit, OnDestroy {
         'language': null,
         'artist': null,
         'genre': null,
+        'industry': null,
         'image': null
       });
     });

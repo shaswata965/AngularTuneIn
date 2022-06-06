@@ -17,6 +17,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {BrowserModule} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {LanguageSongComponent} from "../../layouts/language-song/language-song.component";
+import {AllSongLayoutComponent} from "../../layouts/all-song-layout/all-song-layout.component";
+import {LandingModule} from "../../frontend/landing/landing.module";
+import {AlbumModule} from "../../frontend/album/album.module";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -24,7 +29,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     AlbumViewComponent,
     CreateAlbumComponent,
     ViewAlbumComponent,
-    AlbumListComponent
+    AlbumListComponent,
+    LanguageSongComponent,
+    AllSongLayoutComponent
   ],
   imports: [
     RouterModule,
@@ -40,7 +47,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatButtonModule,
     BrowserModule,
     CommonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    LandingModule,
+    AlbumModule,
+    MatPaginatorModule
   ],
   entryComponents: [AlbumListComponent]
 })

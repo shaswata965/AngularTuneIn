@@ -40,11 +40,26 @@ exports.updateLanguage = (req,res,next)=>{
 };
 
 exports.getLanguage = (req,res,next)=>{
-  Language.find()
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const languageQuery = Language.find();
+  let languages;
+  if(pageSize && currentPage){
+    languageQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+  languageQuery
+    .find()
     .then(documents=>{
+      languages = documents;
+      return Language.count();
+    })
+    .then(count=>{
       res.status(200).json({
         message: "Languages Listed Successfully",
-        languages: documents
+        languages: languages,
+        count: count
       });
     });
 };

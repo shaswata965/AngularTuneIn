@@ -8,6 +8,7 @@ const Language = require('../models/languages');
 const Actor = require('../models/actors');
 const Genre = require('../models/genres')
 const songController = require('../controllers/song');
+const albumController = require("../controllers/album");
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -55,6 +56,8 @@ const storage = multer.diskStorage({
 
 router.get('', songController.getSong);
 
+router.get('/bollywood', songController.getBollywoodSong);
+
 router.post('',multer({storage: storage}).fields([{name:'image',maxCount:1},{name:'lowSong',maxCount:1},{name:'highSong',maxCount:1}]),songController.createSong);
 
 router.put("/:id", multer({storage: storage}).fields([{name:'image',maxCount:1},{name:'lowSong',maxCount:1},{name:'highSong',maxCount:1}]), songController.updateSong);
@@ -64,5 +67,7 @@ router.get('/:id',songController.findSong);
 router.get('/modal/:language/:actor/:genre/:album', songController.findSongDetails);
 
 router.delete("/:id",songController.deleteSong);
+
+router.get("/find-language/:languageId", songController.findLanguageSong);
 
 module.exports = router;

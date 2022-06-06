@@ -1,0 +1,27 @@
+<div class="row justify-content-center">
+  <div  *ngIf="isLoading" class="col-md-6 col-sm-8">
+    <mat-card class="login-card">
+      <mat-spinner></mat-spinner>
+    </mat-card>
+  </div>
+  <div class="col-md-6 col-sm-8" *ngIf="!isLoading">
+    <mat-card class="login-card">
+      <h1 class="login-card-heading">
+        {{mode}} Industry
+      </h1>
+      <p class="mat-body-1 login-card-description"> {{mode}} This Industry </p>
+      <form [formGroup]="form" (submit)="createIndustry()">
+        <mat-form-field class="login-card-fields">
+          <mat-label>Industry Name :</mat-label>
+          <input type="text" formControlName="name" matInput placeholder="Ex: Industry Name" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-card-button" type="submit">
+          {{mode}} Industry
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

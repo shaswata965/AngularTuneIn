@@ -35,6 +35,14 @@ import {ViewContactsComponent} from "./layouts/view-contacts/view-contacts.compo
 import {StarredContactsComponent} from "./layouts/starred-contacts/starred-contacts.component";
 import {CreateAdComponent} from "./layouts/create-ad/create-ad.component";
 import {ViewAdComponent} from "./layouts/view-ad/view-ad.component";
+import {LanguageSongComponent} from "./layouts/language-song/language-song.component";
+import {AllSongLayoutComponent} from "./layouts/all-song-layout/all-song-layout.component";
+import {ViewIndustryComponent} from "./layouts/view-industry/view-industry.component";
+import {CreateIndustryComponent} from "./layouts/create-industry/create-industry.component";
+import {AllAlbumLayoutComponent} from "./layouts/all-album-layout/all-album-layout.component";
+import {AlbumLanguageComponent} from "./frontend/album/album-language/album-language.component";
+import {AlbumLanguageLayoutComponent} from "./layouts/album-language-layout/album-language-layout.component";
+import {FilteredYearLayoutComponent} from "./layouts/filtered-year-layout/filtered-year-layout.component";
 
 const routes: Routes = [
   {
@@ -51,8 +59,32 @@ const routes: Routes = [
     component:AlbumsComponent
   },
   {
-    path:'filter',
+    path:'albums/:industryId',
+    component:AlbumsComponent
+  },
+  {
+    path:'filter/:industryId',
     component:FilterComponent
+  },
+  {
+    path:'filter-year/:industryId',
+    component:FilteredYearLayoutComponent
+  },
+  {
+    path: 'language-song/:languageId',
+    component: LanguageSongComponent
+  },
+  {
+    path: 'language-song',
+    component: AllSongLayoutComponent
+  },
+  {
+    path: 'language-album',
+    component: AllAlbumLayoutComponent
+  },
+  {
+    path: 'language-album/:languageId',
+    component: AlbumLanguageLayoutComponent
   },
   {
     path:'singles',
@@ -240,6 +272,21 @@ const routes: Routes = [
   {
     path:"view-ad",
     component:ViewAdComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"create-industry",
+    component:CreateIndustryComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"edit-industry/:adId",
+    component:CreateIndustryComponent,
+    canActivate: [BackAuthGuard]
+  },
+  {
+    path:"view-industry",
+    component:ViewIndustryComponent,
     canActivate: [BackAuthGuard]
   },
 ];

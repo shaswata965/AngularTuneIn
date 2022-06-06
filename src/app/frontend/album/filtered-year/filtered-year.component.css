@@ -1,0 +1,35 @@
+.pagination-container .mat-paginator{
+  background-color: #04031D;
+  font-size: 20px!important;
+  color: #FA5840!important;
+}
+
+.custom-button{
+  color: #FA5840!important;
+}
+
+::ng-deep .mat-paginator .mat-button{
+  color: #FA5840!important;
+}
+
+::ng-deep .mat-paginator .mat-button-disabled{
+  color: #FA5840!important;
+  opacity: 0.2;
+}
+
+::ng-deep .mat-paginator-page-size {
+  display: none!important;
+}
+
+.mat-custom-page{
+  font-size: 20px!important;
+}
+
+.mt-300{
+  margin-top: 300px!important;
+}
+
+.year_list-navigation{
+  position: absolute;
+  top: 80px;
+}

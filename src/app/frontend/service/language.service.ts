@@ -11,7 +11,7 @@ import {map} from "rxjs/operators";
 export class LanguageService{
 
   private languages: Language[] = [];
-  private languagesUpdated = new Subject<Language []>();
+  private languagesUpdated = new Subject< { languages: Language [], languageCount: number }>();
 
   public languageAlbum: any | null;
   public languageAlbumUpdated = new Subject<any>();
@@ -36,32 +36,26 @@ export class LanguageService{
       languageData = {id:id, name:name}
     this.http.put("http://localhost:3000/api/languages/" +id, languageData)
       .subscribe(response=>{
-        const updatedLanguage = [...this.languages];
-        const oldLanguageIndex = updatedLanguage.findIndex(a => a.id === id);
-        // @ts-ignore
-        const language: Language = {id:id, name:name}
-        updatedLanguage[oldLanguageIndex] = language;
-        this.languages = updatedLanguage;
-        this.languagesUpdated.next([...this.languages]);
         this.router.navigate(['/view-language']);
       });
   }
 
-  getLanguages(){
-    this.http.get<{message:string, albums: any }>(
-      "http://localhost:3000/api/languages"
+  getLanguages(languagesPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${languagesPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, languages: any, count: number }>(
+      "http://localhost:3000/api/languages" + queryParams
     ).pipe(map((languageData)=>{
       // @ts-ignore
-      return languageData.languages.map(language=>{
+      return {languages: languageData.languages.map(language=>{
         return{
           name: language.name,
           id: language._id,
         };
-      });
+      }), languageCount: languageData.count};
     }))
-      .subscribe(languages=>{
-        this.languages = languages;
-        this.languagesUpdated.next([...this.languages]);
+      .subscribe(languageData=>{
+        this.languages = languageData.languages;
+        this.languagesUpdated.next({languages: [...this.languages], languageCount: languageData.languageCount});
       });
   }
 
@@ -70,12 +64,7 @@ export class LanguageService{
   }
 
   deleteLanguage(languageId:string){
-    this.http.delete("http://localhost:3000/api/languages/" +languageId)
-      .subscribe(()=>{
-        const updatedLanguages = this.languages.filter(a=> a.id !=languageId);
-        this.languages = updatedLanguages;
-        this.languagesUpdated.next([...this.languages]);
-      });
+     return this.http.delete("http://localhost:3000/api/languages/" +languageId);
   }
 
   addModalLanguage(language: any){

@@ -5,12 +5,10 @@ import{UserService} from "../../service/user.service";
 import {Subscription} from "rxjs";
 import { SocialAuthService, SocialUser,FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import {mimeType} from "../../../backend/Admin/signup/mime-type.validator";
-import SwiperCore, {SwiperOptions, Autoplay, Navigation} from "swiper";
-import {SwiperComponent} from "swiper/angular";
 import {LanguageService} from "../../service/language.service";
+import {OwlOptions} from "ngx-owl-carousel-o";
+import {Language} from "../../models/language.model";
 
-SwiperCore.use([Autoplay]);
-SwiperCore.use([Navigation]);
 // @ts-ignore
 @Component({
   selector: 'app-header',
@@ -34,10 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   form : FormGroup;
   logForm: FormGroup;
   imagePreview: string | ArrayBuffer | null;
-
-  @ViewChild('swiperSlideShow') swiperSlideShow!: SwiperComponent;
-  config: SwiperOptions = {}
-
 
   constructor(public userService: UserService, private socialAuthService: SocialAuthService, private languageService: LanguageService) { }
 
@@ -131,34 +125,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
     });
 
-    this.languageService.getLanguages();
-    this.languageService.getLanguagesUpdateListener().subscribe((language:any)=>{
-      this.languages = language;
+    this.languageService.getLanguages(1000,1);
+    this.languageService.getLanguagesUpdateListener().subscribe((languageData:{languages:Language[], languageCount: number})=>{
+      this.languages = languageData.languages;
     });
 
   }
 
-  ngAfterViewInit(): void
-  {
-    this.config = {
-      slidesPerView: 4,
-      spaceBetween: 10,
-      pagination: { clickable: true },
-      scrollbar: { draggable: true },
-      autoplay: {
-        delay: 2000
+  customOptions: OwlOptions = {
+    loop: !0,
+    margin: 15,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    smartSpeed: 1200,
+    navSpeed: 700,
+    navText: ['<i class="flaticon-left-arrow"></i>', '<i class="flaticon-right-arrow"></i>'],
+    responsive: {
+      0: {
+        items: 1,
+        nav: !0
       },
-      navigation: true,
-    }
-    this.swiperSlideShow.swiperRef.autoplay.start();
-  }
-
-  // @ts-ignore
-  onSwiper([swiper]) {
-    console.log(swiper);
-  }
-  onSlideChange() {
-    console.log('slide change');
+      600: {
+        items: 3,
+        nav: !0
+      },
+      1000: {
+        items: 5,
+        nav: !0,
+        loop: !0,
+        margin: 20
+      }
+    },
+    nav: true
   }
 
   onImagePicked(event: Event){
@@ -202,5 +201,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, "slow")
     })
   }
+
 
 }

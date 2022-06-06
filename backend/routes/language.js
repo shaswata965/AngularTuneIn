@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const Language = require('../models/languages');
-const Album = require('../models/albums');
 const languageController = require('../controllers/language');
 
 const router = express.Router();

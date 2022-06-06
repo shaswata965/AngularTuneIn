@@ -41,7 +41,6 @@ export class AdminService{
       .subscribe(admins=>{
         this.admins = admins;
         this.adminsUpdated.next([...this.admins]);
-        console.log(this.admins);
       });
   }
 
@@ -148,7 +147,7 @@ export class AdminService{
           this.isAuthenticated = true;
           this.authStatusListener.next(true);
           const now = new Date();
-          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 10000);
           this.saveAuthData(adminToken, expirationDate, currentAdmin, currentAdminImage);
           this.router.navigate(['/backend-home']);
         }
@@ -177,7 +176,7 @@ export class AdminService{
     if(expiresIn > 0){
       this.adminToken = authInformation.token;
       this.isAuthenticated = true;
-      this.setAuthTimer(expiresIn / 1000);
+      this.setAuthTimer(expiresIn / 10000);
       this.authStatusListener.next(true);
     }
 
@@ -186,7 +185,7 @@ export class AdminService{
   private setAuthTimer( duration: number){
     this.tokenTimer = setTimeout(()=>{
       this.logOut();
-    }, duration*1000);
+    }, duration*10000);
   }
 
 

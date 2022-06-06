@@ -13,6 +13,8 @@ import * as $ from 'jquery';
 import {Router} from "@angular/router";
 import { ChartOptions, ChartType, ChartDataSets, ScaleType } from 'chart.js';
 import {Color, Label} from 'ng2-charts';
+import {Song} from "../../../frontend/models/song.model";
+import {Album} from "../../../frontend/models/album.model";
 
 @Component({
   selector: 'app-backend-body',
@@ -136,14 +138,14 @@ export class BackendBodyComponent implements OnInit {
       this.users = user.length;
     });
 
-    this.songService.getSongs();
-    this.songService.getSongsUpdateListener().subscribe((song:any)=>{
-      this.songs = song.length;
+    this.songService.getSongs(1000,1)
+    this.songService.getSongsUpdateListener().subscribe((songData:{songs: Song[], songCount:number})=>{
+      this.songs = songData.songCount;
     });
 
-    this.albumService.getAlbums();
-    this.albumService.getAlbumsUpdateListener().subscribe((album:any)=>{
-      this.albums = album.length;
+    this.albumService.getAlbums(1000,1);
+    this.albumService.getAlbumsUpdateListener().subscribe((albumData:{albums: Album[], albumCount:number})=>{
+      this.albums = albumData.albumCount;
     });
 
     this.contactService.getContacts();

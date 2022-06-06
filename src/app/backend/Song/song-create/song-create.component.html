@@ -80,6 +80,31 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Song Artist</mat-label>
+          <mat-select formControlName="artist">
+            <mat-option *ngFor="let artist of artists"
+                        [value]="artist.name">
+              {{artist.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Song Industry</mat-label>
+          <mat-select formControlName="industry">
+            <mat-option *ngFor="let industry of industries"
+                        [value]="industry.name">
+              {{industry.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Trending Option</mat-label>
+          <mat-select formControlName="trending">
+            <mat-option value="yes">Trending Song</mat-option>
+            <mat-option value="no">Non Trending Song</mat-option>
+          </mat-select>
+        </mat-form-field>
         <button
           mat-raised-button
           color="primary"

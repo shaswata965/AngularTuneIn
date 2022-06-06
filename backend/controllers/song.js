@@ -3,15 +3,56 @@ const Language = require("../models/languages");
 const Actor = require("../models/actors");
 const Genre = require("../models/genres");
 const Album = require("../models/albums");
+const Artist = require("../models/artists")
 
 exports.getSong = (req,res,next)=>{
-  Song.find()
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const songQuery = Song.find();
+  let songs;
+  if(pageSize && currentPage){
+    songQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize);
+  }
+    songQuery.find()
+      .then(documents=>{
+        songs =documents;
+        return Song.count();
+      })
+      .then(count=>{
+        res.status(200).json({
+          message: "Albums Listed Successfully",
+          songs: songs,
+          count: count
+        });
+      });
+
+};
+
+exports.getBollywoodSong = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const songQuery = Song.find();
+  let songs;
+  if(pageSize && currentPage){
+    songQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize);
+  }
+  songQuery.find({industry:"Bollywood"})
     .then(documents=>{
+      songs =documents;
+      return Song.find({industry:"Bollywood"}).count();
+    })
+    .then(count=>{
       res.status(200).json({
         message: "Albums Listed Successfully",
-        songs: documents
+        songs: songs,
+        count: count
       });
     });
+
 };
 
 exports.createSong = (req,res,next)=>{
@@ -22,6 +63,10 @@ exports.createSong = (req,res,next)=>{
     actor: req.body.actor,
     genre: req.body.genre,
     album: req.body.album,
+    artist: req.body.artist,
+    industry: req.body.industry,
+    trending: req.body.trending,
+    duration: req.body.duration,
     lowPath:url + "/songs/" +req.files.lowSong[0].filename,
     highPath:url + "/songs/" +req.files.highSong[0].filename,
     imagePath: url + "/image/songImage/" + req.files.image[0].filename,
@@ -43,13 +88,64 @@ exports.createSong = (req,res,next)=>{
 exports.updateSong = (req,res,next)=>{
   let imagePath = req.body.imagePath;
   let lowPath = req.body.lowPath;
-  let highPath = req.body.highPath
-  if(req.files){
-    const url = req.protocol + '://' + req.get("host");
-    imagePath = url + "/image/songImage/" + req.files.image[0].filename;
-    lowPath = url + "/songs/" + req.files.lowSong[0].filename;
-    highPath = url + "/songs/" + req.files.highSong[0].filename;
-  }
+  let highPath = req.body.highPath;
+  if (req.files){
+  if(req.files.image && req.files.lowSong && req.files.highSong){
+
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = url + "/image/songImage/" + req.files.image[0].filename;
+  lowPath = url + "/songs/" + req.files.lowSong[0].filename;
+  highPath = url + "/songs/" + req.files.highSong[0].filename;
+
+}
+else if(req.files.image && req.files.lowSong){
+
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = url + "/image/songImage/" + req.files.image[0].filename;
+  lowPath = url + "/songs/" + req.files.lowSong[0].filename;
+  highPath = req.body.highPath;
+
+}
+else if(req.files.image){
+
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = url + "/image/songImage/" + req.files.image[0].filename;
+  highPath = req.body.highPath;
+  lowPath = req.body.lowPath;
+
+}
+else if( req.files.lowSong && req.files.highSong){
+
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = req.body.imagePath;
+  lowPath = url + "/songs/" + req.files.lowSong[0].filename;
+  highPath = url + "/songs/" + req.files.highSong[0].filename;
+
+}
+else if( req.files.lowSong){
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = req.body.imagePath;
+  lowPath = url + "/songs/" + req.files.lowSong[0].filename;
+  highPath = req.body.highPath;
+
+}
+else if(req.files.image && req.files.highSong){
+
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = url + "/image/songImage/" + req.files.image[0].filename;
+  lowPath = req.body.lowPath;
+  highPath =url + "/songs/" + req.files.highSong[0].filename;
+
+}
+else if( req.files.highSong){
+  const url = req.protocol + '://' + req.get("host");
+  imagePath = req.body.imagePath;
+  lowPath = req.body.lowPath;
+  highPath = url + "/songs/" + req.files.highSong[0].filename;
+
+}
+}
+
   const song = new Song({
     _id:req.body.id,
     name: req.body.name,
@@ -57,6 +153,10 @@ exports.updateSong = (req,res,next)=>{
     actor: req.body.actor,
     genre: req.body.genre,
     album: req.body.album,
+    artist: req.body.artist,
+    industry: req.body.industry,
+    trending: req.body.trending,
+    duration: req.body.duration,
     lowPath: lowPath,
     highPath: highPath,
     imagePath: imagePath,
@@ -94,7 +194,6 @@ exports.findSong = (req,res,next)=>{
 
 exports.findSongDetails = async (req, res, next) => {
   const songDet = [];
-
   Language.findById(req.params.language).then(name => {
     songDet.push(name.name);
     Actor.findById(req.params.actor).then(actor => {
@@ -137,4 +236,28 @@ exports.deleteSong = (req,res,next)=>{
       error: err
     });
   });
+};
+
+exports.findLanguageSong = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const songQuery = Song.find();
+  let songs;
+  if(pageSize && currentPage){
+    songQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize);
+  }
+  songQuery.find({language: req.params.languageId})
+    .then(documents=>{
+      songs = documents;
+      return Song.find({language: req.params.languageId}).count();
+    })
+    .then(count=>{
+      res.status(200).json({
+        message: "Albums Listed Successfully",
+        songs: songs,
+        count: count
+      });
+    });
 };

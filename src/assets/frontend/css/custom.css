@@ -930,7 +930,7 @@
   border-radius: 7px;
 }
 
-.alphabet_list a{
+.alphabet_list a,.alphabet_list div a{
   height: 2.7rem;
   width: 2.7rem;
   padding-top: .6rem;
@@ -945,7 +945,7 @@
   transition: all 0.3s ease-in-out 0s;
 }
 
-.alphabet_list a:hover{
+.alphabet_list a:hover,.alphabet_list div a:hover{
   color: #fa5b41!important;
 }
 
@@ -1396,24 +1396,3 @@
   margin-top:70px;
 }
 
-.custom-swiper{
-  border: solid 3px #fa5b41;
-  border-radius: 10px;
-  padding: 1rem 3rem;
-}
-
-.custom-swiper:hover{
-  border-radius: 10px;
-  padding: 1rem 3rem;
-  background-color: #fa5b41;
-}
-
-.custom-swiper:hover p{
-  color: white!important;
-  font-size: 20px;
-}
-
-.custom-swiper p {
-  color: white!important;
-  font-size: 20px;
-}
