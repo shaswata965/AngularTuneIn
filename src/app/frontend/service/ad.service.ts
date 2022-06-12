@@ -11,7 +11,7 @@ import {Ad} from "../models/ad.model";
 export class AdService{
 
   private ads: Ad[] = [];
-  private adsUpdated = new Subject<Ad []>();
+  private adsUpdated = new Subject<{ads: Ad [], adCount: number }>();
 
   private modalAd: any | null;
   public adDetails: any | null;
@@ -22,11 +22,13 @@ export class AdService{
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  addAd(name:string, image: File, page:string){
+  addAd(name:string, image: File, page:string, position:string, link:string){
     const adData = new FormData();
     adData.append('name', name);
     adData.append('image', image, name);
     adData.append('page',page);
+    adData.append('position',position);
+    adData.append('link',link);
     this.http.post<{message: string}>('http://localhost:3000/api/ads', adData)
       .subscribe((Data)=>{
         console.log(Data.message);
@@ -34,7 +36,7 @@ export class AdService{
       });
   }
 
-  updateAd(id: string | null, name: string, image: File | string, page: string){
+  updateAd(id: string | null, name: string, image: File | string, page: string, position: string, link:string){
     let adData : Ad | FormData ;
     if(typeof (image) === 'object'){
       adData = new FormData();
@@ -42,59 +44,52 @@ export class AdService{
       adData.append('id', id);
       adData.append('name', name);
       adData.append('image',image,name);
-      adData.append('page',page)
+      adData.append('page',page);
+      adData.append('position',position);
+      adData.append('position',link);
     }else{
       // @ts-ignore
-      adData = {id:id, name:name, imagePath: image, page:page};
+      adData = {id:id, name:name, imagePath: image, page:page, link: link};
     }
     this.http.put("http://localhost:3000/api/ads/" +id, adData)
       .subscribe(response=>{
-        const updatedAd = [...this.ads];
-        const oldAdIndex = updatedAd.findIndex(a => a.id === id);
-        // @ts-ignore
-        const ad: Ad = {id:id, name:name, imagePath: response.imagePath, page:page}
-        updatedAd[oldAdIndex] = ad;
-        this.ads = updatedAd;
-        this.adsUpdated.next([...this.ads]);
         this.router.navigate(['/view-ad']);
       });
   }
 
   getEditAd(adId: string | null){
     return this.http.get<{
-      _id:string, name:string, imagePath: string, page:string}>("http://localhost:3000/api/ads/" +adId);
+      _id:string, name:string, imagePath: string, page:string, position:string, link:string}>("http://localhost:3000/api/ads/" +adId);
   }
 
   deleteAd(adId:string){
-    this.http.delete("http://localhost:3000/api/ads/" +adId)
-      .subscribe(()=>{
-        const updatedAds = this.ads.filter(a=> a.id !=adId);
-        this.ads = updatedAds;
-        this.adsUpdated.next([...this.ads]);
-      });
+    return this.http.delete("http://localhost:3000/api/ads/" +adId);
   }
 
   addModalAd(ad: any){
     this.modalAd = ad;
   }
 
-  getAd(){
-    this.http.get<{message:string, ads: any }>(
-      "http://localhost:3000/api/ads"
+  getAd(adPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${adPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, ads: any, count: number }>(
+      "http://localhost:3000/api/ads" + queryParams
     ).pipe(map((adData)=>{
       // @ts-ignore
-      return adData.ads.map(ad=>{
+      return {ads: adData.ads.map(ad=>{
         return{
           name: ad.name,
           id: ad._id,
           imagePath: ad.imagePath,
-          page: ad.page
+          page: ad.page,
+          position: ad.position,
+          link: ad.link
         };
-      });
+      }), adCount: adData.count};
     }))
-      .subscribe(ads=>{
-        this.ads = ads;
-        this.adsUpdated.next([...this.ads]);
+      .subscribe(adData=>{
+        this.ads = adData.ads;
+        this.adsUpdated.next({ads: [...this.ads], adCount: adData.adCount});
       });
   }
 

@@ -1,0 +1,27 @@
+.mat-paginator{
+  font-size: 16px;
+  color: #3F51B5;
+}
+
+::ng-deep .mat-paginator-page-size {
+  display: none!important;
+}
+
+::ng-deep .custom-page{
+  cursor: pointer;
+}
+
+::ng-deep .custom-style{
+  color:red;
+}
+
+
+.actor-preview-image{
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+}
+
+.actor-data-margin{
+  padding-top: 18px;
+}

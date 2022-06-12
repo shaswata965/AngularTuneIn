@@ -16,7 +16,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
-import {AppComponent} from "../../app.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ChartsModule} from "ng2-charts";

@@ -60,7 +60,6 @@ export class UserService {
     const currentUser = this.getCurrentUser().currentUser;
     const currentEmail = this.getCurrentUser().currentEmail;
     const currentImage = this.getCurrentUser().currentImage;
-    console.log(currentUser);
     return {
       currentUser: currentUser,
       currentEmail: currentEmail,

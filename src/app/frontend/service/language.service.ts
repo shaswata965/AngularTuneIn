@@ -13,6 +13,9 @@ export class LanguageService{
   private languages: Language[] = [];
   private languagesUpdated = new Subject< { languages: Language [], languageCount: number }>();
 
+  private quickLanguages: Language[] = [];
+  private quickLanguagesUpdated = new Subject< { languages: Language [], languageCount: number }>();
+
   public languageAlbum: any | null;
   public languageAlbumUpdated = new Subject<any>();
 
@@ -61,6 +64,29 @@ export class LanguageService{
 
   getLanguagesUpdateListener(){
     return this.languagesUpdated.asObservable();
+  }
+
+  getQuickLanguages(languagesPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${languagesPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, languages: any, count: number }>(
+      "http://localhost:3000/api/languages" + queryParams
+    ).pipe(map((languageData)=>{
+      // @ts-ignore
+      return {languages: languageData.languages.map(language=>{
+          return{
+            name: language.name,
+            id: language._id,
+          };
+        }), languageCount: languageData.count};
+    }))
+      .subscribe(languageData=>{
+        this.quickLanguages = languageData.languages;
+        this.quickLanguagesUpdated.next({languages: [...this.quickLanguages], languageCount: languageData.languageCount});
+      });
+  }
+
+  getQuickLanguagesUpdateListener(){
+    return this.quickLanguagesUpdated.asObservable();
   }
 
   deleteLanguage(languageId:string){

@@ -1,0 +1,22 @@
+.not-found-col{
+  padding-left: 0!important;
+}
+
+.not-found-cover{
+  height: 100vh;
+  width: 100vw;
+}
+
+.not-found-header h1{
+  color: #FA5840;
+}
+
+.not-found-icon i{
+  font-size: 200px;
+  color: #FA5840;
+}
+
+.not-found-icon p{
+  font-size: 20px;
+  color: #FA5840;
+}

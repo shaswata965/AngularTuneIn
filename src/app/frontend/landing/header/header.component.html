@@ -10,13 +10,13 @@
           <li>
             <a routerLink="/albums"><i class="fas fa-play-circle"></i>albums</a>
           </li>
-          <li><a routerLink="/profile#favourite"><i class="fas fa-heart"></i>favourite album</a></li>
+          <li *ngIf="userIsAuthenticated"><a routerLink="/profile#favourite"><i class="fas fa-heart"></i>favourite album</a></li>
         </ul>
       </li>
       <li class=has-sub><a (click)="subMenuTwo = !subMenuTwo"><i class=flaticon-playlist-3></i>browse music</a>
         <ul [ngbCollapse]="subMenuTwo">
-          <li><a routerLink="/profile#playlist"><i class="fas fa-play-circle"></i>my playlist</a></li>
-          <li><a routerLink="/albums"><i class=flaticon-files-and-folders></i>artist albums</a></li>
+          <li   *ngIf="userIsAuthenticated"><a routerLink="/profile#playlist"><i class="fas fa-play-circle"></i>my playlist</a></li>
+          <li><a routerLink="/artist-album"><i class=flaticon-files-and-folders></i>artist albums</a></li>
         </ul>
       </li>
       <li *ngIf="userIsAuthenticated"><a routerLink="/profile"><i class=flaticon-playlist-1></i>{{firstName}}'s music</a>
@@ -60,11 +60,11 @@
         <ul class=main_nav_ul>
           <li class="gc_main_navigation has-mega"><a routerLink="/albums" class=gc_main_navigation>browse <i class=flaticon-down-arrow></i></a>
             <ul class=navi_2_dropdown>
-              <li class=parent>
+              <li class=parent *ngIf="userIsAuthenticated">
                 <a href="#"><i class="fas fa-caret-right"></i>featured playlist</a>
               </li>
               <li class=parent>
-                <a href="#"><i class="fas fa-caret-right"></i>top artists</a>
+                <a routerLink="/artist-album"><i class="fas fa-caret-right"></i>top artists</a>
               </li>
               <li class=parent>
                 <a routerLink="/albums"><i class="fas fa-caret-right"></i>all albums</a>
@@ -76,7 +76,7 @@
               <li class=parent>
                 <a href="#contact"><i class="fas fa-caret-right"></i>contact</a>
               </li>
-              <li class=parent>
+              <li class=parent  *ngIf="userIsAuthenticated">
                 <a routerLink="/profile#favourite"><i class="fas fa-caret-right"></i> favourite song </a>
               </li>
             </ul>
@@ -105,7 +105,7 @@
       <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
         <div class="treanding_album_slider treanding_album_slider2 top-album-slider">
           <owl-carousel-o [options]="customOptions"
-                        *ngIf="languages.length > 0">
+                        *ngIf="languages">
             <ng-container *ngFor="let slide of languages">
               <ng-template carouselSlide>
                 <a [routerLink]="['/language-song', slide.id]" class="custom-swiper">

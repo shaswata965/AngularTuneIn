@@ -28,6 +28,8 @@ export class AdCreateComponent implements OnInit {
       'name': new FormControl(null, {validators: [Validators.required]}),
       'image': new FormControl(null,{validators: [Validators.required], asyncValidators: [mimeType]}),
       'page': new FormControl(null, {validators: [Validators.required]}),
+      'position': new FormControl(null, {validators: [Validators.required]}),
+      'link': new FormControl(null, {validators: [Validators.required]})
     });
 
     this.route.paramMap.subscribe((paramMap)=>{
@@ -36,11 +38,13 @@ export class AdCreateComponent implements OnInit {
         this.isLoading = true;
         this.adId = paramMap.get('adId');
         this.adService.getEditAd(this.adId).subscribe(adData=>{
-          this.ad = {id:adData._id, name:adData.name, imagePath: adData.imagePath, page: adData.page};
+          this.ad = {id:adData._id, name:adData.name, imagePath: adData.imagePath, page: adData.page, position: adData.position, link: adData.link};
           this.form.setValue({
             'name': this.ad.name,
             'image': this.ad.imagePath,
-            'page': this.ad.page
+            'page': this.ad.page,
+            'position': this.ad.position,
+            'link': this.ad.link
           });
           this.isLoading = false;
         });
@@ -70,10 +74,10 @@ export class AdCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if(this.mode==='Create'){
-      this.adService.addAd(this.form.value.name, this.form.value.image, this.form.value.page);
+      this.adService.addAd(this.form.value.name, this.form.value.image, this.form.value.page, this.form.value.position, this.form.value.link);
     }
     else{
-      this.adService.updateAd(this.adId, this.form.value.name, this.form.value.image, this.form.value.page );
+      this.adService.updateAd(this.adId, this.form.value.name, this.form.value.image, this.form.value.page, this.form.value.position, this.form.value.link );
     }
     this.form.reset();
   }

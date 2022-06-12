@@ -17,10 +17,7 @@ const albumSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref:'Language'
   },
-  industry:{
-    type: Schema.Types.ObjectId,
-    ref:'Industry'
-  },
+  industry:{type: String},
   imagePath: {type:String}
 });
 

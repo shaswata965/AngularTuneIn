@@ -75,7 +75,7 @@
           <mat-label>Album Industry</mat-label>
           <mat-select formControlName="industry">
             <mat-option *ngFor="let industry of industries"
-                        [value]="industry.id">
+                        [value]="industry.name">
               {{industry.name}}
             </mat-option>
           </mat-select>

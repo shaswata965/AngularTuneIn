@@ -108,8 +108,6 @@
               "src/assets/backend/vendors/am_chart/amcharts.js",
               "src/assets/backend/vendors/scroll/perfect-scrollbar.min.js",
               "src/assets/backend/vendors/scroll/scrollable-custom.js",
-              "src/assets/backend/vendors/apex_chart/apex-chart2.js",
-              "src/assets/backend/vendors/apex_chart/apex_dashboard.js",
               "src/assets/backend/vendors/echart/echarts.min.js",
               "src/assets/backend/vendors/chart_am/core.js",
               "src/assets/backend/vendors/chart_am/animated.js",

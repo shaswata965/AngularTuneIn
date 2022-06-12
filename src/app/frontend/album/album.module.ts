@@ -18,6 +18,9 @@ import { AllAlbumComponent } from './all-album/all-album.component';
 import {AllAlbumLayoutComponent} from "../../layouts/all-album-layout/all-album-layout.component";
 import { AlbumLanguageComponent } from './album-language/album-language.component';
 import { FilteredYearComponent } from './filtered-year/filtered-year.component';
+import {CarouselModule} from "ngx-owl-carousel-o";
+import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
+import {AllArtistAlbumsComponent} from "./all-artist-albums/all-artist-albums.component";
 
 @NgModule({
   declarations: [
@@ -35,20 +38,25 @@ import { FilteredYearComponent } from './filtered-year/filtered-year.component';
     AllAlbumComponent,
     AllAlbumLayoutComponent,
     AlbumLanguageComponent,
-    FilteredYearComponent
+    FilteredYearComponent,
+    ArtistAlbumsComponent,
+    AllArtistAlbumsComponent
   ],
-    exports: [
-        LanguageComponent,
-        AllSongComponent,
-        AllAlbumComponent,
-        AlbumLanguageComponent,
-        FilteredYearComponent
-    ],
+  exports: [
+    LanguageComponent,
+    AllSongComponent,
+    AllAlbumComponent,
+    AlbumLanguageComponent,
+    FilteredYearComponent,
+    ArtistAlbumsComponent,
+    AllArtistAlbumsComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
     LandingModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CarouselModule
   ]
 })
 

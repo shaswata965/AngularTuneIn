@@ -1,13 +1,29 @@
 const Ad = require("../models/ad");
+const Album = require("../models/albums");
 
 exports.getAd = (req,res,next)=>{
-  Ad.find()
+
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  let adQuery = Ad.find();
+  let ads;
+  if(pageSize && currentPage){
+    adQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+ adQuery.find()
     .then(documents=>{
-      res.status(200).json({
-        message: "Albums Listed Successfully",
-        ads: documents
-      });
-    });
+      ads = documents;
+      return Ad.count();
+    })
+   .then(count=>{
+     res.status(200).json({
+       message: "Ads Listed Successfully",
+       ads: ads,
+       count: count
+     });
+   });
 };
 
 exports.createAd = (req,res,next)=>{
@@ -15,7 +31,9 @@ exports.createAd = (req,res,next)=>{
   const ad = new Ad({
     name: req.body.name,
     imagePath: url + "/image/Ad/" + req.file.filename,
-    page: req.body.page
+    page: req.body.page,
+    position: req.body.position,
+    link: req.body.link
   });
   ad.save()
     .then(result => {
@@ -41,7 +59,9 @@ exports.updateAd = (req,res,next)=>{
     _id:req.body.id,
     name: req.body.name,
     imagePath: imagePath,
-    page: page,
+    page: req.body.page,
+    position: req.body.position,
+    link: req.body.link
   });
 
   Ad.updateOne({_id:req.params.id}, ad)

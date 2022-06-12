@@ -12,6 +12,7 @@
         <thead>
         <tr>
           <th class="text-center">SN.</th>
+          <th class="text-center">Image</th>
           <th class="text-center">Name</th>
           <th class="text-center">Email</th>
           <th class="text-center">Actions</th>
@@ -20,8 +21,9 @@
         <tbody>
         <tr *ngFor="let user of users; let i=index;">
           <td class="text-center">{{ i + 1}}</td>
-          <td class="text-center">{{user['name']}}</td>
-          <td class="text-center">{{user['email']}}</td>
+          <td class="text-center"><img class="img-fluid actor-preview-image" [src]="user.imagePath"  [alt]="user.name" /></td>
+          <td class="text-center actor-data-margin">{{user['name']}}</td>
+          <td class="text-center actor-data-margin">{{user['email']}}</td>
           <td>
             <div class="row justify-content-around">
               <div class="col-3">

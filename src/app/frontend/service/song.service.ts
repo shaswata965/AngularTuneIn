@@ -12,6 +12,8 @@ export class SongService{
 
   private songs: Song[] = [];
   private songsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+  private quickSongs: Song[] = [];
+  private quickSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
   private bollywoodSongs: Song[] = [];
   private bollywoodSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
@@ -228,6 +230,40 @@ export class SongService{
 
   getSongsUpdateListener(){
     return this.songsUpdated.asObservable();
+  }
+
+  getQuickSongs(songsPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs"+ queryParams
+    ).pipe(map((songData)=>{
+      // @ts-ignore
+      return { songs: songData.songs.map(song=>{
+          return{
+            name: song.name,
+            language: song.language,
+            actor: song.actor,
+            genre: song.genre,
+            album: song.album,
+            artist: song.artist,
+            trending: song.trending,
+            duration: song.duration,
+            industry: song.industry,
+            id: song._id,
+            imagePath: song.imagePath,
+            lowPath:song.lowPath,
+            highPath: song.highPath
+          };
+        }), songCount: songData.count};
+    }))
+      .subscribe(songData=>{
+        this.quickSongs = songData.songs;
+        this.quickSongsUpdated.next({songs:[...this.quickSongs], songCount: songData.songCount});
+      });
+  }
+
+  getQuickSongsUpdateListener(){
+    return this.quickSongsUpdated.asObservable();
   }
 
   getBollywoodSongs(songsPerPage: number, currentPage: number){

@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AdService} from "../../../frontend/service/ad.service";
 import {Ad} from "../../../frontend/models/ad.model";
 import {AdListComponent} from "../ad-list/ad-list.component";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-ad-view',
@@ -15,14 +16,16 @@ export class AdViewComponent implements OnInit {
   public adsSub: Subscription;
   public ads: any | null;
   isLoading = false;
+  totalSongs = 0;
 
   constructor( public adService: AdService, private Dialog: MatDialog) { }
 
   ngOnInit(){
     this.isLoading = true;
-    this.adService.getAd();
-    this.adsSub = this.adService.getAdsUpdateListener().subscribe((ads: Ad[])=>{
-      this.ads = ads;
+    this.adService.getAd(3,1);
+    this.adsSub = this.adService.getAdsUpdateListener().subscribe((adData:{ads: Ad[], adCount: number})=>{
+      this.ads = adData.ads;
+      this.totalSongs = adData.adCount;
       this.isLoading = false;
     });
   }
@@ -38,6 +41,15 @@ export class AdViewComponent implements OnInit {
   }
 
   onDelete(adId: string){
-    this.adService.deleteAd(adId);
+    this.isLoading = true;
+    this.adService.deleteAd(adId).subscribe(()=>{
+      this.adService.getAd(3,1);
+    });
   }
+
+  onChangedPage(pageEvent: PageEvent){
+    this.adService.getAd(pageEvent.pageSize, pageEvent.pageIndex+1);
+  }
+
+
 }

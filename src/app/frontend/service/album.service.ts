@@ -13,6 +13,17 @@ export class AlbumService{
   private albums: Album[] = [];
   private albumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
 
+  private letterAlbums: Album[] = [];
+
+  private quickAlbums: Album[] = [];
+  private quickAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
+
+  private artistAlbums: Album[] = [];
+  private artistAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
+
+  private bollywoodAlbums: Album[] = [];
+  private bollywoodAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
+
   private modalAlbum: any | null;
   public albumDetails: any | null;
   private albumDetailsUpdated = new Subject<any>();
@@ -118,6 +129,105 @@ export class AlbumService{
 
   getAlbumsUpdateListener(){
     return this.albumsUpdated.asObservable();
+  }
+
+  getQuickAlbums(albumPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${albumPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, albums: any, count: number }>(
+      "http://localhost:3000/api/albums" + queryParams
+    ).pipe(map((albumData)=>{
+      // @ts-ignore
+      return {albums: albumData.albums.map(album=>{
+          return{
+            name: album.name,
+            description: album.description,
+            cast: album.cast,
+            release: album.release,
+            year: album.year,
+            id: album._id,
+            castLink: album.castLink,
+            language:album.language,
+            artist: album.artist,
+            genre: album.genre,
+            industry: album.industry,
+            imagePath: album.imagePath
+          };
+        }), albumCount: albumData.count};
+    }))
+      .subscribe(albumData=>{
+        this.quickAlbums = albumData.albums;
+        this.quickAlbumsUpdated.next({albums:[...this.quickAlbums], albumCount: albumData.albumCount});
+      });
+  }
+
+  getQuickAlbumsUpdateListener(){
+    return this.quickAlbumsUpdated.asObservable();
+  }
+
+  getAlbumArtist(artistId: string, albumPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${albumPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, albums: any, count: number }>(
+      "http://localhost:3000/api/albums/artist-albums/" + artistId + queryParams
+    ).pipe(map((albumData)=>{
+      // @ts-ignore
+      return {albums: albumData.albums.map(album=>{
+          return{
+            name: album.name,
+            description: album.description,
+            cast: album.cast,
+            release: album.release,
+            year: album.year,
+            id: album._id,
+            castLink: album.castLink,
+            language:album.language,
+            artist: album.artist,
+            genre: album.genre,
+            industry: album.industry,
+            imagePath: album.imagePath
+          };
+        }), albumCount: albumData.count};
+    }))
+      .subscribe(albumData=>{
+        this.artistAlbums = albumData.albums;
+        this.artistAlbumsUpdated.next({albums:[...this.artistAlbums], albumCount: albumData.albumCount});
+      });
+  }
+
+  getAlbumArtistUpdateListener(){
+    return this.artistAlbumsUpdated.asObservable();
+  }
+
+  getBollywoodAlbums(albumPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${albumPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, albums: any, count: number }>(
+      "http://localhost:3000/api/albums/bollywood-albums" + queryParams
+    ).pipe(map((albumData)=>{
+      // @ts-ignore
+      return {albums: albumData.albums.map(album=>{
+          return{
+            name: album.name,
+            description: album.description,
+            cast: album.cast,
+            release: album.release,
+            year: album.year,
+            id: album._id,
+            castLink: album.castLink,
+            language:album.language,
+            artist: album.artist,
+            genre: album.genre,
+            industry: album.industry,
+            imagePath: album.imagePath
+          };
+        }), albumCount: albumData.count};
+    }))
+      .subscribe(albumData=>{
+        this.bollywoodAlbums = albumData.albums;
+        this.bollywoodAlbumsUpdated.next({albums:[...this.bollywoodAlbums], albumCount: albumData.albumCount});
+      });
+  }
+
+  getBollywoodAlbumsUpdateListener(){
+    return this.bollywoodAlbumsUpdated.asObservable();
   }
 
   getModalAlbum(){
@@ -235,8 +345,8 @@ export class AlbumService{
         }), albumCount: albumData.count};
     }))
       .subscribe(albumData=>{
-        this.albums = albumData.albums;
-        this.albumsLetterUpdated.next({albums:[...this.albums], albumCount: albumData.albumCount});
+        this.letterAlbums = albumData.albums;
+        this.albumsLetterUpdated.next({albums:[...this.letterAlbums], albumCount: albumData.albumCount});
       });
   }
 

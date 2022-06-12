@@ -3,4 +3,6 @@ export interface Ad{
   name: string;
   imagePath: string;
   page: string;
+  position: string;
+  link: string;
 }

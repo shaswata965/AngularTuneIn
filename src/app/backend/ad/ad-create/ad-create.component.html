@@ -32,6 +32,20 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Advertisement Position</mat-label>
+          <mat-select formControlName="position">
+            <mat-option value="right">
+              Right Side Bar
+            </mat-option>
+            <mat-option value="left">
+              Left Side Bar
+            </mat-option>
+            <mat-option value="middle">
+              Middle Of Page
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <div>
           <button mat-stroked-button type="button" (click)="filePicker.click()"> Pick Image </button>
           <input class="invisible-file-picker" type="file" #filePicker (change)="onImagePicked($event)">
@@ -39,6 +53,10 @@
         <div class="admin-image-preview" *ngIf="imagePreview !== '' && imagePreview">
           <img [src]="imagePreview" [alt]="form.value.name" />
         </div>
+        <mat-form-field class="login-card-fields">
+          <mat-label>Advertisement Link :</mat-label>
+          <input type="text" formControlName="link" matInput placeholder="Ex: Ad Link" />
+        </mat-form-field>
         <button
           mat-raised-button
           color="primary"

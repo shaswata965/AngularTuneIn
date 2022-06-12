@@ -17,7 +17,6 @@ export class GeneralUserViewComponent implements OnInit {
   ngOnInit(){
     this.isLoading =  true;
     this.userDetails = this.userService.getModalUser();
-    console.log(this.userDetails);
     this.isLoading = false;
   }
 

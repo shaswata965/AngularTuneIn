@@ -4,7 +4,9 @@ const uniqueValidator = require('mongoose-unique-validator');
 const adSchema = mongoose.Schema({
   name: {type: String, required: true},
   imagePath: {type: String, required:true},
-  page: {type: String, required:true}
+  page: {type: String, required:true},
+  position: {type: String, required:true},
+  link: {type: String, required:true}
 });
 
 adSchema.plugin(uniqueValidator);

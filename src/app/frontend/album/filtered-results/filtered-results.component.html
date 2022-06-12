@@ -18,7 +18,7 @@
               </div>
               <div class="col-md-9 featured-col-9 pb-60">
                 <div class="featured_album_letter_filter">
-                  <p>Filter <span>{{industry.name}}</span> By Alphabet</p>
+                  <p>Filter <span *ngIf="industry">{{industry.name}}</span> By Alphabet</p>
                   <div class="alphabet_list mt-30 pt-10">
                     <a [routerLink]="" (click)="alphabetFilter('All')">#</a>
                     <a [routerLink]=""(click)="alphabetFilter(com.capital+com.letter)" *ngFor="let com of objects" >{{com.capital}}{{com.letter}}</a>
@@ -29,19 +29,19 @@
                     <div class=row>
                       <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="filter.length === 0">
                         <div class="featured_album_letter_filter mb-20">
-                          <p>Filter <span>{{industry.name}}</span> By Alphabet <span>None</span></p>
+                          <p>Filter <span *ngIf="industry">{{industry.name}}</span> By Alphabet <span>None</span></p>
                         </div>
                       </div>
                       <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="filter.length > 0">
                         <div class="featured_album_letter_filter mb-20">
-                          <p>Filter <span>{{industry.name}}</span> By Alphabet <span>{{filter}}</span></p>
+                          <p>Filter <span *ngIf="industry">{{industry.name}}</span> By Alphabet <span>{{filter}}</span></p>
                         </div>
                       </div>
                       <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class=tab-content>
                           <div class="tab-pane active" id=home>
                             <div class=row *ngIf="filter.length === 0">
-                              <ng-container *ngIf="industryAlbums.length > 0">
+                              <ng-container *ngIf="industryAlbums">
                               <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-4 pd1" *ngFor="let album of industryAlbums">
                                 <div class="m24_cover treanding_slider_main_box release_box_main_content">
                                   <img [alt]="album.name" [src]="album.imagePath">
@@ -69,8 +69,8 @@
                               </div>
                               </ng-container>
                             </div>
-                            <div class=row *ngIf="filter.length> 0">
-                              <ng-container *ngIf="letterAlbums.length > 0">
+                            <div class=row *ngIf="filter">
+                              <ng-container *ngIf="letterAlbums">
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-4 pd1" *ngFor="let album of letterAlbums">
                                   <div class="m24_cover treanding_slider_main_box release_box_main_content">
                                     <img [alt]="album.name" [src]="album.imagePath">
@@ -98,10 +98,10 @@
                                 </div>
                               </ng-container>
                             </div>
-                            <div class="pagination-container" *ngIf="filter.length === 0">
+                            <div class="pagination-container" *ngIf="filter && industryAlbums">
                               <mat-paginator appStylePaginator showFirstLastButtons *ngIf="industryAlbums.length > 6" [length]="totalSongs" [pageSize]="6" (page)="onChangedPage($event)"></mat-paginator>
                             </div>
-                            <div class="pagination-container" *ngIf="filter.length> 0">
+                            <div class="pagination-container" *ngIf="!filter  && industryAlbums">
                               <mat-paginator appStylePaginator showFirstLastButtons *ngIf="industryAlbums.length > 6" [length]="totalSongs" [pageSize]="6" (page)="onChangedLetterPage($event, filter)"></mat-paginator>
                             </div>
                           </div>

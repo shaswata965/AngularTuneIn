@@ -14,3 +14,13 @@
 ::ng-deep .custom-style{
   color:red;
 }
+
+.actor-preview-image{
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+}
+
+.actor-data-margin{
+  padding-top: 18px;
+}

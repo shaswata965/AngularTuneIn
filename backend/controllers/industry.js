@@ -66,10 +66,8 @@ exports.getIndustry = (req,res,next)=>{
 
 exports.getIndustryAlbum = (req,res,next)=>{
   const names = [];
-  console.log(req.params.id);
   Album.find({industry: req.params.id})
     .then(documents=>{
-      console.log(documents);
       let c = documents.length;
       for(let i = 0; i<c; i++){
         let obj = documents[i];
@@ -80,7 +78,6 @@ exports.getIndustryAlbum = (req,res,next)=>{
 };
 
 exports.findIndustry = (req,res,next)=>{
-  console.log(req.params.id);
   Industry.findById(req.params.id).then(industry=>{
     if(industry){
       res.status(200).json(industry);

@@ -1,8 +1,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link"><img class="img-fluid" [alt]="leftAd.name" [src]="leftAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <img class="img-fluid" alt="noAd" src="../../../../assets/frontend/image/ad/add2_long.png" />
       </div>
       <div class="col-10">
         <div class="m24_cover treanding_songs_wrapper index3_treanding_wraaper treanding_index_wrapper">
@@ -16,7 +19,7 @@
                 <div class=relaese_viewall_wrapper>
                   <a routerLink="/language-song">view all <i class=flaticon-right-arrow></i></a>
                 </div>
-                <div class=release_tabs_wrapper *ngIf="songLanguages.length >0">
+                <div class=release_tabs_wrapper *ngIf="songLanguages">
                   <ul class="nav nav-tabs">
                     <li class=nav-item><a href="#all-songs" class="nav-link active" data-toggle=tab>
                       All</a>
@@ -65,7 +68,18 @@
             </div>
           </div>
         </div>
-        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd && middleAd[0]">
+          <div class=container>
+            <div class=row>
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="m24_cover add_banner_img_wrapper">
+                  <a href=#><img [alt]="middleAd[0].name" [src]="middleAd[0].imagePath" class=img-responsive></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="!middleAd[0]">
           <div class=container>
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
@@ -99,7 +113,7 @@
                         <div class=relaese_viewall_wrapper>
                           <a routerLink="/language-album">view all <i class=flaticon-right-arrow></i></a>
                         </div>
-                        <div class=release_tabs_wrapper *ngIf="albumLanguages.length >0">
+                        <div class=release_tabs_wrapper *ngIf="albumLanguages">
                           <ul class="nav nav-tabs">
                             <li class=nav-item><a href="#all-songs" class="nav-link active index-nav-link" data-toggle=tab>
                               All</a>
@@ -153,7 +167,18 @@
             </div>
           </div>
         </div>
-        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd && middleAd[1]">
+          <div class=container>
+            <div class=row>
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="m24_cover add_banner_img_wrapper">
+                  <a href=#><img [alt]="middleAd[1].name" [src]="middleAd[1].imagePath" class=img-responsive></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="!middleAd[1]">
           <div class=container>
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
@@ -167,7 +192,7 @@
         <div class="m24_cover index3_top_songs_wrapper top_songs_wrapper" id="artist">
           <div class=container>
             <div class=row>
-              <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+              <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7" *ngIf="topSongs">
                 <div class="m24_cover song_heading_wrapper">
                   <div class="m24_heading_wrapper white_heading_wrapper">
                     <h1>top songs</h1>
@@ -195,7 +220,7 @@
                         </div>
                       </div>
                       <div class="top_list_tract_time new-release-tract-time">
-                        <p>4:22</p>
+                        <p>{{song.duration}}</p>
                       </div>
                     </div>
                     <div class="top_songs_list_right new-release-list-right">
@@ -228,7 +253,7 @@
                       <div class="m24_cover featured_artist_list index3_featured_list" *ngFor="let artist of artists">
                         <img [alt]="artist.name" [src]="artist.imagePath" class=img-responsive>
                         <div class="featured_artist_detail new-release-artist-detail">
-                          <p><a routerLink="/singles">{{artist.name}}</a></p>
+                          <p><a [routerLink]="['artist-album',artist.id]">{{artist.name}}</a></p>
                           <p class=various_artist_text><a routerLink="/singles">{{artist.songs[0]}} tracks</a> 8M+ View</p>
                           <div class=lang_apply_btn>
                             <ul>
@@ -238,7 +263,7 @@
                             </ul>
                           </div>
                           <div class="top_song_list_picks featured_list_dropdown">
-                            <div class=m24_tranding_more_icon>
+                            <div class=m24_tranding_more_icon (click)="OpenTrending()">
                               <i class=flaticon-menu></i>
                             </div>
                             <ul class=tranding_more_option>
@@ -258,12 +283,24 @@
             </div>
           </div>
         </div>
-        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd && middleAd[2]">
           <div class=container>
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="m24_cover add_banner_img_wrapper">
-                  <a href=#><img alt=img src="../../../../assets/frontend/image/ad/add2.png" class=img-responsive></a>
+                  <a href=#><img [alt]="middleAd[2].name" [src]="middleAd[2].imagePath" class=img-responsive></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="!middleAd[2]">
+          <div class=container>
+            <div class=row>
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="m24_cover add_banner_img_wrapper">
+                  <a href=#><img class="img-fluid" alt="noAd" src="../../../../assets/frontend/image/ad/add2.png" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -454,8 +491,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 right-sidebar-ad pt-60"  *ngIf="rightAd">
+        <a [href]="rightAd.link"><img class="img-fluid" [alt]="rightAd.name" [src]="rightAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!rightAd">
+        <img class="img-fluid" alt="noAd" src="../../../../assets/frontend/image/ad/add2_long.png" />
       </div>
     </div>
   </div>
@@ -507,7 +547,7 @@
           </div>
         </div>
       </div>
-      <div class="pagination-container">
+      <div class="pagination-container" *ngIf="bollywoodSongs">
         <mat-paginator appStylePaginator showFirstLastButtons *ngIf="bollywoodSongs.length > 9" [length]="totalBollywoodSongs" [pageSize]="9" (page)="onBollywoodChangedPage($event)"></mat-paginator>
       </div>
     </div>

@@ -50,16 +50,22 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {IndustryModule} from "./backend/Industry/industry.module";
 import { AlbumLanguageLayoutComponent } from './layouts/album-language-layout/album-language-layout.component';
 import { FilteredYearLayoutComponent } from './layouts/filtered-year-layout/filtered-year-layout.component';
+import { PageNotFoundComponent } from './layouts/page-not-found/page-not-found.component';
+import { ArtistAlbumsLayoutComponent } from './layouts/artist-albums-layout/artist-albums-layout.component';
+import { AllArtistAlbumsLayoutsComponent } from './layouts/all-artist-albums-layouts/all-artist-albums-layouts.component';
 
 // @ts-ignore
 // @ts-ignore
 @NgModule({
-  declarations: [
-    AppComponent,
-    BackendLoginComponent,
-    AlbumLanguageLayoutComponent,
-    FilteredYearLayoutComponent
-  ],
+    declarations: [
+        AppComponent,
+        BackendLoginComponent,
+        AlbumLanguageLayoutComponent,
+        FilteredYearLayoutComponent,
+        PageNotFoundComponent,
+        ArtistAlbumsLayoutComponent,
+        AllArtistAlbumsLayoutsComponent
+    ],
   imports: [
     AlbumModule,
     LandingModule,

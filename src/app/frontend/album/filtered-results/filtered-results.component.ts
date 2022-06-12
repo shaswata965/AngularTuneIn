@@ -65,9 +65,6 @@ export class FilteredResultsComponent implements OnInit{
       this.objects = combinedArray;
     }
 
-    this.elm = document.getElementById(""+this.industryId);
-    this.elm.classList.addClass('active_album_name');
-
   }
 
   addActive(){

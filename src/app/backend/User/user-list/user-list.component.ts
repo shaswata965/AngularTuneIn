@@ -12,7 +12,7 @@ import {GeneralUserViewComponent} from "../general-user-view/general-user-view.c
 })
 export class UserListComponent implements OnInit {
 
-  users: User[] =[];
+  users: any | null;
   private usersSub: Subscription | undefined;
   isLoading = false;
 

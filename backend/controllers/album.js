@@ -1,10 +1,9 @@
 const Album = require("../models/albums");
-const Language = require("../models/languages");
 const Artist = require("../models/artists");
+const Language = require("../models/languages");
+const Industry = require('../models/industries');
 const Genre = require("../models/genres");
-const Industry = require("../models/industries");
 const fetch = require("cross-fetch");
-const Song = require("../models/songs");
 
 exports.getAlbum = (req,res,next)=>{
   const pageSize = +req.query.pageSize;
@@ -29,6 +28,60 @@ exports.getAlbum = (req,res,next)=>{
       count: count
     });
   })
+};
+
+exports.getBollywoodAlbum = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  let albumQuery = Album.find();
+  let albums;
+
+  if(pageSize && currentPage){
+    albumQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+
+  albumQuery.find({industry: "Bollywood"})
+    .then(documents=>{
+      albums = documents
+      return Album.find({industry: "Bollywood"}).count();
+    }).then(count=>{
+    res.status(200).json({
+      message: "Albums Listed Successfully",
+      albums: albums,
+      count: count
+    });
+  })
+};
+
+exports.getArtistAlbum = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  let albumQuery = Album.find();
+  let albums;
+
+  if(pageSize && currentPage){
+    albumQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+
+Artist.findById(req.params.artistId).then(results=>{
+  let artistName = results.name;
+  albumQuery.find({artist: artistName})
+    .then(documents=>{
+      albums = documents
+      return Album.find({artist: artistName}).count();
+    }).then(count=>{
+    res.status(200).json({
+      message: "Albums Listed Successfully",
+      albums: albums,
+      count: count
+    });
+  })
+})
+
 };
 
 exports.createAlbum = (req,res,next)=>{
@@ -118,14 +171,7 @@ exports.albumDetails = async (req, res, next) => {
     albumDet.push(name.name);
       Genre.findById(req.params.genre).then(genre => {
         albumDet.push(genre.name);
-        Industry.findById(req.params.industry).then(indsutry=>{
-          albumDet.push(indsutry.name);
           res.status(200).json(albumDet);
-        }).catch(err => {
-          res.status(500).json({
-            error: err
-          });
-        });
       }).catch(err => {
         res.status(500).json({
           error: err
@@ -204,18 +250,22 @@ exports.findIndustryAlbum = (req,res,next)=>{
       .skip(pageSize*(currentPage-1))
       .limit(pageSize);
   }
-  albumQuery.find({industry: req.params.industryId})
-    .then(documents=>{
-      albums = documents;
-      return Album.find({industry: req.params.industryId}).count();
-    })
-    .then(count=>{
-      res.status(200).json({
-        message: "Albums Listed Successfully",
-        albums: albums,
-        count: count
+  Industry.findById(req.params.industryId).then(result=>{
+    let name = result.name;
+    albumQuery.find({industry: name})
+      .then(documents=>{
+        albums = documents;
+        return Album.find({industry: name}).count();
+      })
+      .then(count=>{
+        res.status(200).json({
+          message: "Albums Listed Successfully",
+          albums: albums,
+          count: count
+        });
       });
-    });
+  })
+
 };
 
 exports.findLetterAlbum = (req,res,next)=>{
@@ -224,27 +274,28 @@ exports.findLetterAlbum = (req,res,next)=>{
   const albumQuery = Album.find();
   let albums;
   let filter = req.params.filter;
-  let finalArray = [];
+  let name;
   if(filter === "All"){
-
     if(pageSize && currentPage){
       albumQuery
         .skip(pageSize*(currentPage-1))
         .limit(pageSize);
     }
-    albumQuery.find({industry: req.params.industryId})
-      .then(documents=>{
-        albums = finalArray;
-        return Album.find({industry: req.params.industryId}).count();
-      })
-      .then(count=>{
-        res.status(200).json({
-          message: "Albums Listed Successfully",
-          albums: albums,
-          count: count
+    Industry.findById(req.params.industryId).then(result=>{
+      name = result.name;
+      albumQuery.find({industry:name})
+        .then(documents=>{
+          albums = documents;
+          return Album.find({industry: name}).count();
+        })
+        .then(count=>{
+          res.status(200).json({
+            message: "Albums Listed Successfully",
+            albums: albums,
+            count: count
+          });
         });
-      });
-
+    })
   }
   else{
     let regex = new RegExp(`^${req.params.filter}`);
@@ -253,18 +304,22 @@ exports.findLetterAlbum = (req,res,next)=>{
         .skip(pageSize*(currentPage-1))
         .limit(pageSize);
     }
-    albumQuery.find({name: { $regex: regex }, industry: req.params.industryId})
-      .then(documents=>{
-        albums = documents;
-        return Album.find({name: { $regex: regex }, industry: req.params.industryId}).count();
-      })
-      .then(count=>{
-        res.status(200).json({
-          message: "Albums Listed Successfully",
-          albums: albums,
-          count: count
+    Industry.findById(req.params.industryId).then(result=>{
+      name = result.name;
+      albumQuery.find({name: { $regex: regex }, industry: name})
+        .then(documents=>{
+          albums = documents;
+          return Album.find({name: { $regex: regex }, industry: name}).count();
+        })
+        .then(count=>{
+          res.status(200).json({
+            message: "Albums Listed Successfully",
+            albums: albums,
+            count: count
+          });
         });
-      });
+    });
+
   }
 
 };

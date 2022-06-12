@@ -40,9 +40,11 @@ import {AllSongLayoutComponent} from "./layouts/all-song-layout/all-song-layout.
 import {ViewIndustryComponent} from "./layouts/view-industry/view-industry.component";
 import {CreateIndustryComponent} from "./layouts/create-industry/create-industry.component";
 import {AllAlbumLayoutComponent} from "./layouts/all-album-layout/all-album-layout.component";
-import {AlbumLanguageComponent} from "./frontend/album/album-language/album-language.component";
 import {AlbumLanguageLayoutComponent} from "./layouts/album-language-layout/album-language-layout.component";
 import {FilteredYearLayoutComponent} from "./layouts/filtered-year-layout/filtered-year-layout.component";
+import {PageNotFoundComponent} from "./layouts/page-not-found/page-not-found.component";
+import {ArtistAlbumsLayoutComponent} from "./layouts/artist-albums-layout/artist-albums-layout.component";
+import {AllArtistAlbumsLayoutsComponent} from "./layouts/all-artist-albums-layouts/all-artist-albums-layouts.component";
 
 const routes: Routes = [
   {
@@ -85,6 +87,13 @@ const routes: Routes = [
   {
     path: 'language-album/:languageId',
     component: AlbumLanguageLayoutComponent
+  },  {
+    path: 'artist-album',
+    component: AllArtistAlbumsLayoutsComponent
+  },
+  {
+    path: 'artist-album/:artistId',
+    component: ArtistAlbumsLayoutComponent
   },
   {
     path:'singles',
@@ -288,6 +297,11 @@ const routes: Routes = [
     path:"view-industry",
     component:ViewIndustryComponent,
     canActivate: [BackAuthGuard]
+  },
+  {
+    path:'**',
+    pathMatch: 'full',
+    component:PageNotFoundComponent
   },
 ];
 

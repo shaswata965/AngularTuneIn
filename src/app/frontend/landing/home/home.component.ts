@@ -13,8 +13,9 @@ import {PageEvent} from "@angular/material/paginator";
 import {ArtistService} from "../../service/artist.service";
 import {Artist} from "../../models/artist.model";
 import {UserService} from "../../service/user.service";
-import {SocialUser} from "angularx-social-login";
 import {Subscription} from "rxjs";
+import {AdService} from "../../service/ad.service";
+import {Ad} from "../../models/ad.model";
 
 @Component({
   selector: 'app-home',
@@ -38,16 +39,21 @@ export class HomeComponent implements OnInit {
   public topSongs: any;
   public allIndustries: any;
   public restSongs: any;
+  public ads: any;
+  public rightAd: any;
+  public leftAd: any;
+  public middleAd: Ad[]=[];
   albums: Album[] = [];
   totalSongs = 0;
   totalBollywoodSongs = 0;
 
   constructor(public languageService: LanguageService,
-              public songService: SongService,
+              private songService: SongService,
               public industryService: IndustryService,
               public albumService: AlbumService,
               public artistService: ArtistService,
-              public userService: UserService) {  }
+              public userService: UserService,
+              public adService: AdService) {}
 
   ngOnInit() {
     this.itemArtists = [];
@@ -110,7 +116,6 @@ export class HomeComponent implements OnInit {
     this.artistService.getFeaturedArtist(1000, 1);
     this.artistService.getFeaturedArtistsUpdateListener().subscribe((artistData:{artists:Artist[], artistCount:number})=>{
       this.allArtists = artistData.artists;
-      console.log(this.allArtists);
       for(let i=0; i<this.allArtists.length; i+=3){
         let artistArray = [];
         let x = this.allArtists[i];
@@ -128,8 +133,6 @@ export class HomeComponent implements OnInit {
           artistArray.push(x);
           this.itemArtists.push(artistArray);
         }
-
-        console.log(this.itemArtists);
       }
     });
 
@@ -138,6 +141,22 @@ export class HomeComponent implements OnInit {
       this.albums = albumData.albums;
       this.totalSongs = albumData.albumCount;
     });
+
+    this.adService.getAd(1000,1);
+    this.adService.getAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      let middleArray = [];
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "right"){
+          this.rightAd =this.ads[i];
+        }else if(this.ads[i].position === "left"){
+          this.leftAd = this.ads[i];
+        }else if(this.ads[i].position === "middle"){
+          middleArray.push(this.ads[i]);
+          this.middleAd = middleArray;
+        }
+      }
+    })
 
   }
 
@@ -185,24 +204,25 @@ export class HomeComponent implements OnInit {
   customOptions2: OwlOptions = {
     loop: !0,
     margin: 15,
-    autoplay: !0,
-    smartSpeed: 1200,
+    autoplay: true,
+    smartSpeed: 3000,
+    autoplayHoverPause: true,
     nav: true,
     navSpeed: 700,
     navText: ['<i class="flaticon-left-arrow"></i>', '<i class="flaticon-right-arrow"></i>'],
     responsive: {
       0: {
         items: 1,
-        nav: !0
+        nav: true
       },
       600: {
         items: 1,
-        nav: !0
+        nav: true
       },
       1000: {
         items: 1,
-        nav: !0,
         loop: !0,
+        nav: true,
         margin: 20
       }
     }
