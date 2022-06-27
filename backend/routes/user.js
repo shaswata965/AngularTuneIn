@@ -41,6 +41,8 @@ router.delete("/:id",userController.deleteUser);
 
 router.post('/login', userController.logInUser);
 
+router.get('/search/:searchText', userController.searchResult);
+
 router.post('/social/login', userController.socialLogIn);
 
 module.exports = router;

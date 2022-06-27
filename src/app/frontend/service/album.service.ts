@@ -5,6 +5,7 @@ import {Album} from "../models/album.model";
 import {Subject} from "rxjs";
 import {map} from "rxjs/operators";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,12 @@ export class AlbumService{
 
   private albums: Album[] = [];
   private albumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
+
+  private albumGenres: Album[] = [];
+  private albumGenresUpdated = new Subject<{album: Album [], albumCount:number}>();
+
+  private albumURLs: Album[] = [];
+  private albumLowURLsUpdated = new Subject<any>();
 
   private letterAlbums: Album[] = [];
 
@@ -386,5 +393,56 @@ export class AlbumService{
   getYearUpdateListener(){
     return this.albumsYearUpdated.asObservable();
   }
+
+  getLowSongURLs(albumId:any){
+    this.http.get<{message:string, urls: any }>(
+      "http://localhost:3000/api/albums/low-url/"+ albumId
+    ).pipe(map((albumData)=>{
+      // @ts-ignore
+      return {albumURLs: albumData.urls};
+    }))
+      .subscribe(albumData=>{
+        this.albumURLs = albumData.albumURLs;
+        this.albumLowURLsUpdated.next(this.albumURLs);
+      });
+  }
+
+  getAlbumsLowURLUpdateListener(){
+    return this.albumLowURLsUpdated.asObservable();
+  }
+
+  getAlbumGenre(genreId:string, albumPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${albumPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, albums: any, count: number }>(
+      "http://localhost:3000/api/albums/albums-genre/"+ genreId + queryParams
+    ).pipe(map((albumData)=>{
+      // @ts-ignore
+      return {albums: albumData.albums.map(album=>{
+          return{
+            name: album.name,
+            description: album.description,
+            cast: album.cast,
+            release: album.release,
+            year: album.year,
+            id: album._id,
+            castLink: album.castLink,
+            language:album.language,
+            artist: album.artist,
+            genre: album.genre,
+            industry: album.industry,
+            imagePath: album.imagePath
+          };
+        }), albumCount: albumData.count};
+    }))
+      .subscribe(albumData=>{
+        this.albumGenres = albumData.albums;
+        this.albumGenresUpdated.next({album:[...this.albumGenres], albumCount: albumData.albumCount});
+      });
+  }
+
+  getAlbumGenreUpdateListener(){
+    return this.albumGenresUpdated.asObservable();
+  }
+
 
 }

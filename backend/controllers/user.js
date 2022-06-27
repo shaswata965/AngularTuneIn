@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
+const Artist = require("../models/artists");
+const Album = require("../models/albums");
+const Song = require("../models/songs");
 
 exports.createUser = (req,res,next)=>{
   bcrypt.hash(req.body.password, 10)
@@ -116,3 +119,40 @@ exports.socialLogIn = (req,res,next)=>{
     console.log(error);
   });
 };
+
+exports.searchResult = (req,res,next)=>{
+  const artistQuery = Artist.find();
+  const albumQuery = Album.find();
+  const songQuery = Song.find();
+
+  let searchData = [];
+
+  let regex = new RegExp(`^${req.params.searchText}`);
+  artistQuery.find({name: regex})
+    .then(documents=>{
+      searchData.push(documents);
+      albumQuery.find({name:regex}).then(result=>{
+        searchData.push(result);
+        songQuery.find({name:regex}).then(data=>{
+          searchData.push(data);
+          res.status(200).json({
+            message: "Albums Listed Successfully",
+            data: searchData
+          });
+        }).catch(err => {
+          res.status(500).json({
+            error: err
+          });
+        });
+      }).catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      });
+    }).catch(err => {
+    res.status(500).json({
+      error: err
+    });
+  });
+
+}

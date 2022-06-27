@@ -57,5 +57,8 @@ router.get("/find-letter/:filter/:industryId", albumController.findLetterAlbum);
 
 router.get("/find-year/:filter/:industryId", albumController.findYearAlbum);
 
+router.get("/low-url/:albumId", albumController.findLowURLs);
+
+router.get("/albums-genre/:genreId", albumController.getAlbumGenre);
 
 module.exports = router;

@@ -1207,14 +1207,14 @@ span.comboTreeItemTitle{
 .m24_signin_wrapper .login_top_wrapper {
   float: left;
   width: calc(100% - 50px);
-  padding-left: 15px;
-  padding-top:6px;
+  padding-left: 10px;
+  padding-top: 6px;
 }
-.login_top_wrapper p {
-  font-size: 16px;
-  color: #191919;
-  text-transform: capitalize;
-}
+/*.login_top_wrapper p {*/
+/*  font-size: 16px;*/
+/*  color: #191919;*/
+/*  text-transform: capitalize;*/
+/*}*/
 .res_search_bar{
   float: right;
   width: auto;

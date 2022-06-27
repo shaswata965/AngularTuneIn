@@ -32,7 +32,6 @@ exports.getFeaturedArtist = (req,res,next)=>{
   const currentPage = +req.query.page;
   const artistQuery = Artist.find();
   let artists = [];
-  let artistCount = [];
   let updatedArtist ={
     _id: '',
     name: '',

@@ -3,7 +3,8 @@ const Language = require("../models/languages");
 const Actor = require("../models/actors");
 const Genre = require("../models/genres");
 const Album = require("../models/albums");
-const Artist = require("../models/artists")
+const fetch = require("cross-fetch");
+const fs = require('fs');
 
 exports.getSong = (req,res,next)=>{
   const pageSize = +req.query.pageSize;
@@ -261,3 +262,39 @@ exports.findLanguageSong = (req,res,next)=>{
       });
     });
 };
+
+exports.findAlbumSong = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const songQuery = Song.find();
+  let songs;
+  if(pageSize && currentPage){
+    songQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize);
+  }
+  songQuery.find({album:req.params.albumId})
+    .then(documents=>{
+      songs =documents;
+      return Song.find({album:req.params.albumId}).count();
+    })
+    .then(count=>{
+      res.status(200).json({
+        message: "Albums Listed Successfully",
+        songs: songs,
+        count: count
+      });
+    });
+
+};
+
+exports.getDownloadBuffer = (req,res,next)=>{
+  let loc = "src/assets/backend/songs/"+ req.params.songPath;
+  fs.readFile(loc, function (err, data) {
+    if (err) throw err;
+    res.status(200).json({
+      message: "Downloaded Successfully",
+      data: data
+    });
+  });
+}

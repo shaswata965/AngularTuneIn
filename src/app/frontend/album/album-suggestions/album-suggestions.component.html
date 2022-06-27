@@ -6,17 +6,17 @@
       <div class="col-xl-12 col-lg-12 col-md-12">
         <div class=tab-content>
           <div class="tab-pane active" id=home>
-            <div class=row>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
+            <div class=row *ngIf="albums">
+              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let album of albums">
                 <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel.png">
+                  <img [alt]="album.name" [src]="album.imagePath">
                   <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Jabariya Jodi</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
+                    <p><a [routerLink]="['/singles', album.id]">{{album.name}}</a></p>
+                    <p class=various_artist_text><a routerLink="/artist-album">{{album.artist}}</a></p>
                   </div>
                   <div class="m24_treanding_box_overlay release_box_overlay">
                     <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
+                    <div class=m24_tranding_more_icon (click)="OpenTrending()">
                       <i class=flaticon-menu></i>
                     </div>
                     <ul class=tranding_more_option>
@@ -25,81 +25,6 @@
                       <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                     </ul>
                     <div class="tranding_play_icon ">
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel1.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Dilla Ther Jaa</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel2.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Ik Vaari Aa jaa</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel3.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Sadda Move song</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
                       <a href="#">
                         <i class=flaticon-play-button></i>
                       </a>
@@ -123,142 +48,17 @@
       <div class="col-xl-12 col-lg-12 col-md-12">
         <div class=tab-content>
           <div class="tab-pane active">
-            <div class=row>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
+            <div class=row *ngIf="recentAlbums">
+              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let recentAlbum of recentAlbums">
                 <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel.png">
+                  <img [alt]="recentAlbum.name" [src]="recentAlbum.imagePath">
                   <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Jabariya Jodi</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
+                    <p><a [routerLink]="['/singles', recentAlbum.id]">{{recentAlbum.name}}</a></p>
+                    <p class=various_artist_text><a routerLink="/artist-album" >{{recentAlbum.artist}}</a></p>
                   </div>
                   <div class="m24_treanding_box_overlay release_box_overlay">
                     <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel1.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Dilla Ther Jaa</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel2.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Ik Vaari Aa jaa</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel3.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Sadda Move song</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Jabariya Jodi</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
-                      <i class=flaticon-menu></i>
-                    </div>
-                    <ul class=tranding_more_option>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
-                    </ul>
-                    <div class=tranding_play_icon>
-                      <a href="#">
-                        <i class=flaticon-play-button></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1">
-                <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                  <img alt=img src="./assets/frontend/image/album/rel1.png">
-                  <div class="release_content_artist release_content_artist2">
-                    <p><a routerLink="/albums">Dilla Ther Jaa</a></p>
-                    <p class=various_artist_text><a href=#>Various Artists</a></p>
-                  </div>
-                  <div class="m24_treanding_box_overlay release_box_overlay">
-                    <div class=m24_tranding_box_overlay></div>
-                    <div class=m24_tranding_more_icon>
+                    <div class=m24_tranding_more_icon (click)="OpenTrending()">
                       <i class=flaticon-menu></i>
                     </div>
                     <ul class=tranding_more_option>

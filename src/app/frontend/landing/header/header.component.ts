@@ -8,6 +8,7 @@ import {mimeType} from "../../../backend/Admin/signup/mime-type.validator";
 import {LanguageService} from "../../service/language.service";
 import {OwlOptions} from "ngx-owl-carousel-o";
 import {Language} from "../../models/language.model";
+import { Router} from "@angular/router";
 
 // @ts-ignore
 @Component({
@@ -31,9 +32,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   form : FormGroup;
   logForm: FormGroup;
+  searchForm: FormGroup;
   imagePreview: string | ArrayBuffer | null;
 
-  constructor(public userService: UserService, private socialAuthService: SocialAuthService, private languageService: LanguageService) { }
+  constructor(public userService: UserService,
+              private socialAuthService: SocialAuthService,
+              private languageService: LanguageService,
+              public router: Router) { }
 
   createUser(){
     if(this.form.invalid){
@@ -104,6 +109,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       'email': new FormControl(null,{validators:[Validators.required]}),
       'password': new FormControl(null,{validators:[Validators.required]}),
       'image': new FormControl(null,{validators: [Validators.required], asyncValidators: [mimeType]})
+    });
+
+    this.searchForm = new FormGroup({
+      'search': new FormControl(null, {validators: [Validators.required]}),
     });
 
 
@@ -200,6 +209,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         left: "0"
       }, "slow")
     })
+  }
+
+  searchData(){
+    if(this.searchForm.invalid){
+      return;
+    }
+    this.router.navigate(['/search-result', this.searchForm.value.search]);
   }
 
 

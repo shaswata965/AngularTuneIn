@@ -45,11 +45,16 @@ import {FilteredYearLayoutComponent} from "./layouts/filtered-year-layout/filter
 import {PageNotFoundComponent} from "./layouts/page-not-found/page-not-found.component";
 import {ArtistAlbumsLayoutComponent} from "./layouts/artist-albums-layout/artist-albums-layout.component";
 import {AllArtistAlbumsLayoutsComponent} from "./layouts/all-artist-albums-layouts/all-artist-albums-layouts.component";
+import {SearchResultLayoutsComponent} from "./layouts/search-result-layouts/search-result-layouts.component";
 
 const routes: Routes = [
   {
     path:'',
     component:LandingComponent
+  },
+  {
+    path:'search-result/:searchText',
+    component:SearchResultLayoutsComponent
   },
   {
     path:'profile',
@@ -96,7 +101,7 @@ const routes: Routes = [
     component: ArtistAlbumsLayoutComponent
   },
   {
-    path:'singles',
+    path:'singles/:albumId',
     component:SingleAlbumComponent
   },
   {

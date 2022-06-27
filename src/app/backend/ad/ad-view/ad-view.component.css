@@ -1,7 +1,7 @@
 .mat-paginator{
-  font-size: 16px;
-  color: #3F51B5;
-}
+   font-size: 16px;
+   color: #3F51B5;
+ }
 
 ::ng-deep .mat-paginator-page-size {
   display: none!important;

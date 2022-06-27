@@ -2,8 +2,11 @@ const Album = require("../models/albums");
 const Artist = require("../models/artists");
 const Language = require("../models/languages");
 const Industry = require('../models/industries');
+const Song = require('../models/songs');
 const Genre = require("../models/genres");
 const fetch = require("cross-fetch");
+const AdmZip = require('adm-zip');
+const Blob = require('buffer');
 
 exports.getAlbum = (req,res,next)=>{
   const pageSize = +req.query.pageSize;
@@ -21,6 +24,31 @@ exports.getAlbum = (req,res,next)=>{
     .then(documents=>{
       albums = documents
       return Album.count();
+    }).then(count=>{
+    res.status(200).json({
+      message: "Albums Listed Successfully",
+      albums: albums,
+      count: count
+    });
+  })
+};
+
+exports.getAlbumGenre = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  let albumQuery = Album.find();
+  let albums;
+
+  if(pageSize && currentPage){
+    albumQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+
+  albumQuery.find({genre: req.params.genreId})
+    .then(documents=>{
+      albums = documents
+      return Album.find({genre: req.params.genreId}).count();
     }).then(count=>{
     res.status(200).json({
       message: "Albums Listed Successfully",
@@ -373,5 +401,27 @@ exports.findYearAlbum = (req,res,next)=>{
   }
 
 };
+
+
+exports.findLowURLs = (req,res,next)=>{
+  let zip = new AdmZip();
+  Song.find({album: req.params.albumId}).then(result=>{
+    for (let i = 0; i < result.length; i++) {
+      let n = result[i].lowPath;
+      let arr = n.split('/');
+      let loc = "src/assets/backend/songs/" + arr[4];
+      zip.addLocalFile(''+loc);
+    }
+    if(zip.getEntryCount() === result.length){
+      return zip.toBuffer();
+    }
+  }).then(data=>{
+    res.status(200).json({
+      message: "Song Listed Successfully",
+      urls: data
+    });
+  });
+};
+
 
 

@@ -8,7 +8,7 @@
           <h4>Single Album</h4>
           <ul>
             <li><a href="#">Albums</a> &nbsp;&nbsp;&nbsp;/</li>
-            <li>Single Album</li>
+            <li *ngIf="album">{{album.name}} Album</li>
           </ul>
         </div>
       </div>
@@ -30,20 +30,18 @@
               <div class="col-12 user-dash-name">
                 <div class="card album-card">
                   <div class="card-body user-card-body album-card-body">
-                    <h5 class="text-left"><i class="fas fa-play-circle"></i>&nbsp;&nbsp; Play/Download <span>Name</span></h5>
+                    <h5 class="text-left"><i class="fas fa-play-circle"></i>&nbsp;&nbsp; Play/Download <span *ngIf="album">{{album.name}}</span></h5>
                     <div class="row justify-content-center mt-30">
-                      <div class="col-md-3 album-dash-image">
-                        <img src="./assets/frontend/image/album/rel2.png" alt="Album Image" class="img-fluid">
+                      <div class="col-md-3 album-dash-image" *ngIf="album">
+                        <img [src]="album.imagePath" [alt]="album.name" class="img-fluid">
                       </div>
                       <div class="col-md-9 album-dash-heading">
                         <h6>Description</h6>
-                        <p class="pt-10">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet commodi consequuntur cum dolore dolorum eaque eius,
-                          est, eveniet ex expedita fugit harum in modi neque numquam omnis quas quibusdam repudiandae.
+                        <p class="pt-10" *ngIf="album">
+                          {{album.description}}
                         </p>
-                        <p class="description-span pt-1 pb-1"><span>Music Composer </span>:&nbsp;&nbsp; Someone, Someone</p>
-                        <p class="description-span pt-1 pb-1"><span>Lyricists </span>:&nbsp;&nbsp; Someone</p>
-                        <p class="description-span pt-1 pb-1"><span>Released On </span>:&nbsp;&nbsp; 19th July</p>
+                        <p class="description-span pt-1 pb-1" *ngIf="album"><span>Artist </span>:&nbsp;&nbsp;{{album.artist}} </p>
+                        <p class="description-span pt-1 pb-1"><span>Released On </span>:&nbsp;&nbsp; {{release}}</p>
                         <div class="md-12 pt-10 album-dash-options">
                           <p class="text-left">
                             <span class="pr-2"><a class="btn"><i class="fal fa-share-alt"></i>&nbsp;&nbsp; Share</a></span>

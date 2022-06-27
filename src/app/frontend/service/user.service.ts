@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map} from "rxjs/operators";
+import {Song} from "../models/song.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,9 @@ export class UserService {
 
   private users: User[] = [];
   private userUpdated = new Subject<User []>();
+
+  private itemsUpdated = new Subject<any>();
+  private items: any;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -231,6 +235,25 @@ export class UserService {
     }
 
   }
+
+  Search(searchText: any){
+    this.http.get<{message:string, data:any}>(
+      "http://localhost:3000/api/users/search/"+ searchText
+    ).pipe(map((searchData)=>{
+      // @ts-ignore
+      return searchData.data;
+    }))
+      .subscribe(searchData=>{
+        this.items= searchData;
+        console.log(this.items);
+          this.itemsUpdated.next([...this.items]);
+      });
+  }
+
+  getSearchDataUpdateListener(){
+    return this.itemsUpdated.asObservable();
+  }
+
 
 }
 

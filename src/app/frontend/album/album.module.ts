@@ -21,6 +21,8 @@ import { FilteredYearComponent } from './filtered-year/filtered-year.component';
 import {CarouselModule} from "ngx-owl-carousel-o";
 import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
 import {AllArtistAlbumsComponent} from "./all-artist-albums/all-artist-albums.component";
+import {ClipboardModule} from "ngx-clipboard";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,11 @@ import {AllArtistAlbumsComponent} from "./all-artist-albums/all-artist-albums.co
     RouterModule,
     LandingModule,
     MatPaginatorModule,
-    CarouselModule
+    CarouselModule,
+    ClipboardModule,
+    ToastrModule.forRoot({
+      positionClass :'toast-top-right'
+    })
   ]
 })
 

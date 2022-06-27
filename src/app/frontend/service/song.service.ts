@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Song} from "../models/song.model";
 import {Subject} from "rxjs";
 import {count, map} from "rxjs/operators";
+import {Album} from "../models/album.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,18 @@ export class SongService{
 
   private songs: Song[] = [];
   private songsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+
+  private songBuffer: any;
+  private songBufferUpdated = new Subject<any>();
+
   private quickSongs: Song[] = [];
   private quickSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+
   private bollywoodSongs: Song[] = [];
   private bollywoodSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+
+  private albumSongs: Song[] = [];
+  private albumSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
   private modalSong: any | null;
   public songDetails: any | null;
@@ -333,6 +342,58 @@ export class SongService{
 
   getDataUpdateListener(){
     return this.songsDataUpdated.asObservable();
+  }
+
+  getAlbumSong(albumId: string | null, songsPerPage: number, currentPage: number) {
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs/find-album-song/"+albumId + queryParams
+    ).pipe(map((songData)=>{
+      // @ts-ignore
+      return { songs: songData.songs.map(song=>{
+          return{
+            name: song.name,
+            language: song.language,
+            actor: song.actor,
+            genre: song.genre,
+            album: song.album,
+            artist: song.artist,
+            trending: song.trending,
+            duration: song.duration,
+            industry: song.industry,
+            id: song._id,
+            imagePath: song.imagePath,
+            lowPath:song.lowPath,
+            highPath: song.highPath
+          };
+        }), songCount: songData.count};
+    }))
+      .subscribe(songData=>{
+        this.albumSongs = songData.songs;
+        this.albumSongsUpdated.next({songs:[...this.albumSongs], songCount: songData.songCount});
+      });
+  }
+
+  getAlbumSongUpdateListener(){
+    return this.albumSongsUpdated.asObservable();
+  }
+
+  downloadSong(songPath:string){
+    this.http.get<{message:string, data: any}>(
+      "http://localhost:3000/api/songs/song-path/"+ songPath
+    ).pipe(map((songData:{message: string, data: any})=>{
+      // @ts-ignore
+      return {songBuffer: songData.data};
+    }))
+      .subscribe(songData=>{
+        console.log(songData);
+        this.songBuffer = songData.songBuffer;
+        this.songBufferUpdated.next(this.songBuffer);
+      });
+  }
+
+  downloadSongUpdate(){
+    return this.songBufferUpdated.asObservable();
   }
 
 }

@@ -1,37 +1,48 @@
 .log_options_card{
-  width: 250px;
-  height: 130px;
+  width: 300px;
+  height: 160px;
   position: absolute;
   top: 70px;
   right: 5px;
   background-color: #0f0e37;
   border: 1px solid #fa5840;
+  border-radius: 15px;
 }
 
-.log_options_card .card-body .login_top_wrapper a, .log_options_card .card-body .login_top_wrapper button{
-  display: inline-block!important;
-  color: #fa5840!important;
-  font-size: 15px;
+.log_options_card .card-body{
+  padding: .5rem!important;
+}
+
+.log_options_card .card-body .login_top_wrapper p{
+  display: block!important;
+  color: white;
+  font-size: 18px;
   font-weight: 500!important;
   cursor: pointer;
 }
 
-.log_options_card .card-body .login_top_wrapper a{
-  margin-left: 12px;
+.log_options_card .card-body .login_top_wrapper p a, .log_options_card .card-body .login_top_wrapper p button{
+  color: white;
+  font-size: 18px;
+  font-weight: 500!important;
+  cursor: pointer;
 }
 
-.log_options_card .card-body .login_top_wrapper i{
+.log_options_card .card-body .login_top_wrapper p{
+  padding-top: 20px;
+}
+
+.log_options_card .card-body .login_top_wrapper p i{
   color:#fa5840;
-  font-size: 15px;
+  font-size: 24px;
+}
+
+.register-top-wrapper{
+  margin-top: 15px;
 }
 
 .no_box_shadow{
   box-shadow: none!important;
-}
-
-.special_login_top_wrapper a,.special_login_top_wrapper i{
-  margin-top: 25px;
-  font-size: 18px!important
 }
 
 .invisible-file-picker{
@@ -59,4 +70,53 @@
   border: 3px solid #fa5840;
   border-radius: 10px;
   padding: 10px 0 10px 0;
+}
+
+/**Custom Search Bar Styling */
+
+.custom_search_bar{
+  position: relative;
+  float:left;
+  width:49%;
+  margin-left:30px;
+  padding-top:11px;
+}
+
+.custom_search_bar button{
+  float: left;
+  width: 45px;
+  height: 50px;
+  color: #191919;
+  position: absolute;
+  left: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.custom_search_bar input[type=text]{
+  float:left;
+  height: 50px;
+  background: #fff;
+  padding-left: 47px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  color: #191919;
+  font-size: 16px;
+  width: 50%;
+  text-transform: capitalize;
+  border: 1px solid #e6e6e6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.custom_search_bar input::placeholder {
+  color: #191919;
+}
+
+.custom_search_bar input[type=text]:focus{
+  width: 85%;
 }

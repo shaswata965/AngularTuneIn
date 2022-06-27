@@ -11,10 +11,10 @@ import {PlayerComponentComponent} from "./player-component/player-component.comp
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserModule} from "@angular/platform-browser";
-import {SwiperModule} from "swiper/angular";
 import {CarouselModule} from "ngx-owl-carousel-o";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {StylePaginatorDirective} from "../../backend/album/album-view/style-paginator.directive";
+import { SearchResultComponent } from './search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +26,15 @@ import {StylePaginatorDirective} from "../../backend/album/album-view/style-pagi
     ContactComponent,
     PlayerComponentComponent,
     StylePaginatorDirective,
+    SearchResultComponent,
   ],
-  exports: [
-    FooterComponent,
-    QuickLinksComponent,
-    HeaderComponent,
-    ContactComponent
-  ],
+    exports: [
+        FooterComponent,
+        QuickLinksComponent,
+        HeaderComponent,
+        ContactComponent,
+        SearchResultComponent
+    ],
   imports: [
     CommonModule,
     RouterModule,

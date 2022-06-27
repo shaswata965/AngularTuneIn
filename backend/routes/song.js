@@ -1,14 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 const bodyParser = require('body-parser');
-
-const Song = require('../models/songs');
-const Album = require('../models/albums');
-const Language = require('../models/languages');
-const Actor = require('../models/actors');
-const Genre = require('../models/genres')
 const songController = require('../controllers/song');
-const albumController = require("../controllers/album");
+
 
 const MIME_TYPE_MAP = {
   'image/png' : 'png',
@@ -69,5 +63,9 @@ router.get('/modal/:language/:actor/:genre/:album', songController.findSongDetai
 router.delete("/:id",songController.deleteSong);
 
 router.get("/find-language/:languageId", songController.findLanguageSong);
+
+router.get("/find-album-song/:albumId", songController.findAlbumSong);
+
+router.get("/song-path/:songPath", songController.getDownloadBuffer);
 
 module.exports = router;

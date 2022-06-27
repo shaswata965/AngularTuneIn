@@ -280,62 +280,6 @@
         }
       });
 
-      /*--- multiple choice Start ----*/
-      var SampleJSONData2 = [{
-          id: 17,
-          title: "1.  Tujhe Kitna Chahne Lage "
-        }, {
-          id: 11,
-          title: " 2. Ek Ladki Ko Dekha - Title Track"
-        }, {
-          id: 21,
-          title: '3.  Listen to "Judgementall Hai Kya" Rachita Arora,'
-        }, {
-          id: 31,
-          title: '4.  Kaise Hua (From "Kabir Singh") '
-        }, {
-          id: 41,
-          title: "5.  South of the Border "
-        }, {
-          id: 51,
-          title: "6.  The Wakhra Song "
-        }, {
-          id: 52,
-          title: "7.  Beyond BollywoodBeyond Bollywood "
-        }, {
-          id: 53,
-          title: '8.  Psycho Saiyaan (From "Saaho") '
-        }, {
-          id: 54,
-          title: "9.  Bas Ek Sanam Chahiye "
-        }],
-        SampleJSONData1 = [{
-          id: 17,
-          title: "1.  Tujhe Kitna Chahne Lage "
-        }, {
-          id: 11,
-          title: " 2. Ek Ladki Ko Dekha - Title Track"
-        }, {
-          id: 21,
-          title: '3.  Listen to "Judgementall Hai Kya" Rachita Arora,'
-        }, {
-          id: 31,
-          title: '4.  Kaise Hua (From "Kabir Singh") '
-        }, {
-          id: 41,
-          title: "5.  South of the Border "
-        }, {
-          id: 51,
-          title: "6.  The Wakhra Song "
-        }, {
-          id: 52,
-          title: "7.  Beyond BollywoodBeyond Bollywood "
-        }, {
-          id: 53,
-          title: '8.  Psycho Saiyaan (From "Saaho") '
-        }],
-        comboTree2, comboTree1;
-
       function checkRequire(formId, targetResp) {
         targetResp.html("");
         var email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/,
@@ -362,15 +306,7 @@
           }
         }), check
       }
-      jQuery(document).ready(function(e) {
-        comboTree2 = e("#justAnotherInputBox").comboTree({
-          source: SampleJSONData2,
-          isMultiple: !1
-        }), comboTree1 = e("#justAnotherInputBox2").comboTree({
-          source: SampleJSONData1,
-          isMultiple: !0
-        })
-      }),
+
 
         /*--- contact form Start ----*/
         $(".submitForm").on("click", function() {

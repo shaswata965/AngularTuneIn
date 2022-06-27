@@ -132,8 +132,8 @@
                                 <div class="m24_cover treanding_slider_main_box release_box_main_content">
                                   <img [alt]="album.name" [src]="album.imagePath">
                                   <div class="release_content_artist release_content_artist2">
-                                    <p><a routerLink="/singles">{{album.name}}</a></p>
-                                    <p class=various_artist_text><a href=#>{{album.artist}}</a></p>
+                                    <p><a [routerLink]="['/singles',album.id]">{{album.name}}</a></p>
+                                    <p class=various_artist_text><a routerLink="/artist-album">{{album.artist}}</a></p>
                                   </div>
                                   <div class="m24_treanding_box_overlay release_box_overlay">
                                     <div class=m24_tranding_box_overlay></div>
@@ -216,7 +216,7 @@
                         </div>
                         <div class="release_content_artist top_list_content_artist new-release-content-artist">
                           <p class="top-song-name"><a href=#>{{song.name}}</a></p>
-                          <p class=various_artist_text><a href=#>{{song.artist}}</a></p>
+                          <p class=various_artist_text><a routerLink="/artist-album">{{song.artist}}</a></p>
                         </div>
                       </div>
                       <div class="top_list_tract_time new-release-tract-time">
@@ -254,7 +254,7 @@
                         <img [alt]="artist.name" [src]="artist.imagePath" class=img-responsive>
                         <div class="featured_artist_detail new-release-artist-detail">
                           <p><a [routerLink]="['artist-album',artist.id]">{{artist.name}}</a></p>
-                          <p class=various_artist_text><a routerLink="/singles">{{artist.songs[0]}} tracks</a> 8M+ View</p>
+                          <p class=various_artist_text><a [routerLink]="['artist-album',artist.id]">{{artist.songs[0]}} tracks</a> 8M+ View</p>
                           <div class=lang_apply_btn>
                             <ul>
                               <li>
@@ -521,8 +521,8 @@
                   <div class="m24_cover treanding_slider_main_box release_box_main_content">
                     <img [alt]="bollywood.name" [src]="bollywood.imagePath">
                     <div class="release_content_artist release_content_artist2">
-                      <p><a routerLink="/singles">{{bollywood.name}}</a></p>
-                      <p class=various_artist_text><a href=#>{{bollywood.artist}}</a></p>
+                      <p><a routerLink="#">{{bollywood.name}}</a></p>
+                      <p class=various_artist_text><a routerLink="/artist-album">{{bollywood.artist}}</a></p>
                     </div>
                     <div class="m24_treanding_box_overlay release_box_overlay">
                       <div class=m24_tranding_box_overlay></div>

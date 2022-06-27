@@ -43,13 +43,12 @@
           <div class="card collapse log_options_card" id="log_options">
             <div class="card-body">
           <div class="login_top_wrapper special_login_top_wrapper" *ngIf="!userIsAuthenticated">
-            <i class="fas fa-angle-right"></i><a data-toggle=modal data-target=#login_modal>login/register</a>
+            <p><i class="fas fa-sign-in-alt"></i><a data-toggle=modal data-target=#login_modal>Login</a></p>
+            <p class="register-top-wrapper"><i class="fas fa-user-plus"></i><a data-toggle=modal data-target=#register_modal>Register</a></p>
           </div>
           <div class="login_top_wrapper" *ngIf="userIsAuthenticated">
-            <i class="fas fa-angle-right"></i><button class="btn no_box_shadow" (click)="onLogOut()">logout</button>
-          </div>
-          <div class="login_top_wrapper" *ngIf="userIsAuthenticated">
-            <i class="fas fa-angle-right"></i><a routerLink="/profile">{{firstName}}'s Profile</a>
+            <p><i class="fas fa-user"></i><a routerLink="/profile">{{firstName}}'s Profile</a></p>
+            <p><i class="fas fa-sign-out-alt"></i><button class="btn no_box_shadow" (click)="onLogOut()">Sign Out</button></p>
           </div>
             </div>
           </div>
@@ -83,18 +82,11 @@
           </li>
         </ul>
       </div>
-      <div class=navi_searchbar_wrapper>
-        <i class=flaticon-magnifying-glass></i>
-        <input id=justAnotherInputBox placeholder="Search for Songs, Artists, Playlists and More..">
-      </div>
-      <div class="d-lg-block d-block d-md-block d-sm-block d-xl-none">
-        <div class="index3_search_bar search_bar">
-          <div class=res_search_bar id=search_button><i class="fa fa-ellipsis-v"></i>
-          </div>
-          <div class=res_search_box id=search_open>
-
-          </div>
-        </div>
+      <div class="custom_search_bar">
+        <form [formGroup]="searchForm" (submit)="searchData()">
+        <button class="btn" type="submit"><i class="flaticon-magnifying-glass pb-2"></i></button>
+        <input id=justAnotherInputBox formControlName="search" type="text" placeholder="Search for Songs, Artists, Playlists and More..">
+        </form>
       </div>
     </div>
   </div>

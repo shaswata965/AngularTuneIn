@@ -61,7 +61,11 @@ exports.getLanguage = (req,res,next)=>{
         languages: languages,
         count: count
       });
+    }).catch(err => {
+    res.status(500).json({
+      error: err
     });
+  });
 };
 
 exports.getLanguageAlbum = (req,res,next)=>{

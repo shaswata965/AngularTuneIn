@@ -53,6 +53,7 @@ import { FilteredYearLayoutComponent } from './layouts/filtered-year-layout/filt
 import { PageNotFoundComponent } from './layouts/page-not-found/page-not-found.component';
 import { ArtistAlbumsLayoutComponent } from './layouts/artist-albums-layout/artist-albums-layout.component';
 import { AllArtistAlbumsLayoutsComponent } from './layouts/all-artist-albums-layouts/all-artist-albums-layouts.component';
+import { SearchResultLayoutsComponent } from './layouts/search-result-layouts/search-result-layouts.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -64,7 +65,8 @@ import { AllArtistAlbumsLayoutsComponent } from './layouts/all-artist-albums-lay
         FilteredYearLayoutComponent,
         PageNotFoundComponent,
         ArtistAlbumsLayoutComponent,
-        AllArtistAlbumsLayoutsComponent
+        AllArtistAlbumsLayoutsComponent,
+        SearchResultLayoutsComponent
     ],
   imports: [
     AlbumModule,
