@@ -5,6 +5,9 @@ import {Album} from "../../models/album.model";
 import * as $ from "jquery";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {Subscription} from "rxjs";
+import {UserService} from "../../service/user.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-album-suggestions',
@@ -13,6 +16,10 @@ import {AdService} from "../../service/ad.service";
 })
 export class AlbumSuggestionsComponent implements OnInit {
 
+  userIsAuthenticated = false;
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public albumId: any;
   public album: any;
   public albumGenre: any;
@@ -20,12 +27,20 @@ export class AlbumSuggestionsComponent implements OnInit {
   public recentAlbums: any;
   public ads: any;
   public middleAd: any;
+  public currentRoute: string;
 
   constructor(public route: ActivatedRoute,
               public albumService: AlbumService,
-              public adService: AdService) { }
+              public adService: AdService,
+              public toastr: ToastrService,
+              public userService: UserService) { }
 
   ngOnInit() {
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
     this.route.paramMap.subscribe((paramMap)=>{
 
@@ -51,7 +66,13 @@ export class AlbumSuggestionsComponent implements OnInit {
 
         this.albumService.getAlbumGenre(this.album.genre, 4,1);
         this.albumService.getAlbumGenreUpdateListener().subscribe((albumData:{album:Album[], albumCount: number})=>{
-          this.albums = albumData.album;
+          let albumsArray = []
+          for(let i= 0; i < albumData.album.length; ++i){
+            if(this.album.name !== albumData.album[i].name){
+              albumsArray.push(albumData.album[i]);
+              this.albums = albumsArray;
+            }
+          }
         });
 
       });
@@ -73,6 +94,11 @@ export class AlbumSuggestionsComponent implements OnInit {
       }
     });
 
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
   OpenTrending(){

@@ -3,6 +3,9 @@ import {AlbumService} from "../../service/album.service";
 import {ActivatedRoute} from "@angular/router";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {ToastrService} from "ngx-toastr";
+import {UserService} from "../../service/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-album-profile',
@@ -11,6 +14,10 @@ import {AdService} from "../../service/ad.service";
 })
 export class AlbumProfileComponent implements OnInit {
 
+  userIsAuthenticated = false;
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public albumId: any;
   public album: any;
   public release: any;
@@ -18,12 +25,20 @@ export class AlbumProfileComponent implements OnInit {
   public leftAd: any;
   public rightAd: any;
   public middleAd: any;
+  public currentRoute: string;
 
   constructor( public albumService: AlbumService,
                public router: ActivatedRoute,
-               public adService: AdService) { }
+               public toastr: ToastrService,
+               public adService: AdService,
+               public userService: UserService) { }
 
   ngOnInit() {
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
     this.router.paramMap.subscribe((paramMap)=>{
       if(paramMap.has('albumId')){
@@ -63,6 +78,11 @@ export class AlbumProfileComponent implements OnInit {
       }
     });
 
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

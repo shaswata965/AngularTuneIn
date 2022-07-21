@@ -38,23 +38,26 @@
                         <ng-container *ngFor="let slide of allSongs">
                         <ng-template carouselSlide>
                         <div class=item>
-                          <div class="m24_cover treanding_slider_main_box">
-                            <img [src]="slide.imagePath" [alt]="slide.name" >
-                            <div class=m24_treanding_box_overlay>
+                          <div class="m24_cover treanding_slider_main_box release_box_main_content">
+                            <img [alt]="slide.name" [src]="slide.imagePath">
+                            <div class="release_content_artist release_content_artist2">
+                              <p><a [routerLink]="['/singles',slide.album]">{{slide.name}}</a></p>
+                            </div>
+                            <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
-                              <div class=m24_tranding_more_icon (click)="OpenTrending()">
+                              <div class=m24_tranding_more_icon  (click)="OpenTrending()">
                                 <i class=flaticon-menu></i>
                               </div>
                               <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
-                                <li><a href="javascript:void(0)" (click)="Copy(slide.album)" ngxClipboard [cbContent]="currentRoute"><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)" (click)="Copy(slide.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                 <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                                <li><a href="javascript:void(0)" (click)="Copy(slide.album)"  ngxClipboard [cbContent]="currentRoute"><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)"(click)="Copy(slide.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <div class=tranding_play_icon>
-                                <a href=#>
+                                <a href="#">
                                   <i class=flaticon-play-button></i>
                                 </a>
                               </div>
@@ -76,7 +79,7 @@
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="m24_cover add_banner_img_wrapper">
-                  <a href=#><img [alt]="middleAd[0].name" [src]="middleAd[0].imagePath" class=img-responsive></a>
+                  <a [href]="middleAd[0].link"><img [alt]="middleAd[0].name" [src]="middleAd[0].imagePath" class=img-responsive></a>
                 </div>
               </div>
             </div>
@@ -178,7 +181,7 @@
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="m24_cover add_banner_img_wrapper">
-                  <a href=#><img [alt]="middleAd[1].name" [src]="middleAd[1].imagePath" class=img-responsive></a>
+                  <a [href]="middleAd[1].link"><img [alt]="middleAd[1].name" [src]="middleAd[1].imagePath" class=img-responsive></a>
                 </div>
               </div>
             </div>
@@ -221,8 +224,8 @@
                           </div>
                         </div>
                         <div class="release_content_artist top_list_content_artist new-release-content-artist">
-                          <p class="top-song-name"><a href=#>{{song.name}}</a></p>
-                          <p class=various_artist_text><a routerLink="/artist-album">{{song.artist}}</a></p>
+                          <p class="top-song-name"><a [routerLink]="['/singles',song.album]" >{{song.name}}</a></p>
+                          <p class=various_artist_text><a [routerLink]="['/artist-album', song.artist]">{{song.artist}}</a></p>
                         </div>
                       </div>
                       <div class="top_list_tract_time new-release-tract-time">
@@ -300,7 +303,7 @@
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="m24_cover add_banner_img_wrapper">
-                  <a href=#><img [alt]="middleAd[2].name" [src]="middleAd[2].imagePath" class=img-responsive></a>
+                  <a [href]="middleAd[2].link"><img [alt]="middleAd[2].name" [src]="middleAd[2].imagePath" class=img-responsive></a>
                 </div>
               </div>
             </div>
@@ -533,7 +536,7 @@
                   <div class="m24_cover treanding_slider_main_box release_box_main_content">
                     <img [alt]="bollywood.name" [src]="bollywood.imagePath">
                     <div class="release_content_artist release_content_artist2">
-                      <p><a routerLink="#">{{bollywood.name}}</a></p>
+                      <p><a [routerLink]="['/singles',bollywood.album]">{{bollywood.name}}</a></p>
                       <p class=various_artist_text><a routerLink="/artist-album">{{bollywood.artist}}</a></p>
                     </div>
                     <div class="m24_treanding_box_overlay release_box_overlay">

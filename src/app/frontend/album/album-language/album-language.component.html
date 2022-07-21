@@ -35,12 +35,12 @@
                                 <i class=flaticon-menu></i>
                               </div>
                               <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
-                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)" (click)="Copy(album.id)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                 <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)" (click)="Copy(album.id)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <div class=tranding_play_icon>
                                 <a href="#">

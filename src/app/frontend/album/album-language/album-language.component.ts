@@ -10,6 +10,7 @@ import {UserService} from "../../service/user.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
 import {ArtistService} from "../../service/artist.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-album-language',
@@ -30,6 +31,7 @@ export class AlbumLanguageComponent implements OnInit {
   public leftAd: any;
   public rightAd: any;
   public middleAd: any;
+  public currentRoute: string;
 
   totalSongs = 0;
   public albums: Album[] = [];
@@ -40,7 +42,8 @@ export class AlbumLanguageComponent implements OnInit {
               public userService: UserService,
               public adService: AdService,
               public artistService: ArtistService,
-              public router: Router) { }
+              public router: Router,
+              public toastr: ToastrService) { }
 
   ngOnInit(){
 
@@ -96,6 +99,11 @@ export class AlbumLanguageComponent implements OnInit {
     this.artistService.getArtistId(artist).subscribe(artistData=>{
         this.router.navigate(['/artist-album',artistData._id]);
     });
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

@@ -9,6 +9,9 @@ import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {ArtistService} from "../../service/artist.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-all-album',
@@ -29,6 +32,7 @@ export class AllAlbumComponent implements OnInit {
   public leftAd: any;
   public rightAd: any;
   public middleAd: any;
+  public currentRoute: string;
 
   totalSongs = 0;
   public albums: Album[] = [];
@@ -36,7 +40,10 @@ export class AllAlbumComponent implements OnInit {
   constructor(public albumsService: AlbumService,
               public languageService: LanguageService,
               public userService: UserService,
-              public adService: AdService) { }
+              public adService: AdService,
+              public artistService: ArtistService,
+              public router: Router,
+              public toastr: ToastrService) { }
 
   ngOnInit(){
 
@@ -85,6 +92,12 @@ export class AllAlbumComponent implements OnInit {
     this.albumsService.getAlbums(pageEvent.pageSize, pageEvent.pageIndex+1);
   }
 
+  artistRouting(artist:string){
+    this.artistService.getArtistId(artist).subscribe(artistData=>{
+      this.router.navigate(['/artist-album',artistData._id]);
+    });
+  }
+
   OpenTrending(){
 
     $(".m24_tranding_more_icon").on("click", function(e) {
@@ -95,6 +108,11 @@ export class AllAlbumComponent implements OnInit {
       $("ul.tranding_more_option.tranding_open_option").removeClass("tranding_open_option")
     })
 
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }
