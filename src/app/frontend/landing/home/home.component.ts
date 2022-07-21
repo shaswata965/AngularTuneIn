@@ -16,6 +16,8 @@ import {UserService} from "../../service/user.service";
 import {Subscription} from "rxjs";
 import {AdService} from "../../service/ad.service";
 import {Ad} from "../../models/ad.model";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -46,6 +48,7 @@ export class HomeComponent implements OnInit {
   albums: Album[] = [];
   totalSongs = 0;
   totalBollywoodSongs = 0;
+  public currentRoute: string;
 
   constructor(public languageService: LanguageService,
               private songService: SongService,
@@ -53,11 +56,12 @@ export class HomeComponent implements OnInit {
               public albumService: AlbumService,
               public artistService: ArtistService,
               public userService: UserService,
-              public adService: AdService) {}
+              public adService: AdService,
+              public toastr: ToastrService,
+              public route: Router) {}
 
   ngOnInit() {
     this.itemArtists = [];
-
     this.userIsAuthenticated = this.userService.getIsAuthenticated();
     this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
       this.userIsAuthenticated = isAuthenticated;
@@ -142,8 +146,8 @@ export class HomeComponent implements OnInit {
       this.totalSongs = albumData.albumCount;
     });
 
-    this.adService.getAd(1000,1);
-    this.adService.getAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+    this.adService.getPageAd("home",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
       this.ads = adData.ads;
       let middleArray = [];
       for(let i =0; i<this.ads.length; i++){
@@ -156,8 +160,18 @@ export class HomeComponent implements OnInit {
           this.middleAd = middleArray;
         }
       }
-    })
+    });
 
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
+  }
+
+  CopyArtist( artist: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/artist-album" + "/"+ artist;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 

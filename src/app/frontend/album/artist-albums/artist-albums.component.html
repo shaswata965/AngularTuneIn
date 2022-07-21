@@ -1,8 +1,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link"><img class="img-fluid" [alt]="leftAd.name" [src]="leftAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="javascript:void(0)" ><img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
       <div class="col-10">
         <div class="m24_cover treanding_songs_wrapper index3_release_wrapper release_wrapper pb-30">
@@ -10,7 +13,7 @@
             <div class=row>
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="m24_heading_wrapper white_heading_wrapper">
-                  <h1 class="album-heading" *ngIf="artist">All <span class="active pl-1 pr-1">{{artist.name}}</span> Albums
+                  <h1 class="album-heading" *ngIf="artist">All <span class="active pl-1 pr-1">{{artist.name}}</span> Songs
                   </h1>
                 </div>
               </div>
@@ -18,13 +21,12 @@
                 <div class=tab-content>
                   <div class="tab-pane active" id=radio>
                     <div class=row>
-                      <ng-container *ngIf="albums.length > 0">
-                        <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let album of albums">
+                      <ng-container *ngIf="songs.length > 0">
+                        <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let song of songs">
                           <div class="m24_cover treanding_slider_main_box release_box_main_content">
-                            <img alt=img [src]="album.imagePath">
+                            <img alt=img [src]="song.imagePath">
                             <div class="release_content_artist release_content_artist2">
-                              <p><a routerLink="/singles">{{album.name}}</a></p>
-                              <p class=various_artist_text><a href=#>{{album.artist}}</a></p>
+                              <p><a routerLink="/singles">{{song.name}}</a></p>
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
@@ -51,13 +53,16 @@
               </div>
             </div>
             <div class="pagination-container">
-              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="albums.length > 0" [length]="totalAlbums" [pageSize]="8" (page)="onChangedPage($event)"></mat-paginator>
+              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="songs.length > 0" [length]="totalSongs" [pageSize]="8" (page)="onChangedPage($event, artist.name)"></mat-paginator>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="rightAd">
+        <a [href]="rightAd.link" ><img class="img-fluid" [alt]="rightAd.name" [src]="rightAd.imagePath" /></a>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="javascript:void(0)" ><img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
     </div>
   </div>

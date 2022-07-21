@@ -13,6 +13,9 @@ export class AdService{
   private ads: Ad[] = [];
   private adsUpdated = new Subject<{ads: Ad [], adCount: number }>();
 
+  private pageAds: Ad[] = [];
+  private pageAdsUpdated = new Subject<{ads: Ad [], adCount: number }>();
+
   private modalAd: any | null;
   public adDetails: any | null;
   private adDetailsUpdated = new Subject<any>();
@@ -70,10 +73,10 @@ export class AdService{
     this.modalAd = ad;
   }
 
-  getAd(adPerPage: number, currentPage:number){
+  getAd( adPerPage: number, currentPage:number){
     const queryParams = `?pageSize=${adPerPage}&page=${currentPage}`;
     this.http.get<{message:string, ads: any, count: number }>(
-      "http://localhost:3000/api/ads" + queryParams
+      "http://localhost:3000/api/ads"+ queryParams
     ).pipe(map((adData)=>{
       // @ts-ignore
       return {ads: adData.ads.map(ad=>{
@@ -93,8 +96,35 @@ export class AdService{
       });
   }
 
+  getPageAd( pageData:string, adPerPage: number, currentPage:number){
+    const queryParams = `?pageSize=${adPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, ads: any, count: number }>(
+      "http://localhost:3000/api/ads/page-ads/"+ pageData+ queryParams
+    ).pipe(map((adData)=>{
+      // @ts-ignore
+      return {ads: adData.ads.map(ad=>{
+          return{
+            name: ad.name,
+            id: ad._id,
+            imagePath: ad.imagePath,
+            page: ad.page,
+            position: ad.position,
+            link: ad.link
+          };
+        }), adCount: adData.count};
+    }))
+      .subscribe(adData=>{
+        this.pageAds = adData.ads;
+        this.pageAdsUpdated.next({ads: [...this.pageAds], adCount: adData.adCount});
+      });
+  }
+
   getAdsUpdateListener(){
     return this.adsUpdated.asObservable();
+  }
+
+  getPageAdsUpdateListener(){
+    return this.pageAdsUpdated.asObservable();
   }
 
   getModalAd(){

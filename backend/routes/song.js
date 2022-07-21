@@ -68,4 +68,6 @@ router.get("/find-album-song/:albumId", songController.findAlbumSong);
 
 router.get("/song-path/:songPath", songController.getDownloadBuffer);
 
+router.get("/artist-song/:artistName", songController.getArtistSongs);
+
 module.exports = router;

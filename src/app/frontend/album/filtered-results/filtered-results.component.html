@@ -1,8 +1,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link" ><img class="img-fluid" [src]="leftAd.imagePath" [alt]="leftAd.name"/></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/></a>
       </div>
       <div class="col-10">
         <div class="m24-cover featured_albums_wrapper">
@@ -54,7 +57,10 @@
                                     <div class=m24_tranding_more_icon (click)="OpenTrending()">
                                       <i class=flaticon-menu></i>
                                     </div>
-                                    <ul class="tranding_more_option icon-option-wrapper" >
+                                    <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                                      <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                    </ul>
+                                    <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                       <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                       <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
                                       <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
@@ -83,7 +89,10 @@
                                       <div class=m24_tranding_more_icon (click)="OpenTrending()">
                                         <i class=flaticon-menu></i>
                                       </div>
-                                      <ul class="tranding_more_option icon-option-wrapper" >
+                                      <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                                        <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                      </ul>
+                                      <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                         <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                         <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
                                         <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
@@ -115,8 +124,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad Image" />
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="rightAd">
+        <a [href]="rightAd.link" ><img class="img-fluid" [src]="rightAd.imagePath" [alt]="rightAd.name" /></a>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad Image" /></a>
       </div>
     </div>
   </div>
@@ -124,12 +136,23 @@
 <div class="row download-row-right-padding">
   <div class="col-12">
     <div class="overflow-mockup-design">
-      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80">
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80" *ngIf="middleAd && middleAd[0]">
         <div class=container>
           <div class=row>
             <div class="col-sm-12 col-md-12 col-lg-12">
               <div class="m24_cover add_banner_img_wrapper">
-                <a href=#><img alt=img src="./assets/frontend/image/ad/add2.png" class=img-responsive></a>
+                <a [href]="middleAd[0].link"><img [alt]="middleAd[0].name" [src]="middleAd[0].imagePath" class=img-responsive></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80" *ngIf="!middleAd && !middleAd[0]">
+        <div class=container>
+          <div class=row>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="m24_cover add_banner_img_wrapper">
+                <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/add2.png" class=img-responsive></a>
               </div>
             </div>
           </div>
@@ -165,12 +188,23 @@
     </div>
   </div>
 </div>
-<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd && middleAd[1]">
   <div class=container>
     <div class=row>
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="m24_cover add_banner_img_wrapper">
-          <a href=#><img alt=img src="./assets/frontend/image/ad/add7.png" class=img-responsive></a>
+          <a [href]="middleAd[1].link"><img [alt]="middleAd[1].name" [src]="middleAd[1].imagePath" class=img-responsive></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="!middleAd && !middleAd[1]">
+  <div class=container>
+    <div class=row>
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="m24_cover add_banner_img_wrapper">
+          <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/add7.png" class=img-responsive></a>
         </div>
       </div>
     </div>

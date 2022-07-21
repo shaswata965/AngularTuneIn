@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {AlbumService} from "../../service/album.service";
 import {Album} from "../../models/album.model";
 import * as $ from "jquery";
+import {Ad} from "../../models/ad.model";
+import {AdService} from "../../service/ad.service";
 
 @Component({
   selector: 'app-album-suggestions',
@@ -16,9 +18,12 @@ export class AlbumSuggestionsComponent implements OnInit {
   public albumGenre: any;
   public albums: any;
   public recentAlbums: any;
+  public ads: any;
+  public middleAd: any;
 
   constructor(public route: ActivatedRoute,
-              public albumService: AlbumService) { }
+              public albumService: AlbumService,
+              public adService: AdService) { }
 
   ngOnInit() {
 
@@ -56,7 +61,17 @@ export class AlbumSuggestionsComponent implements OnInit {
         this.recentAlbums = albumData.albums;
       });
 
-    })
+    });
+
+    this.adService.getPageAd("album-suggestion",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+         if(this.ads[i].position === "middle"){
+          this.middleAd = this.ads[i];
+        }
+      }
+    });
 
   }
 

@@ -6,6 +6,7 @@ import {ProfileComponent} from "../../layouts/profile/profile.component";
 import {ProfileModalComponent} from "./profile-modal/profile-modal.component";
 import {LandingModule} from "../landing/landing.module";
 import {RouterModule} from "@angular/router";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {RouterModule} from "@angular/router";
   ],
   imports: [
     LandingModule,
-    RouterModule
+    RouterModule,
+    CommonModule
   ]
 })
 

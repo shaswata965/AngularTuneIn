@@ -75,12 +75,23 @@
     </div>
   </div>
 </div>
-<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-30">
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-30" *ngIf="middleAds">
   <div class=container>
     <div class=row>
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="m24_cover add_banner_img_wrapper">
-          <a href=#><img alt=img src="./assets/frontend/image/ad/large-banner.jpg" class=img-responsive></a>
+          <a [href]="middleAds.link"><img [alt]="middleAds.name" [src]="middleAds.imagePath" class=img-responsive></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-30" *ngIf="!middleAds">
+  <div class=container>
+    <div class=row>
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="m24_cover add_banner_img_wrapper">
+          <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/large-banner.jpg" class=img-responsive></a>
         </div>
       </div>
     </div>

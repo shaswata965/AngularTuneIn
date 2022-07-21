@@ -39,6 +39,8 @@ router.put("/:id", multer({storage: storage}).single("image"), adController.upda
 
 router.get('/:id', adController.findAd);
 
+router.get('/page-ads/:pageData', adController.findPageAd);
+
 router.delete("/:id",adController.deleteAd);
 
 module.exports = router;

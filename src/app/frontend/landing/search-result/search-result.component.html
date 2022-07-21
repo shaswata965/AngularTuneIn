@@ -2,8 +2,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link"><img class="img-fluid" [alt]="leftAd.name" [src]="leftAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="#"><img class="img-fluid" alt="LeftAd" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
       <div class="col-10">
         <div class="m24_cover treanding_songs_wrapper index3_release_wrapper release_wrapper pb-30"  *ngIf="albums.length > 0">
@@ -29,10 +32,13 @@
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
-                              <div class=m24_tranding_more_icon>
+                              <div class=m24_tranding_more_icon (click)="OpenTrending()">
                                 <i class=flaticon-menu></i>
                               </div>
-                              <ul class=tranding_more_option>
+                              <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                              </ul>
+                              <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                 <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
@@ -75,10 +81,13 @@
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
-                              <div class=m24_tranding_more_icon>
+                              <div class=m24_tranding_more_icon (click)="OpenTrending()">
                                 <i class=flaticon-menu></i>
                               </div>
-                              <ul class=tranding_more_option>
+                              <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                              </ul>
+                              <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                 <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
@@ -122,11 +131,14 @@
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
-                              <div class=m24_tranding_more_icon>
+                              <div class=m24_tranding_more_icon (click)="OpenTrending()">
                                 <i class=flaticon-menu></i>
                               </div>
-                              <ul class=tranding_more_option>
-                                <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
+                              <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                                <li><a href="javascript:void(0)" (click)="Copy(song.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                              </ul>
+                              <ul class=tranding_more_option *ngIf="userIsAuthenticated">
+                                <li><a href="javascript:void(0)" (click)="Copy(song.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
@@ -147,8 +159,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 right-sidebar-ad pt-60"  *ngIf="rightAd">
+        <a [href]="rightAd.link"><img class="img-fluid" [alt]="rightAd.name" [src]="rightAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="#"><img class="img-fluid" alt="LeftAd" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
     </div>
   </div>

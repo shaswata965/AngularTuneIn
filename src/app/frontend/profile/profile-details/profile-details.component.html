@@ -19,8 +19,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad-Image" />
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link" ><img class="img-fluid" [src]="leftAd.imagePath" [alt]="leftAd.name" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad-Image" /></a>
       </div>
       <div class="col-10">
         <div class="artist_wrapper m24_cover">
@@ -62,8 +65,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad Image"/>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="rightAd">
+        <a [href]="rightAd.link"><img class="img-fluid" [src]="rightAd.imagePath" [alt]="rightAd.name"/></a>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="Ad Image"/></a>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
-import {count, map} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {Artist} from "../models/artist.model";
 
 @Injectable({
@@ -110,6 +110,11 @@ export class ArtistService{
 
   deleteArtist(artistId:string){
     return this.http.delete("http://localhost:3000/api/artists/" +artistId);
+  }
+
+  getArtistId(artist:string){
+    return this.http.get<{
+      _id:string, name:string, imagePath: string}>("http://localhost:3000/api/artists/artistName/" +artist);
   }
 
 

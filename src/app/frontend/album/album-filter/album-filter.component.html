@@ -25,10 +25,13 @@
                       <div class=m24_tranding_more_icon (click)="OpenTrending()">
                         <i class=flaticon-menu></i>
                       </div>
-                      <ul class=tranding_more_option>
+                      <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                        <li><a href="javascript:void(0)" (click)="Copy(slide.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                      </ul>
+                      <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                         <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                         <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                        <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                        <li><a href="javascript:void(0)" (click)="Copy(slide.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                       </ul>
                       <div class=tranding_play_icon>
                         <a href=#>
@@ -51,8 +54,11 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link"><img class="img-fluid" [src]="leftAd.imagePath" [alt]="leftAd.name"/></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/></a>
       </div>
       <div class="col-10">
         <div class="m24-cover featured_albums_wrapper">
@@ -67,14 +73,14 @@
                 </div>
               </div>
               <div class="col-md-9 featured-col-9 pb-60">
-                <div class="featured_album_letter_filter">
-                  <p>Filter <span>{{industry.name}}</span> By Alphabet</p>
+                <div class="featured_album_letter_filter" *ngIf="industry">
+                  <p>Filter <span *ngIf="industry">{{industry.name}}</span> By Alphabet</p>
                   <div class="alphabet_list mt-30 pt-10">
                     <a [routerLink]="['/filter', industry.id]">#</a>
                     <a [routerLink]="['/filter', industry.id]" *ngFor="let com of objects" >{{com.capital}}{{com.letter}}</a>
                   </div>
                 </div>
-                <div class="featured_album_year_filter mt-20">
+                <div class="featured_album_year_filter mt-20" *ngIf="industry">
                   <p>Filter <span>{{industry.name}}</span> By Year</p>
                   <div class="year_list2 mt-30 pt-10" id="firstYears">
                     <a [routerLink]="['/filter-year', industry.id]" *ngFor="let year2 of yearCount2">{{year2}}</a>
@@ -91,8 +97,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="rightAd">
+        <a [href]="rightAd.link" ><img class="img-fluid" [src]="leftAd.imagePath" [alt]="leftAd.name"/></a>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="javascript:void(0)" ><img class="img-fluid" src="./assets/frontend/image/ad/add2_long.png" alt="ad image"/></a>
       </div>
     </div>
   </div>
@@ -132,17 +141,20 @@
                         <img [alt]="bollywood.name" [src]="bollywood.imagePath">
                         <div class="release_content_artist release_content_artist2">
                           <p><a routerLink="/singles">{{bollywood.name}}</a></p>
-                          <p class=various_artist_text><a href=#>{{bollywood.artist}}</a></p>
+                          <p class=various_artist_text><a [routerLink]="['artist-album',bollywood.artist]">{{bollywood.artist}}</a></p>
                         </div>
                         <div class="m24_treanding_box_overlay release_box_overlay">
                           <div class=m24_tranding_box_overlay></div>
                           <div class=m24_tranding_more_icon (click)="OpenTrending()">
                             <i class=flaticon-menu></i>
                           </div>
-                          <ul class=tranding_more_option>
-                            <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
+                          <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
+                            <li><a href="javascript:void(0)" (click)="Copy(bollywood.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                          </ul>
+                          <ul class=tranding_more_option *ngIf="userIsAuthenticated">
+                            <li><a href="#"><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                             <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                            <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                            <li><a href="javascript:void(0)" (click)="Copy(bollywood.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                           </ul>
                           <div class=tranding_play_icon>
                             <a href="#">
@@ -189,12 +201,23 @@
         </div>
       </div>
       <app-contact></app-contact>
-      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd">
         <div class=container>
           <div class=row>
             <div class="col-sm-12 col-md-12 col-lg-12">
               <div class="m24_cover add_banner_img_wrapper">
-                <a href=#><img alt=img src="./assets/frontend/image/ad/add7.png" class="img-responsive"></a>
+                <a [href]="middleAd.link"><img [alt]="middleAd.name" [src]="middleAd.imagePath" class="img-responsive"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="!middleAd">
+        <div class=container>
+          <div class=row>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="m24_cover add_banner_img_wrapper">
+                <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/add7.png" class="img-responsive"></a>
               </div>
             </div>
           </div>

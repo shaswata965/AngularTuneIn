@@ -25,9 +25,6 @@ export class AlbumService{
   private quickAlbums: Album[] = [];
   private quickAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
 
-  private artistAlbums: Album[] = [];
-  private artistAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
-
   private bollywoodAlbums: Album[] = [];
   private bollywoodAlbumsUpdated = new Subject<{albums: Album [], albumCount:number}>();
 
@@ -169,39 +166,6 @@ export class AlbumService{
 
   getQuickAlbumsUpdateListener(){
     return this.quickAlbumsUpdated.asObservable();
-  }
-
-  getAlbumArtist(artistId: string, albumPerPage: number, currentPage:number){
-    const queryParams = `?pageSize=${albumPerPage}&page=${currentPage}`;
-    this.http.get<{message:string, albums: any, count: number }>(
-      "http://localhost:3000/api/albums/artist-albums/" + artistId + queryParams
-    ).pipe(map((albumData)=>{
-      // @ts-ignore
-      return {albums: albumData.albums.map(album=>{
-          return{
-            name: album.name,
-            description: album.description,
-            cast: album.cast,
-            release: album.release,
-            year: album.year,
-            id: album._id,
-            castLink: album.castLink,
-            language:album.language,
-            artist: album.artist,
-            genre: album.genre,
-            industry: album.industry,
-            imagePath: album.imagePath
-          };
-        }), albumCount: albumData.count};
-    }))
-      .subscribe(albumData=>{
-        this.artistAlbums = albumData.albums;
-        this.artistAlbumsUpdated.next({albums:[...this.artistAlbums], albumCount: albumData.albumCount});
-      });
-  }
-
-  getAlbumArtistUpdateListener(){
-    return this.artistAlbumsUpdated.asObservable();
   }
 
   getBollywoodAlbums(albumPerPage: number, currentPage:number){

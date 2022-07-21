@@ -5,6 +5,8 @@ import {SongService} from "../../service/song.service";
 import {Song} from "../../models/song.model";
 import {PageEvent} from "@angular/material/paginator";
 import {ToastrService} from "ngx-toastr";
+import {Ad} from "../../models/ad.model";
+import {AdService} from "../../service/ad.service";
 
 @Component({
   selector: 'app-album-songs',
@@ -19,6 +21,8 @@ export class AlbumSongsComponent implements OnInit {
   public album: any;
   public songs: any;
   public currentRoute: string;
+  public ads: any;
+  public middleAds: any;
 
   totalSongs= 0;
 
@@ -26,13 +30,13 @@ export class AlbumSongsComponent implements OnInit {
                public router: ActivatedRoute,
                public songService: SongService,
                public route: Router,
-               public toastr: ToastrService) { }
+               public toastr: ToastrService,
+               public adService: AdService) { }
 
 
   ngOnInit() {
 
     this.currentRoute =window.location.protocol+"//"+ window.location.host + this.route.url.toString();
-    console.log(this.currentRoute);
     this.router.paramMap.subscribe((paramMap)=>{
       if(paramMap.has('albumId')){
         this.albumId = paramMap.get('albumId');
@@ -61,6 +65,17 @@ export class AlbumSongsComponent implements OnInit {
 
       }
     });
+
+    this.adService.getPageAd("album-song",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "middle"){
+          this.middleAds = this.ads[i];
+        }
+      }
+    });
+
   }
 
   onChangedPage(pageEvent: PageEvent){
@@ -133,7 +148,7 @@ export class AlbumSongsComponent implements OnInit {
   }
 
   Copied(){
-    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true, timeOut: 3000})
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

@@ -31,6 +31,31 @@ exports.getSong = (req,res,next)=>{
 
 };
 
+exports.getArtistSongs = (req,res,next)=>{
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  const songQuery = Song.find();
+  let songs;
+  if(pageSize && currentPage){
+    songQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize);
+  }
+  songQuery.find({artist: req.params.artistName})
+    .then(documents=>{
+      songs = documents;
+      return Song.find({artist: req.params.artistName}).count();
+    })
+    .then(count=>{
+      res.status(200).json({
+        message: "Albums Listed Successfully",
+        songs: songs,
+        count: count
+      });
+    });
+
+};
+
 exports.getBollywoodSong = (req,res,next)=>{
   const pageSize = +req.query.pageSize;
   const currentPage = +req.query.page;

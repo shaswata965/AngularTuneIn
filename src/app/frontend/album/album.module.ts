@@ -23,6 +23,7 @@ import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
 import {AllArtistAlbumsComponent} from "./all-artist-albums/all-artist-albums.component";
 import {ClipboardModule} from "ngx-clipboard";
 import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {ToastrModule} from "ngx-toastr";
     MatPaginatorModule,
     CarouselModule,
     ClipboardModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       positionClass :'toast-top-right'
     })

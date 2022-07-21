@@ -7,6 +7,9 @@ import {AlbumService} from "../../service/album.service";
 import {Album} from "../../models/album.model";
 import {PageEvent} from "@angular/material/paginator";
 import {Subscription} from "rxjs";
+import {UserService} from "../../service/user.service";
+import {Ad} from "../../models/ad.model";
+import {AdService} from "../../service/ad.service";
 
 @Component({
   selector: 'app-filtered-results',
@@ -14,6 +17,12 @@ import {Subscription} from "rxjs";
   styleUrls: ['./filtered-results.component.css']
 })
 export class FilteredResultsComponent implements OnInit{
+
+  userIsAuthenticated = false;
+
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public allIndustries : any;
   public industryId: any;
   industry: any;
@@ -28,6 +37,10 @@ export class FilteredResultsComponent implements OnInit{
   public letterAlbums: any;
   filter = '';
   finalFilter = '';
+  public ads: any;
+  public leftAd: any;
+  public rightAd: any;
+  public middleAd: any;
 
   industrySubscription: Subscription;
   albumSubscription: Subscription;
@@ -35,9 +48,17 @@ export class FilteredResultsComponent implements OnInit{
 
   constructor(public industryService: IndustryService,
               public route : ActivatedRoute,
-              public albumService: AlbumService) {}
+              public albumService: AlbumService,
+              public userService: UserService,
+              public adService: AdService) {}
 
   ngOnInit(){
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.industryService.getIndustries(1000,1);
     this.industrySubscription = this.industryService.getIndustriesUpdateListener().subscribe((industryData:{industries: Industry[], industryCount: number})=>{
       this.allIndustries = industryData.industries;
@@ -64,6 +85,20 @@ export class FilteredResultsComponent implements OnInit{
       combinedArray.push(this.combined);
       this.objects = combinedArray;
     }
+
+    this.adService.getPageAd("filtered",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "right"){
+          this.rightAd =this.ads[i];
+        }else if(this.ads[i].position === "left"){
+          this.leftAd = this.ads[i];
+        }else if(this.ads[i].position === "middle"){
+          this.middleAd = this.ads[i];
+        }
+      }
+    });
 
   }
 

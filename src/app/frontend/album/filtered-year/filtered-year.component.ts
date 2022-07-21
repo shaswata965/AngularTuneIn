@@ -7,6 +7,9 @@ import {ActivatedRoute} from "@angular/router";
 import {AlbumService} from "../../service/album.service";
 import * as $ from "jquery";
 import {PageEvent} from "@angular/material/paginator";
+import {UserService} from "../../service/user.service";
+import {Ad} from "../../models/ad.model";
+import {AdService} from "../../service/ad.service";
 
 @Component({
   selector: 'app-filtered-year',
@@ -15,10 +18,19 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class FilteredYearComponent implements OnInit {
 
+  userIsAuthenticated = false;
+
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public allIndustries : any;
   public industryId: any;
   public industryAlbums: any;
   public yearAlbums: any;
+  public ads: any;
+  public leftAd: any;
+  public rightAd: any;
+  public middleAd: any;
 
   totalSongs = 0;
   industry: any;
@@ -34,9 +46,16 @@ export class FilteredYearComponent implements OnInit {
 
   constructor(public industryService: IndustryService,
               public route: ActivatedRoute,
-              public albumService: AlbumService) { }
+              public albumService: AlbumService,
+              public userService: UserService,
+              public adService: AdService) { }
 
   ngOnInit() {
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
 
     this.industryService.getIndustries(1000,1);
     this.industrySubscription = this.industryService.getIndustriesUpdateListener().subscribe((industryData:{industries: Industry[], industryCount: number})=>{
@@ -74,12 +93,27 @@ export class FilteredYearComponent implements OnInit {
       this.yearCount2 = yearArray2;
     }
 
+
+    this.adService.getPageAd("filtered",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "right"){
+          this.rightAd =this.ads[i];
+        }else if(this.ads[i].position === "left"){
+          this.leftAd = this.ads[i];
+        }else if(this.ads[i].position === "middle"){
+          this.middleAd = this.ads[i];
+        }
+      }
+    });
+
   }
 
   yearFilter(filter:any){
     this.filter = filter;
 
-    this.albumService.getYearFiltered(this.industryId, this.filter, 6,1);
+    this.albumService.getYearFiltered(this.industry.name, this.filter, 6,1);
     this.albumService.getYearUpdateListener().subscribe((albumData:{albums: Album[], albumCount: number})=>{
       this.yearAlbums = albumData.albums;
       this.totalSongs = albumData.albumCount;

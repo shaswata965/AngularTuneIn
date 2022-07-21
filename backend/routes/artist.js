@@ -36,6 +36,8 @@ router.get('', artistController.getArtist);
 
 router.get('/featured-artists', artistController.getFeaturedArtist);
 
+router.get('/artistName/:artistName', artistController.getNameArtist);
+
 router.post('',multer({storage: storage}).single("image"),artistController.createArtist);
 
 router.put("/:id", multer({storage: storage}).single("image"), artistController.updateArtist);

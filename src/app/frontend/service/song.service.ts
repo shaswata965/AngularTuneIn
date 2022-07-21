@@ -20,6 +20,9 @@ export class SongService{
   private quickSongs: Song[] = [];
   private quickSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
+  private artistSongs: Song[] = [];
+  private artistSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
+
   private bollywoodSongs: Song[] = [];
   private bollywoodSongsUpdated = new Subject<{ songs: Song [], songCount: number }>();
 
@@ -273,6 +276,40 @@ export class SongService{
 
   getQuickSongsUpdateListener(){
     return this.quickSongsUpdated.asObservable();
+  }
+
+  getSongArtist(artistName:string, songsPerPage: number, currentPage: number){
+    const queryParams = `?pageSize=${songsPerPage}&page=${currentPage}`;
+    this.http.get<{message:string, songs: any, count: number}>(
+      "http://localhost:3000/api/songs/artist-song/"+ artistName + queryParams
+    ).pipe(map((songData)=>{
+      // @ts-ignore
+      return { songs: songData.songs.map(song=>{
+          return{
+            name: song.name,
+            language: song.language,
+            actor: song.actor,
+            genre: song.genre,
+            album: song.album,
+            artist: song.artist,
+            trending: song.trending,
+            duration: song.duration,
+            industry: song.industry,
+            id: song._id,
+            imagePath: song.imagePath,
+            lowPath:song.lowPath,
+            highPath: song.highPath
+          };
+        }), songCount: songData.count};
+    }))
+      .subscribe(songData=>{
+        this.artistSongs = songData.songs;
+        this.artistSongsUpdated.next({songs:[...this.artistSongs], songCount: songData.songCount});
+      });
+  }
+
+  getSongArtistUpdateListener(){
+    return this.artistSongsUpdated.asObservable();
   }
 
   getBollywoodSongs(songsPerPage: number, currentPage: number){

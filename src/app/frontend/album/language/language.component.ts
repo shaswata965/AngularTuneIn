@@ -5,6 +5,10 @@ import {SongService} from "../../service/song.service";
 import {PageEvent} from "@angular/material/paginator";
 import {Song} from "../../models/song.model";
 import * as $ from "jquery";
+import {Subscription} from "rxjs";
+import {UserService} from "../../service/user.service";
+import {Ad} from "../../models/ad.model";
+import {AdService} from "../../service/ad.service";
 
 @Component({
   selector: 'app-language',
@@ -13,17 +17,35 @@ import * as $ from "jquery";
 })
 export class LanguageComponent implements OnInit {
 
+  userIsAuthenticated = false;
+
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public languageName: any;
   public languageId: any;
   public language: any;
+  public ads: any;
+  public leftAd: any;
+  public rightAd: any;
 
-  public songs: any;
+  public songs: Song[] = [];
 
   totalSongs = 0;
 
-  constructor(public route: ActivatedRoute, public languageService: LanguageService, public songService: SongService) { }
+  constructor(public route: ActivatedRoute,
+              public languageService: LanguageService,
+              public songService: SongService,
+              public userService: UserService,
+              public adService: AdService) { }
 
   ngOnInit(){
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.route.paramMap.subscribe((paramMap)=>{
       this.languageId = paramMap.get('languageId');
       this.languageService.getEditLanguage(this.languageId).subscribe(languageData=>{
@@ -35,6 +57,18 @@ export class LanguageComponent implements OnInit {
         this.songs = songData.songs;
         this.totalSongs = songData.songCount;
       });
+    });
+
+    this.adService.getPageAd("language-album",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "right"){
+          this.rightAd =this.ads[i];
+        }else if(this.ads[i].position === "left"){
+          this.leftAd = this.ads[i];
+        }
+      }
     });
   }
 

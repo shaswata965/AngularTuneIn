@@ -26,6 +26,31 @@ exports.getAd = (req,res,next)=>{
    });
 };
 
+exports.findPageAd = (req,res,next)=>{
+
+  const pageSize = +req.query.pageSize;
+  const currentPage = +req.query.page;
+  let adQuery = Ad.find();
+  let ads;
+  if(pageSize && currentPage){
+    adQuery
+      .skip(pageSize*(currentPage-1))
+      .limit(pageSize)
+  }
+  adQuery.find({page: req.params.pageData})
+    .then(documents=>{
+      ads = documents;
+      return Ad.find({page: req.params.pageData}).count();
+    })
+    .then(count=>{
+      res.status(200).json({
+        message: "Ads Listed Successfully",
+        ads: ads,
+        count: count
+      });
+    });
+};
+
 exports.createAd = (req,res,next)=>{
   const url = req.protocol + '://' + req.get("host");
   const ad = new Ad({

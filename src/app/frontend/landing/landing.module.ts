@@ -15,6 +15,8 @@ import {CarouselModule} from "ngx-owl-carousel-o";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {StylePaginatorDirective} from "../../backend/album/album-view/style-paginator.directive";
 import { SearchResultComponent } from './search-result/search-result.component';
+import {ToastrModule} from "ngx-toastr";
+import {ClipboardModule} from "ngx-clipboard";
 
 @NgModule({
   declarations: [
@@ -42,7 +44,11 @@ import { SearchResultComponent } from './search-result/search-result.component';
     NgbModule,
     BrowserModule,
     CarouselModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ToastrModule.forRoot({
+      positionClass :'toast-top-right'
+    }),
+    ClipboardModule
   ]
 })
 

@@ -10,6 +10,10 @@ import {OwlOptions} from "ngx-owl-carousel-o";
 import {SongService} from "../../service/song.service";
 import {Song} from "../../models/song.model";
 import {PageEvent} from "@angular/material/paginator";
+import {UserService} from "../../service/user.service";
+import {AdService} from "../../service/ad.service";
+import {Ad} from "../../models/ad.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-album-filter',
@@ -18,6 +22,11 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class AlbumFilterComponent implements OnInit, AfterViewInit {
 
+  userIsAuthenticated = false;
+
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public allIndustries : any;
   public industryId: any;
   public industryAlbums: any;
@@ -25,6 +34,11 @@ export class AlbumFilterComponent implements OnInit, AfterViewInit {
   totalSongs = 0;
   public letterAlbums: any;
   public bollywoodAlbums: any;
+  public ads: Ad[]=[];
+  public leftAd: any;
+  public rightAd: any;
+  public middleAd: any;
+  public currentRoute: any;
   filter = '';
   industry: any;
   elm: any;
@@ -44,9 +58,18 @@ export class AlbumFilterComponent implements OnInit, AfterViewInit {
   constructor(public industryService: IndustryService,
               public route: ActivatedRoute,
               public albumService: AlbumService,
-              public songService: SongService) { }
+              public songService: SongService,
+              public userService: UserService,
+              public adService: AdService,
+              public toastr: ToastrService) { }
 
   ngOnInit(){
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.industryService.getIndustries(1000,1);
     this.industrySubscription = this.industryService.getIndustriesUpdateListener().subscribe((industryData:{industries: Industry[], industryCount: number})=>{
       this.allIndustries = industryData.industries;
@@ -100,26 +123,28 @@ export class AlbumFilterComponent implements OnInit, AfterViewInit {
       this.yearCount2 = yearArray2;
     }
 
+    this.adService.getPageAd("filter",1000,1);
+    this.adService.getPageAdsUpdateListener().subscribe((adData:{ads:Ad[],adCount:number})=>{
+      this.ads = adData.ads;
+      for(let i =0; i<this.ads.length; i++){
+        if(this.ads[i].position === "right"){
+          this.rightAd =this.ads[i];
+        }else if(this.ads[i].position === "left"){
+          this.leftAd = this.ads[i];
+        }else if(this.ads[i].position === "middle"){
+          this.middleAd = this.ads[i];
+        }
+      }
+    });
+
   }
 
   ngAfterViewInit(){
 
     this.removeElm = document.getElementsByClassName("industry_dynamic_name");
 
-    for(let i=0; i<this.removeElm.length; i++){
-      this.removeElm[i].removeClass('active_album_name');
-    }
-
     this.elm = document.getElementById(""+this.industryId);
     this.elm.classList.toggle('active_album_name');
-
-    // // @ts-ignore
-    // document.getElementById("previous").addEventListener('click',()=>{
-    //   // @ts-ignore
-    //   document.getElementById('firstYears').classList.toggle('visible');
-    //   // @ts-ignore
-    //   document.getElementById('secondYears').classList.toggle('visible');
-    // })
   }
 
   previousClicker(){
@@ -176,6 +201,11 @@ export class AlbumFilterComponent implements OnInit, AfterViewInit {
 
   onBollywoodChangedPage(pageEvent: PageEvent){
     this.songService.getBollywoodSongs(pageEvent.pageSize, pageEvent.pageIndex+1);
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

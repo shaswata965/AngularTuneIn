@@ -85,12 +85,23 @@
 <div class="row download-row-right-padding">
   <div class="col-12">
     <div class="overflow-mockup-design">
-      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80">
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80" *ngIf="middleAd && middleAd[1]">
         <div class=container>
           <div class=row>
             <div class="col-sm-12 col-md-12 col-lg-12">
               <div class="m24_cover add_banner_img_wrapper">
-                <a href=#><img alt=img src="./assets/frontend/image/ad/add2.png" class=img-responsive></a>
+                <a [href]="middleAd[1].link"><img [alt]="middleAd[1].name" [src]="middleAd[1].imagePath" class=img-responsive></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m24_cover index3_top_songs_wrapper add_banner_wrapper custom_album_bottom_banner pb-80"  *ngIf="!middleAd && !middleAd[1]">
+        <div class=container>
+          <div class=row>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="m24_cover add_banner_img_wrapper">
+                <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/add2.png" class=img-responsive></a>
               </div>
             </div>
           </div>
@@ -127,12 +138,23 @@
     </div>
   </div>
 </div>
-<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper">
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper" *ngIf="middleAd && middleAd[2]">
   <div class=container>
     <div class=row>
       <div class="col-sm-12 col-md-12 col-lg-12">
         <div class="m24_cover add_banner_img_wrapper">
-          <a href=#><img alt=img src="./assets/frontend/image/ad/add7.png" class=img-responsive></a>
+          <a [href]="middleAd[2].link"><img [alt]="middleAd[2].name" [src]="middleAd[2].imagePath" class=img-responsive></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m24_cover index3_top_songs_wrapper add_banner_wrapper"  *ngIf="!middleAd && !middleAd[2]">
+  <div class=container>
+    <div class=row>
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="m24_cover add_banner_img_wrapper">
+          <a href="javascript:void(0)"><img alt=img src="./assets/frontend/image/ad/add7.png" class=img-responsive></a>
         </div>
       </div>
     </div>

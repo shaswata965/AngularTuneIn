@@ -83,35 +83,6 @@ exports.getBollywoodAlbum = (req,res,next)=>{
   })
 };
 
-exports.getArtistAlbum = (req,res,next)=>{
-  const pageSize = +req.query.pageSize;
-  const currentPage = +req.query.page;
-  let albumQuery = Album.find();
-  let albums;
-
-  if(pageSize && currentPage){
-    albumQuery
-      .skip(pageSize*(currentPage-1))
-      .limit(pageSize)
-  }
-
-Artist.findById(req.params.artistId).then(results=>{
-  let artistName = results.name;
-  albumQuery.find({artist: artistName})
-    .then(documents=>{
-      albums = documents
-      return Album.find({artist: artistName}).count();
-    }).then(count=>{
-    res.status(200).json({
-      message: "Albums Listed Successfully",
-      albums: albums,
-      count: count
-    });
-  })
-})
-
-};
-
 exports.createAlbum = (req,res,next)=>{
   const url = req.protocol + '://' + req.get("host");
   const album = new Album({
@@ -353,6 +324,7 @@ exports.findLetterAlbum = (req,res,next)=>{
 };
 
 exports.findYearAlbum = (req,res,next)=>{
+
   const pageSize = +req.query.pageSize;
   const currentPage = +req.query.page;
   const albumQuery = Album.find();

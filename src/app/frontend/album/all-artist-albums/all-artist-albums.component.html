@@ -2,14 +2,17 @@
 <div class="ad-container">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-1 left-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="leftAd">
+        <a [href]="leftAd.link" ><img class="img-fluid" [alt]="leftAd.name" [src]="leftAd.imagePath" /></a>
+      </div>
+      <div class="col-1 left-sidebar-ad pt-60" *ngIf="!leftAd">
+        <a href="javascript:void(0)" ><img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
       <div class="col-10">
         <div class="m24_cover treanding_songs_wrapper index3_release_wrapper release_wrapper pb-30">
           <div class=container>
             <div class=row>
-                  <div *ngIf="allArtists.length >0">
+                  <div *ngIf="allArtists">
                     <div class="row">
                       <div class="col-3 pt-10 pb-10"  *ngFor="let artist of allArtists">
                         <a [routerLink]="['/artist-album',artist.id]" class="custom-swiper">
@@ -65,8 +68,11 @@
           </div>
         </div>
       </div>
-      <div class="col-1 right-sidebar-ad pt-60">
-        <img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" />
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="rightAd">
+        <a [href]="rightAd.link"><img class="img-fluid" [alt]="rightAd.name" [src]="rightAd.imagePath" /></a>
+      </div>
+      <div class="col-1 right-sidebar-ad pt-60" *ngIf="!rightAd">
+        <a href="javascript:void(0)"><img class="img-fluid" src="../../../../assets/frontend/image/ad/add2_long.png" /></a>
       </div>
     </div>
   </div>
