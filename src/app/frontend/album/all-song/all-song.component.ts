@@ -9,6 +9,9 @@ import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {ArtistService} from "../../service/artist.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-all-song',
@@ -30,13 +33,17 @@ export class AllSongComponent implements OnInit {
   public ads: any;
   public leftAd: any;
   public rightAd: any;
+  public currentRoute: any;
 
   totalSongs = 0;
 
   constructor(public songService: SongService,
               public languageService: LanguageService,
               public userService: UserService,
-              public adService: AdService) { }
+              public adService: AdService,
+              public artistService: ArtistService,
+              public router: Router,
+              public toastr: ToastrService) { }
 
   ngOnInit() {
 
@@ -95,6 +102,17 @@ export class AllSongComponent implements OnInit {
       $("ul.tranding_more_option.tranding_open_option").removeClass("tranding_open_option")
     })
 
+  }
+
+  artistRouting(artist:string){
+    this.artistService.getArtistId(artist).subscribe(artistData=>{
+      this.router.navigate(['/artist-album',artistData._id]);
+    });
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

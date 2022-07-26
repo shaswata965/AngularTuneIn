@@ -37,8 +37,8 @@
                           <div class="m24_cover treanding_slider_main_box release_box_main_content">
                             <img alt=img [src]="song.imagePath">
                             <div class="release_content_artist release_content_artist2">
-                              <p><a routerLink="/singles">{{song.name}}</a></p>
-                              <p class=various_artist_text><a href=#>{{song.artist}}</a></p>
+                              <p><a [routerLink]="['/singles',song.album]">{{song.name}}</a></p>
+                              <p class=various_artist_text><a  href="javascript:void(0)" (click)="artistRouting(song.artist)">{{song.artist}}</a></p>
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
@@ -46,12 +46,12 @@
                                 <i class=flaticon-menu></i>
                               </div>
                               <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
-                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)" (click)="Copy(song.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <ul class=tranding_more_option *ngIf="userIsAuthenticated">
                                 <li><a href=#><span class=opt_icon><i class=flaticon-playlist></i></span>Add To playlist</a></li>
                                 <li><a href=#><span class=opt_icon><i class=flaticon-star></i></span>favourite</a></li>
-                                <li><a href=#><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
+                                <li><a href="javascript:void(0)" (click)="Copy(song.album)" ngxClipboard [cbContent]="currentRoute" ><span class=opt_icon><i class=flaticon-share></i></span>share</a></li>
                               </ul>
                               <div class=tranding_play_icon>
                                 <a href="#">

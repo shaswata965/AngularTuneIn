@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-filtered-results',
@@ -41,6 +42,7 @@ export class FilteredResultsComponent implements OnInit{
   public leftAd: any;
   public rightAd: any;
   public middleAd: any;
+  public currentRoute: any;
 
   industrySubscription: Subscription;
   albumSubscription: Subscription;
@@ -50,7 +52,8 @@ export class FilteredResultsComponent implements OnInit{
               public route : ActivatedRoute,
               public albumService: AlbumService,
               public userService: UserService,
-              public adService: AdService) {}
+              public adService: AdService,
+              public toastr: ToastrService) {}
 
   ngOnInit(){
 
@@ -167,6 +170,11 @@ export class FilteredResultsComponent implements OnInit{
       $("ul.tranding_more_option.tranding_open_option").removeClass("tranding_open_option")
     })
 
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

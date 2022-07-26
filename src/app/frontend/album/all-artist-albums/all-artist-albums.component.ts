@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {ToastrService} from "ngx-toastr";
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-all-artist-albums',
@@ -87,6 +88,17 @@ export class AllArtistAlbumsComponent implements OnInit {
   Copy( album: string){
     this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
     this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
+  }
+
+  OpenTrending(){
+    $(".m24_tranding_more_icon").on("click", function(e) {
+      if (e.preventDefault(), e.stopImmediatePropagation(), void 0 !== $(this).attr("data-other")) var t = $(this).parent().parent();
+      else t = $(this).parent();
+      t.find("ul.tranding_more_option").hasClass("tranding_open_option") ? t.find("ul.tranding_more_option").removeClass("tranding_open_option") : ($("ul.tranding_more_option.tranding_open_option").removeClass("tranding_open_option"), t.find("ul.tranding_more_option").addClass("tranding_open_option"))
+    }), $(document).on("click", function(e) {
+      $("ul.tranding_more_option.tranding_open_option").removeClass("tranding_open_option")
+    })
+
   }
 
 }

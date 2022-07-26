@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LanguageService} from "../../service/language.service";
 import {SongService} from "../../service/song.service";
 import {PageEvent} from "@angular/material/paginator";
@@ -9,6 +9,8 @@ import {Subscription} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {ToastrService} from "ngx-toastr";
+import {ArtistService} from "../../service/artist.service";
 
 @Component({
   selector: 'app-language',
@@ -28,6 +30,7 @@ export class LanguageComponent implements OnInit {
   public ads: any;
   public leftAd: any;
   public rightAd: any;
+  public currentRoute: any;
 
   public songs: Song[] = [];
 
@@ -37,7 +40,10 @@ export class LanguageComponent implements OnInit {
               public languageService: LanguageService,
               public songService: SongService,
               public userService: UserService,
-              public adService: AdService) { }
+              public adService: AdService,
+              public toastr: ToastrService,
+              public artistService: ArtistService,
+              public router: Router) { }
 
   ngOnInit(){
 
@@ -86,6 +92,17 @@ export class LanguageComponent implements OnInit {
 
   onChangedPage(pageEvent: PageEvent){
     this.songService.getSongLanguage(this.languageId, pageEvent.pageSize, pageEvent.pageIndex+1);
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
+  }
+
+  artistRouting(artist:string){
+    this.artistService.getArtistId(artist).subscribe(artistData=>{
+      this.router.navigate(['/artist-album',artistData._id]);
+    });
   }
 
 }

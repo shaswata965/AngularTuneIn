@@ -250,4 +250,10 @@ export class HomeComponent implements OnInit {
     this.songService.getBollywoodSongs(pageEvent.pageSize, pageEvent.pageIndex+1);
   }
 
+  artistRouting(artist:string){
+    this.artistService.getArtistId(artist).subscribe(artistData=>{
+      this.route.navigate(['/artist-album',artistData._id]);
+    });
+  }
+
 }

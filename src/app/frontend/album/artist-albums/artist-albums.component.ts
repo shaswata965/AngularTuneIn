@@ -7,6 +7,9 @@ import {ArtistService} from "../../service/artist.service";
 import {SongService} from "../../service/song.service";
 import {Ad} from "../../models/ad.model";
 import {AdService} from "../../service/ad.service";
+import {UserService} from "../../service/user.service";
+import {Subscription} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-artist-albums',
@@ -15,21 +18,34 @@ import {AdService} from "../../service/ad.service";
 })
 export class ArtistAlbumsComponent implements OnInit {
 
+  userIsAuthenticated = false;
+  // @ts-ignore
+  private authListenerSubs: Subscription;
+
   public artistId: any;
   public artist: any;
   public songs: Song[]= [];
   public ads: any;
   public leftAd: any;
   public rightAd: any;
+  public currentRoute: any;
 
   totalSongs =0;
 
   constructor(public route: ActivatedRoute,
               public artistService: ArtistService,
               public songService: SongService,
-              public adService: AdService) { }
+              public adService: AdService,
+              public userService: UserService,
+              public toastr: ToastrService) { }
 
   ngOnInit(){
+
+    this.userIsAuthenticated = this.userService.getIsAuthenticated();
+    this.authListenerSubs = this.userService.getAuthStatusListener().subscribe(isAuthenticated=>{
+      this.userIsAuthenticated = isAuthenticated;
+    });
+
     this.route.paramMap.subscribe((paramMap)=>{
       this.artistId = paramMap.get('artistId');
       this.artistService.getEditArtist(this.artistId).subscribe(artistData=>{
@@ -70,6 +86,11 @@ export class ArtistAlbumsComponent implements OnInit {
 
   onChangedPage(pageEvent: PageEvent, name: string){
     this.songService.getSongArtist(name, pageEvent.pageSize, pageEvent.pageIndex+1);
+  }
+
+  Copy( album: string){
+    this.currentRoute =window.location.protocol+"//"+ window.location.host + "/singles" + "/"+ album;
+    this.toastr.success('Share Link Copied Successfully','Success',{closeButton: true})
   }
 
 }

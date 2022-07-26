@@ -30,7 +30,7 @@
                 <div class=tab-content>
                   <div class="tab-pane active" id=radio>
                     <div class=row>
-                      <ng-container *ngIf="albums.length > 0">
+                      <ng-container *ngIf="albums">
                         <div class="col-12 col-md-6 col-lg-4 col-sm-6 col-xl-3 pd1" *ngFor="let album of albums">
                           <div class="m24_cover treanding_slider_main_box release_box_main_content">
                             <img alt=img [src]="album.imagePath">
@@ -40,7 +40,7 @@
                             </div>
                             <div class="m24_treanding_box_overlay release_box_overlay">
                               <div class=m24_tranding_box_overlay></div>
-                              <div class=m24_tranding_more_icon>
+                              <div class=m24_tranding_more_icon  (click)="OpenTrending()">
                                 <i class=flaticon-menu></i>
                               </div>
                               <ul class=tranding_more_option *ngIf="!userIsAuthenticated">
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="pagination-container">
-              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="albums.length > 0" [length]="totalSongs" [pageSize]="12" (page)="onChangedPage($event)"></mat-paginator>
+              <mat-paginator appStylePaginator showFirstLastButtons *ngIf="albums" [length]="totalSongs" [pageSize]="12" (page)="onChangedPage($event)"></mat-paginator>
             </div>
           </div>
         </div>

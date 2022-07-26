@@ -139,7 +139,7 @@
                                   <img [alt]="album.name" [src]="album.imagePath">
                                   <div class="release_content_artist release_content_artist2">
                                     <p><a [routerLink]="['/singles',album.id]">{{album.name}}</a></p>
-                                    <p class=various_artist_text><a routerLink="/artist-album">{{album.artist}}</a></p>
+                                    <p class=various_artist_text><a href="javascript:void(0)" (click)="artistRouting(album.artist)">{{album.artist}}</a></p>
                                   </div>
                                   <div class="m24_treanding_box_overlay release_box_overlay">
                                     <div class=m24_tranding_box_overlay></div>
@@ -225,7 +225,7 @@
                         </div>
                         <div class="release_content_artist top_list_content_artist new-release-content-artist">
                           <p class="top-song-name"><a [routerLink]="['/singles',song.album]" >{{song.name}}</a></p>
-                          <p class=various_artist_text><a [routerLink]="['/artist-album', song.artist]">{{song.artist}}</a></p>
+                          <p class=various_artist_text><a href="javascript:void(0)" (click)="artistRouting(song.artist)">{{song.artist}}</a></p>
                         </div>
                       </div>
                       <div class="top_list_tract_time new-release-tract-time">
@@ -537,7 +537,7 @@
                     <img [alt]="bollywood.name" [src]="bollywood.imagePath">
                     <div class="release_content_artist release_content_artist2">
                       <p><a [routerLink]="['/singles',bollywood.album]">{{bollywood.name}}</a></p>
-                      <p class=various_artist_text><a routerLink="/artist-album">{{bollywood.artist}}</a></p>
+                      <p class=various_artist_text><a href="javascript:void(0)" (click)="artistRouting(bollywood.artist)">{{bollywood.artist}}</a></p>
                     </div>
                     <div class="m24_treanding_box_overlay release_box_overlay">
                       <div class=m24_tranding_box_overlay></div>
